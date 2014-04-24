@@ -110,6 +110,11 @@ public class MenuPrincipal extends Activity {
 		});
 	}
 
+	/**
+	 * Methode permettant de naviguer entre les activites
+	 * 
+	 * @param position
+	 */
 	private void CallFunc(int position) {
 		Intent intent = null;
 		switch (position) {
