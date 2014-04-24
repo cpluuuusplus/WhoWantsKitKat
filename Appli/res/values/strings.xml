@@ -29,5 +29,9 @@
     <string name="email">Id utilisateur</string>
     <string name="password">Mot de passe</string>
     <string name="connect">Se connecter</string>
+    <string name="get_localite">Récupérer ma localisation actuelle</string>
+    <string name="saisir_localite">Saisir une ville ici</string>
+    <string name="desc_saisie_localite">Vous pouvez saisir une localité</string>
+    <string name="temp">Ce champ doit etre rempli</string>
 
 </resources>

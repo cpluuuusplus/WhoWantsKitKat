@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.ensaitechnomobile.meteolocale.MeteoPrincipal;
 import com.ensaitechnomobile.metier.Cours;
 import com.ensaitechnomobile.pamplemousse.MenuPamplemousse;
 import com.example.pamplemousse.R;
@@ -120,6 +121,9 @@ public class MenuPrincipal extends Activity {
 		switch (position) {
 		case 0:
 			intent = new Intent(getBaseContext(), MenuPamplemousse.class);
+			break;
+		case 1: 
+			intent = new Intent(this.getBaseContext(), MeteoPrincipal.class);
 			break;
 		}
 		// pour Žviter le if tu peux faire un return sur default du switch
