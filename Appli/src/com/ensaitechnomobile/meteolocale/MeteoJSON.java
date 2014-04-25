@@ -4,6 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.ensaitechnomobile.metier.EtatMeteo;
+import com.ensaitechnomobile.metier.Localite;
+import com.ensaitechnomobile.metier.TypeMeteo;
+
 /**
  * Cette classe renverra un ou plusieurs objets EtatMeteo à partir d'un JSON
  * 
@@ -30,12 +34,15 @@ public class MeteoJSON {
 	 */
 	EtatMeteo construireEtatMeteoActuel(JSONObject json) throws JSONException {
 
+		// Déclarations
 		JSONArray tableWeather;
 		JSONObject objWeather, objMain, objWind, objClouds, objRain;
 		int idMeteo, switchMeteo;
 		TypeMeteo tm;
-		double tempMin, tempMax, pressure, windSpeed, clouds, rain;
-
+		double tempMin, tempMax, pressure, windSpeed, clouds, rain, longLocalite, latLocalite;
+		String nomLocalite;
+		
+		// Récupérations JSON
 		tableWeather = json.getJSONArray("weather");
 		objWeather = tableWeather.getJSONObject(0);
 		idMeteo =  objWeather.getInt("id");
@@ -49,6 +56,10 @@ public class MeteoJSON {
 		clouds = objClouds.getDouble("all");
 		objRain = json.getJSONObject("rain");
 		rain = objRain.getDouble("3h");
+		
+		longLocalite= json.getJSONObject("coord").getDouble("lon");
+		latLocalite = json.getJSONObject("coord").getDouble("lat");
+		nomLocalite = json.getString("name");
 
 
 		
@@ -81,7 +92,7 @@ public class MeteoJSON {
 		}
 
 		return new EtatMeteo(tm, windSpeed, pressure, clouds, tempMin, tempMax,
-				rain, 0);
+				rain, 0, new Localite(nomLocalite, longLocalite, latLocalite));
 
 	}
 
