@@ -18,6 +18,9 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
+    <!-- pour osmdroid -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -56,6 +59,10 @@
         <activity
             android:name="com.ensaitechnomobile.pamplemousse.Connection"
             android:label="@string/connection" >
+        </activity>
+        <activity
+            android:name="com.ensaitechnomobile.geoloc.GeolocOSM"
+            android:label="@string/geoloc_osm" >
         </activity>
         <activity
             android:name="com.ensaitechnomobile.geolocalisation.Plan"
