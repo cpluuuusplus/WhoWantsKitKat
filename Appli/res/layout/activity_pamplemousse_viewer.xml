@@ -7,21 +7,21 @@
         android:id="@+id/planning"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2">
+        android:layout_weight="2" >
     </ListView>
 
     <Button
         android:id="@+id/maj"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="maj"
+        android:onClick="onClickMaj"
         android:text="@string/maj" />
 
     <Button
         android:id="@+id/show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="show"
+        android:onClick="onClickShow"
         android:text="@string/show" />
 
 </LinearLayout>
