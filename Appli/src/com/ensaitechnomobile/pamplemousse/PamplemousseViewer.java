@@ -44,7 +44,7 @@ public class PamplemousseViewer extends Activity {
 	private String id, pass;
 	private CoursDAO cdao = new CoursDAO();
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(
-			"hh'h'mm dd-MM-yy");
+			"dd MMMM yyyy 'ˆ' hh:mm");
 
 	public ArrayAdapter<Cours> adapter;
 
@@ -138,10 +138,12 @@ public class PamplemousseViewer extends Activity {
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		id = preferences.getString("login", "");
-		baseUrl += "?login=" + id;
 		pass = preferences.getString("password", "");
-		baseUrl += "&mdp=" + pass;
-		Toast.makeText(this, baseUrl, Toast.LENGTH_LONG).show();
+		if (id.length() == 6 && pass.length() > 0) {
+			baseUrl += "?login=" + id;
+			baseUrl += "&mdp=" + pass;
+		}
+		// Toast.makeText(this, baseUrl, Toast.LENGTH_LONG).show();
 	}
 
 	private void removeAll(SQLiteDatabase db) {
@@ -190,8 +192,8 @@ public class PamplemousseViewer extends Activity {
 			String nom = cours.getString("nom");
 			String salle = cours.getString("salle");
 			String uid = cours.getString("uid");
-			int debut = cours.getInt("debut");
-			int fin = cours.getInt("fin");
+			long debut = cours.getLong("debut");
+			long fin = cours.getLong("fin");
 			listeCours.add(new Cours(debut, fin, nom, salle, uid));
 		}
 		return listeCours;
@@ -212,9 +214,9 @@ public class PamplemousseViewer extends Activity {
 			map = new HashMap<String, String>();
 			map.put("salle", cours.getSalle());
 			map.put("fin",
-					dateFormat.format((new java.util.Date())));
+					dateFormat.format((new java.util.Date(cours.getFin()))));
 			map.put("debut",
-					dateFormat.format((new java.util.Date(cours.getDebut()*100))));
+					dateFormat.format((new java.util.Date(cours.getDebut()))));
 			map.put("nom", cours.getNom());
 			res.add(map);
 		}

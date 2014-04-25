@@ -3,11 +3,11 @@ package com.ensaitechnomobile.metier;
 public class Cours {
 
 	/* Attributs */
-	private int debut, fin;
+	private long debut, fin;
 	private String nom, salle, uid;
 
 	/* Constructeur */
-	public Cours(int debut, int fin, String nom, String salle, String uid) {
+	public Cours(long debut, long fin, String nom, String salle, String uid) {
 		super();
 		this.debut = debut;
 		this.fin = fin;
@@ -17,11 +17,11 @@ public class Cours {
 	}
 
 	/* Accesseurs et mutateurs */
-	public int getDebut() {
+	public long getDebut() {
 		return debut;
 	}
 
-	public int getFin() {
+	public long getFin() {
 		return fin;
 	}
 

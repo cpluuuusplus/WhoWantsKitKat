@@ -36,17 +36,17 @@ public class CoursDAO {
 
 		Cursor curs = db.rawQuery("select debut,nom,salle,uid,fin from "
 				+ MyOpenHelper.NOM_TABLE, null);
-		int debut;
+		long debut;
 		String nom = null;
 		String salle = null;
 		String uid = null;
-		int fin;
+		long fin;
 		while (curs.moveToNext()) {
-			debut = curs.getInt(0);
+			debut = curs.getLong(0);
 			nom = curs.getString(1);
 			salle = curs.getString(2);
 			uid = curs.getString(3);
-			fin = curs.getInt(4);
+			fin = curs.getLong(4);
 			res.add(new Cours(debut, fin, nom, salle, uid));
 		}
 		curs.close();
@@ -58,17 +58,17 @@ public class CoursDAO {
 
 		Cursor curs = db.rawQuery("select debut,nom,salle,uid,fin from "
 				+ MyOpenHelper.NOM_TABLE + "where" + cs, null);
-		int debut;
+		long debut;
 		String nom = null;
 		String salle = null;
 		String uid = null;
-		int fin;
+		long fin;
 		while (curs.moveToNext()) {
-			debut = curs.getInt(0);
+			debut = curs.getLong(0);
 			nom = curs.getString(1);
 			salle = curs.getString(2);
 			uid = curs.getString(3);
-			fin = curs.getInt(4);
+			fin = curs.getLong(4);
 			res.add(new Cours(debut, fin, nom, salle, uid));
 		}
 		curs.close();

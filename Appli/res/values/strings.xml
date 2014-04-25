@@ -5,7 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="nb_cours">%1$d cours viennent d\'être mis à jours</string>
-    <string name="maj">Mettre à jour les données</string>
+    <string name="maj">Raffraichir</string>
     <string name="show">Affichage de l\'emploi du temps</string>
 
     <!-- Nom des menus ! -->
