@@ -12,9 +12,6 @@ import java.net.URL;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.ensaitechnomobile.menuprincipal.MenuPrincipal;
-import com.example.pamplemousse.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +19,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.example.pamplemousse.R;
 
 public class MeteoPrincipal extends Activity {
 	
@@ -34,13 +33,37 @@ public class MeteoPrincipal extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_meteo_principale);
 		
-		// TODO : créer probablement une classe pour récupérer les données de l'API
-		syncMeteo("http://api.openweathermap.org/data/2.5/weather?q=Bruz,fr&units=metric");
+		// TODO localisation
+
 		
+		String urlMeteo = urlPreparerMeteo("ef5e65bcdadbcc86a991779742664324", "Bruz", 0,0,false);
+		syncMeteo(urlMeteo);
 		
-		
+
 		
 	}
+	/**
+	 * 
+	 * 
+	 * 
+	 * @param apid : l'APPID de OpenWeatherMap
+	 * @param ville : la ville pour laquelle on veut la météo
+	 * @param coordX : la latitude pour laquelle on veut la météo
+	 * @param coordY : la longitude pour laquelle on veut la météo
+	 * @param previsions: si l'on veut des prévisions (ou implicitement la météo du jour même
+	 * 
+	 * @return
+	 */
+	
+	String urlPreparerMeteo(String apid, String ville, int coordX, int coordY, boolean previsions ){
+		String res = "http://api.openweathermap.org/data/2.5/weather";
+		res +="?q="+ville+",fr";
+		res +="&units=metric";
+		res +="&?APPID="+apid;
+		Log.v("AMS::Meteo", "URL de récupération des données météo : "+res);
+		return res;
+	}
+	
 	/**
 	 * Thread parallèle qui ajoute des données quelquepart .. à partir des infos sur
 	 * le web
@@ -65,7 +88,9 @@ public class MeteoPrincipal extends Activity {
 					JSONObject json = new JSONObject(input);
 					Log.i(TAG, input);
 					
-					//TODO utiliser json
+					MeteoJSON mjson = new MeteoJSON();
+					EtatMeteo em = mjson.construireEtatMeteoActuel(json);
+					Log.i(TAG, em.toString());
 					
 					
 				} catch (MalformedURLException e) {
