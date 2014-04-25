@@ -2,7 +2,10 @@ package com.ensaitechnomobile.menuprincipal;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +30,12 @@ public class MenuPrincipal extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu_principal);
+
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		Editor editor = preferences.edit();
+		editor.putString("login", null);
+		editor.putString("password", null);
 
 	}
 
