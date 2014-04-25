@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ensaitechnomobile.menuprincipal.MenuPrincipal;
 import com.example.pamplemousse.R;
 
 public class MenuPamplemousse extends Activity {
@@ -22,7 +21,7 @@ public class MenuPamplemousse extends Activity {
 		setContentView(R.layout.activity_menu_pamplemousse);
 	}
 
-	public void login(View v) {
+	public void onClickLogin(View v) {
 		Intent intent = new Intent(getBaseContext(), Connection.class);
 
 		// pour éviter le if tu peux faire un return sur default du switch
@@ -30,14 +29,26 @@ public class MenuPamplemousse extends Activity {
 			startActivity(intent);
 	}
 
-	public void pampViewer(View v) {
+	public void onClickPampViewer(View v) {
 		Intent intent = new Intent(getBaseContext(), PamplemousseViewer.class);
 
 		// pour éviter le if tu peux faire un return sur default du switch
 		if (intent != null)
 			startActivity(intent);
 	}
-	
+
+	public void onClickMail(View v) {
+		Intent intent = new Intent(getBaseContext(), WebViewMail.class);
+		if (intent != null)
+			startActivity(intent);
+	}
+
+	public void onClickNotes(View v) {
+		Intent intent = new Intent(getBaseContext(), WebWiewNotes.class);
+		if (intent != null)
+			startActivity(intent);
+	}
+
 	// Implémentation du menu
 
 	// Méthode qui se déclenchera lorsque vous appuierez sur le bouton menu du
@@ -63,16 +74,13 @@ public class MenuPamplemousse extends Activity {
 		// action
 		switch (item.getItemId()) {
 		case R.id.option:
-			Toast.makeText(this, "Option", Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(this, "Option", Toast.LENGTH_SHORT).show();
 			return true;
 		case R.id.favoris:
-			Toast.makeText(this, "Favoris", Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(this, "Favoris", Toast.LENGTH_SHORT).show();
 			return true;
 		case R.id.stats:
-			Toast.makeText(this, "Stats", Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(this, "Stats", Toast.LENGTH_SHORT).show();
 			return true;
 		case R.id.quitter:
 			// Pour fermer l'application il suffit de faire finish()

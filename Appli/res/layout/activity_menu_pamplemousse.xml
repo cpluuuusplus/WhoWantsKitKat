@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:onClick="login"
+        android:onClick="onClickLogin"
         android:text="Enregistrer mes identifiants" />
 
     <Button
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:onClick="pampViewer"
+        android:onClick="onClickPampViewer"
         android:text="Voir emploi du temps" />
 
     <Button
@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
+        android:onClick="onClickMail"
         android:text="Accéder à mes mails" />
 
     <Button
@@ -33,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
+        android:onClick="onClickNotes"
         android:text="Accéder à mes notes" />
 
 </LinearLayout>

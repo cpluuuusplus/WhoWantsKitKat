@@ -6,8 +6,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-import com.ensaitechnomobile.menuprincipal.MenuPrincipal;
 import com.example.pamplemousse.R;
 
 public class menu extends Activity {
@@ -31,7 +29,7 @@ public class menu extends Activity {
 
 		// Il n'est pas possible de modifier l'icône d'entête du sous-menu via
 		// le fichier XML on le fait donc en JAVA
-		//menu.getItem(0).getSubMenu().setHeaderIcon(R.drawable.option_white);
+		// menu.getItem(0).getSubMenu().setHeaderIcon(R.drawable.option_white);
 
 		return true;
 	}

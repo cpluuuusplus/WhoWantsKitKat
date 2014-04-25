@@ -18,7 +18,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    
+
     <!-- pour osmdroid -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
@@ -47,6 +47,14 @@
         <activity
             android:name="com.ensaitechnomobile.pamplemousse.MenuPamplemousse"
             android:label="@string/menu_pampl" >
+        </activity>
+        <activity
+            android:name="com.ensaitechnomobile.pamplemousse.WebViewMail"
+            android:label="@string/remote" >
+        </activity>
+        <activity
+            android:name="com.ensaitechnomobile.pamplemousse.WebWiewNotes"
+            android:label="@string/remote" >
         </activity>
         <activity
             android:name="com.ensaitechnomobile.geolocalisation.GoogleMap"
