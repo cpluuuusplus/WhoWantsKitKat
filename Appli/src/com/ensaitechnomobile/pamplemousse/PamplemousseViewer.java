@@ -8,15 +8,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.R.string;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -44,8 +43,11 @@ public class PamplemousseViewer extends Activity {
 	public String baseUrl;
 	private String id, pass;
 	private CoursDAO cdao = new CoursDAO();
+	private SimpleDateFormat dateFormat = new SimpleDateFormat(
+			"hh'h'mm dd-MM-yy");
 
 	public ArrayAdapter<Cours> adapter;
+
 	// Création de la ArrayList qui nous permettra de remplire la listView
 	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 	ListView listeView;
@@ -125,6 +127,7 @@ public class PamplemousseViewer extends Activity {
 			}
 		};
 		new Thread(code).start();
+		show();
 	}
 
 	/**
@@ -158,7 +161,6 @@ public class PamplemousseViewer extends Activity {
 		SQLiteOpenHelper helper = new MyOpenHelper(this);
 		SQLiteDatabase db = helper.getWritableDatabase();
 		ArrayList<Cours> lsCours = cdao.getAll(db);
-		Toast.makeText(this, ""+lsCours.size(), Toast.LENGTH_LONG).show();;
 
 		// *********************
 		// arrayAdapter
@@ -168,7 +170,6 @@ public class PamplemousseViewer extends Activity {
 				R.layout.affichage_matiere, new String[] { "debut", "fin",
 						"salle", "nom" }, new int[] { R.id.debut, R.id.fin,
 						R.id.salle, R.id.nom });
-
 		listeView = (ListView) findViewById(R.id.planning);
 
 		listeView.setAdapter(mSchedule);
@@ -189,8 +190,8 @@ public class PamplemousseViewer extends Activity {
 			String nom = cours.getString("nom");
 			String salle = cours.getString("salle");
 			String uid = cours.getString("uid");
-			Date debut = new Date(cours.getInt("debut"));
-			Date fin = new Date(cours.getInt("fin"));
+			int debut = cours.getInt("debut");
+			int fin = cours.getInt("fin");
 			listeCours.add(new Cours(debut, fin, nom, salle, uid));
 		}
 		return listeCours;
@@ -206,12 +207,14 @@ public class PamplemousseViewer extends Activity {
 	 */
 	public ArrayList<HashMap<String, String>> mapping(ArrayList<Cours> ls) {
 		ArrayList<HashMap<String, String>> res = new ArrayList<HashMap<String, String>>();
-		HashMap<String, String> map = new HashMap<String, String>();
+		HashMap<String, String> map;
 		for (Cours cours : ls) {
+			map = new HashMap<String, String>();
 			map.put("salle", cours.getSalle());
-			map.put("uid", cours.getUid());
-			map.put("fin", cours.getFin().toString());
-			map.put("debut", cours.getDebut().toString());
+			map.put("fin",
+					dateFormat.format((new java.util.Date())));
+			map.put("debut",
+					dateFormat.format((new java.util.Date(cours.getDebut()*100))));
 			map.put("nom", cours.getNom());
 			res.add(map);
 		}

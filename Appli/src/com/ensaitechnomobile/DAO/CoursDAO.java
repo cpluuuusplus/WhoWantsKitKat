@@ -1,7 +1,6 @@
 package com.ensaitechnomobile.DAO;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.ensaitechnomobile.SQL.MyOpenHelper;
@@ -26,8 +25,8 @@ public class CoursDAO {
 			values.put("nom", cours.getNom());
 			values.put("salle", cours.getSalle());
 			values.put("uid", cours.getUid());
-			values.put("debut", cours.getDebut().toString());
-			values.put("fin", cours.getFin().toString());
+			values.put("debut", cours.getDebut());
+			values.put("fin", cours.getFin());
 			db.replace(MyOpenHelper.NOM_TABLE, null, values);
 		}
 	}
@@ -37,17 +36,17 @@ public class CoursDAO {
 
 		Cursor curs = db.rawQuery("select debut,nom,salle,uid,fin from "
 				+ MyOpenHelper.NOM_TABLE, null);
-		Date debut = null;
+		int debut;
 		String nom = null;
 		String salle = null;
 		String uid = null;
-		Date fin = null;
+		int fin;
 		while (curs.moveToNext()) {
-			debut = new Date(curs.getInt(0));
+			debut = curs.getInt(0);
 			nom = curs.getString(1);
 			salle = curs.getString(2);
 			uid = curs.getString(3);
-			fin = new Date(curs.getInt(4));
+			fin = curs.getInt(4);
 			res.add(new Cours(debut, fin, nom, salle, uid));
 		}
 		curs.close();
@@ -59,17 +58,17 @@ public class CoursDAO {
 
 		Cursor curs = db.rawQuery("select debut,nom,salle,uid,fin from "
 				+ MyOpenHelper.NOM_TABLE + "where" + cs, null);
-		Date debut = null;
+		int debut;
 		String nom = null;
 		String salle = null;
 		String uid = null;
-		Date fin = null;
+		int fin;
 		while (curs.moveToNext()) {
-			debut = new Date(curs.getInt(0));
+			debut = curs.getInt(0);
 			nom = curs.getString(1);
 			salle = curs.getString(2);
 			uid = curs.getString(3);
-			fin = new Date(curs.getInt(4));
+			fin = curs.getInt(4);
 			res.add(new Cours(debut, fin, nom, salle, uid));
 		}
 		curs.close();
@@ -77,7 +76,7 @@ public class CoursDAO {
 	}
 
 	public void removeAll(SQLiteDatabase db) {
-		String query="delete from " + MyOpenHelper.NOM_TABLE;
+		String query = "delete from " + MyOpenHelper.NOM_TABLE;
 		db.execSQL(query);
 
 	}

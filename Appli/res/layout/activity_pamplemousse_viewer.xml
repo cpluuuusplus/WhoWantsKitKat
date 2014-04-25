@@ -6,8 +6,10 @@
     <ListView
         android:id="@+id/planning"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2" >
+        android:layout_height="fill_parent"
+        android:layout_weight="2"
+        android:divider="@color/black_color"
+        android:dividerHeight="5dp" >
     </ListView>
 
     <Button

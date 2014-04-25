@@ -1,15 +1,13 @@
 package com.ensaitechnomobile.metier;
 
-import java.util.Date;
-
 public class Cours {
 
 	/* Attributs */
-	private Date debut, fin;
+	private int debut, fin;
 	private String nom, salle, uid;
 
 	/* Constructeur */
-	public Cours(Date debut, Date fin, String nom, String salle, String uid) {
+	public Cours(int debut, int fin, String nom, String salle, String uid) {
 		super();
 		this.debut = debut;
 		this.fin = fin;
@@ -19,11 +17,11 @@ public class Cours {
 	}
 
 	/* Accesseurs et mutateurs */
-	public Date getDebut() {
+	public int getDebut() {
 		return debut;
 	}
 
-	public Date getFin() {
+	public int getFin() {
 		return fin;
 	}
 
@@ -43,7 +41,7 @@ public class Cours {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return ("debut: " + this.debut + ", nom: " + this.nom + ", salle: "
-				+ this.salle + ", uid: " + this.uid + " fin: " + this.fin);
+				+ this.salle + " fin: " + this.fin);
 	}
 
 }
