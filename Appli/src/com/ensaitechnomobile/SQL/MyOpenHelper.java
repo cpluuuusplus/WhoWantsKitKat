@@ -25,5 +25,8 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	public void removeAll(){
+		
+	}
 }
