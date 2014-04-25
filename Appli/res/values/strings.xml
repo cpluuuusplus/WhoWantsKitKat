@@ -33,5 +33,6 @@
     <string name="saisir_localite">Saisir une ville ici</string>
     <string name="desc_saisie_localite">Vous pouvez saisir une localité</string>
     <string name="temp">Ce champ doit etre rempli</string>
+    <string name="geoloc_osm">Géolocationsation par OSM/OCM</string>
 
 </resources>

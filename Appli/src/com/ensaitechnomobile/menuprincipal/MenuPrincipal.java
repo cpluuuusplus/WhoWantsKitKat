@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.ensaitechnomobile.geoloc.GeolocOSM;
 import com.ensaitechnomobile.meteolocale.MeteoPrincipal;
 import com.ensaitechnomobile.metier.Cours;
 import com.ensaitechnomobile.pamplemousse.MenuPamplemousse;
@@ -120,18 +121,26 @@ public class MenuPrincipal extends Activity {
 		Intent intent = null;
 		switch (position) {
 		case 0:
-			intent = new Intent(getBaseContext(), MenuPamplemousse.class);
+			intent = new Intent(this.getBaseContext(), MenuPamplemousse.class);
 			break;
 		case 1: 
 			intent = new Intent(this.getBaseContext(), MeteoPrincipal.class);
 			break;
+		case 2:
+			intent = new Intent(this.getBaseContext(), GeolocOSM.class);
+			break;
+		 default:
+			 Toast.makeText(MenuPrincipal.this, "Clic sur option inexistante/impr思ue",
+						Toast.LENGTH_SHORT).show();
+			break;
 		}
-		// pour 思iter le if tu peux faire un return sur default du switch
-		if (intent != null)
+		// pour 思iter le if tu peux faire un return sur default du switch 
+		// (je n'ai pas compris)
+		if (intent != null){
 			startActivity(intent);
+		}
 	}
 
-	// pour 思iter le if tu peux faire un return sur default du switch
 
 	// Impl士entation du menu
 
