@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.ensaitechnomobile.SQL.MyOpenHelper;
 import com.ensaitechnomobile.metier.Cours;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-
 public class CoursDAO {
 
 	public static final String TAG = "TP3";
-	
 
 	public CoursDAO() {
 		super();
@@ -29,15 +28,15 @@ public class CoursDAO {
 			values.put("uid", cours.getUid());
 			values.put("debut", cours.getDebut().toString());
 			values.put("fin", cours.getFin().toString());
-			db.replace("table_cours", null, values);
+			db.replace(MyOpenHelper.NOM_TABLE, null, values);
 		}
 	}
 
 	public ArrayList<Cours> getAll(SQLiteDatabase db) {
 		ArrayList<Cours> res = new ArrayList<Cours>();
 
-		Cursor curs = db.rawQuery(
-				"select debut,nom,salle,uid,fin from table_cours", null);
+		Cursor curs = db.rawQuery("select debut,nom,salle,uid,fin from "
+				+ MyOpenHelper.NOM_TABLE, null);
 		Date debut = null;
 		String nom = null;
 		String salle = null;
@@ -54,11 +53,12 @@ public class CoursDAO {
 		curs.close();
 		return res;
 	}
+
 	public List<Cours> get(SQLiteDatabase db, String cs) {
 		List<Cours> res = new ArrayList<Cours>();
 
-		Cursor curs = db.rawQuery(
-				"select debut,nom,salle,uid,fin from table_cours"+"where"+cs, null);
+		Cursor curs = db.rawQuery("select debut,nom,salle,uid,fin from "
+				+ MyOpenHelper.NOM_TABLE + "where" + cs, null);
 		Date debut = null;
 		String nom = null;
 		String salle = null;
@@ -74,5 +74,11 @@ public class CoursDAO {
 		}
 		curs.close();
 		return res;
+	}
+
+	public void removeAll(SQLiteDatabase db) {
+		String query="delete from " + MyOpenHelper.NOM_TABLE;
+		db.execSQL(query);
+
 	}
 }

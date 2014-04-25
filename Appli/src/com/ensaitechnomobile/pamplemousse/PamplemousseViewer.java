@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.string;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -42,6 +43,7 @@ public class PamplemousseViewer extends Activity {
 	public static final String TAG = "MultiService";
 	public String baseUrl;
 	private String id, pass;
+	private CoursDAO cdao = new CoursDAO();
 
 	public ArrayAdapter<Cours> adapter;
 	// CrŽation de la ArrayList qui nous permettra de remplire la listView
@@ -53,6 +55,16 @@ public class PamplemousseViewer extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pamplemousse_viewer);
+		show();
+	}
+
+	/**
+	 * Methode permettant de mettre a jour les donnees a la suite d'un click
+	 * 
+	 * @param v
+	 *            vue cliquee
+	 */
+	public void onClickMaj(View v) {
 		sync();
 	}
 
@@ -61,15 +73,10 @@ public class PamplemousseViewer extends Activity {
 	 * le web
 	 */
 	private void sync() {
-		baseUrl = "http://chessdiags.com/pamplemousse";
-		SharedPreferences preferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		id = preferences.getString("login", "");
-		baseUrl += "?login=" + id;
-		pass = preferences.getString("password", "");
-		baseUrl += "&mdp=" + pass;
-		Toast.makeText(this, baseUrl, Toast.LENGTH_LONG).show();
+		// mise a jour de l'URL
+		majURL();
 
+		// lancement d'un noueau thread
 		Runnable code = new Runnable() {
 			URL url = null;
 
@@ -84,6 +91,27 @@ public class PamplemousseViewer extends Activity {
 					JSONObject json = new JSONObject(input);
 					Log.i(TAG, input);
 					table = json.getJSONArray("events");
+					if (table != null && table.length() > 0) {
+						SQLiteOpenHelper helper = new MyOpenHelper(
+								PamplemousseViewer.this);
+						SQLiteDatabase db = helper.getWritableDatabase();
+						removeAll(db);
+						ArrayList<Cours> lsCours = coursToArray(table);
+						cdao.insertAll(db, lsCours);
+
+						// Affichage d'un toast pour dire que les donnees ont
+						// ete mises a jour
+						runOnUiThread(new Runnable() {
+							public void run() {
+								Toast.makeText(
+										PamplemousseViewer.this,
+										getString(R.string.nb_cours,
+												table.length()),
+										Toast.LENGTH_LONG).show();
+							}
+						});
+						db.close();
+					}
 				} catch (MalformedURLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -100,28 +128,21 @@ public class PamplemousseViewer extends Activity {
 	}
 
 	/**
-	 * InsŽrer les donnŽes dans la table
-	 * 
-	 * @param ls
-	 * @throws JSONException
+	 * Methode permettant de mettre a jour l'URL
 	 */
-	public void maj(View v) throws JSONException {
-		sync();
-		if (table != null && table.length() > 0) {
-			CoursDAO cdao = new CoursDAO();
-			SQLiteOpenHelper helper = new MyOpenHelper(this);
-			SQLiteDatabase db = helper.getWritableDatabase();
-			removeAll(db);
-			ArrayList<Cours> lsCours = coursToArray(table);
-			cdao.insertAll(db, lsCours);
-			Toast.makeText(this, getString(R.string.nb_cours, table.length()),
-					Toast.LENGTH_LONG).show();
-			db.close();
-		}
+	private void majURL() {
+		baseUrl = "http://chessdiags.com/pamplemousse";
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		id = preferences.getString("login", "");
+		baseUrl += "?login=" + id;
+		pass = preferences.getString("password", "");
+		baseUrl += "&mdp=" + pass;
+		Toast.makeText(this, baseUrl, Toast.LENGTH_LONG).show();
 	}
 
 	private void removeAll(SQLiteDatabase db) {
-		db.rawQuery("delete from ?", new String[] { MyOpenHelper.NOMBASE });
+		cdao.removeAll(db);
 	}
 
 	/**
@@ -129,11 +150,15 @@ public class PamplemousseViewer extends Activity {
 	 * 
 	 * @param v
 	 */
-	public void show(View v) {
-		CoursDAO cdao = new CoursDAO();
+	public void onClickShow(View v) {
+		show();
+	}
+
+	private void show() {
 		SQLiteOpenHelper helper = new MyOpenHelper(this);
 		SQLiteDatabase db = helper.getWritableDatabase();
 		ArrayList<Cours> lsCours = cdao.getAll(db);
+		Toast.makeText(this, ""+lsCours.size(), Toast.LENGTH_LONG).show();;
 
 		// *********************
 		// arrayAdapter
