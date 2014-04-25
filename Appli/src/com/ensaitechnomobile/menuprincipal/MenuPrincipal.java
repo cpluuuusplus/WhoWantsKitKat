@@ -1,8 +1,5 @@
 package com.ensaitechnomobile.menuprincipal;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.ensaitechnomobile.geoloc.GeolocOSM;
@@ -27,6 +20,7 @@ public class MenuPrincipal extends Activity {
 
 	public static final String TAG = "Menu principal";
 	public ArrayAdapter<Cours> adapter;
+	Intent intent = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,113 +28,28 @@ public class MenuPrincipal extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu_principal);
 
-		// *********************
-		// arrayAdapter
-		// Création d'un SimpleAdapter qui se chargera de mettre les items
-		// présent dans notre list (listItem) dans la vue affichageitem
-
-		ArrayList<HashMap<String, String>> ensembleActivites = new ArrayList<HashMap<String, String>>(
-				2);
-		HashMap<String, String> activite = new HashMap<String, String>();
-
-		activite.put("nomActivite", getString(R.string.pamp_viewer));
-		activite.put("description", getString(R.string.pampl_desc));
-		activite.put("img", String.valueOf(R.drawable.pamplemousse));
-		ensembleActivites.add(activite);
-
-		activite = new HashMap<String, String>();
-		activite.put("nomActivite", getString(R.string.meteo));
-		activite.put("description", getString(R.string.meteo_desc));
-		activite.put("img", String.valueOf(R.drawable.meteo));
-		ensembleActivites.add(activite);
-
-		activite = new HashMap<String, String>();
-		activite.put("nomActivite", getString(R.string.geo));
-		activite.put("description", getString(R.string.geo_desc));
-		activite.put("img", String.valueOf(R.drawable.geolocalisation));
-		ensembleActivites.add(activite);
-
-		SimpleAdapter mListeActivites = new SimpleAdapter(this,
-				ensembleActivites, R.layout.affichage_activite, new String[] {
-						"nomActivite", "description", "img" }, new int[] {
-						R.id.nomActivite, R.id.description, R.id.img });
-
-		final ListView listeView = (ListView) findViewById(R.id.activites);
-
-		listeView.setAdapter(mListeActivites);
-
-		/*
-		 * // Enfin on met un écouteur d'évènement sur notre listView
-		 * listeView.setOnItemClickListener(new OnItemClickListener() {
-		 * 
-		 * @Override
-		 * 
-		 * @SuppressWarnings("unchecked") public void onItemClick(AdapterView<?>
-		 * a, View v, int position, long id) { // on récupère la HashMap
-		 * contenant les infos de notre item // (titre, description, img)
-		 * HashMap<String, String> map = (HashMap<String, String>) listeView
-		 * .getItemAtPosition(position); // on créer une boite de dialogue
-		 * AlertDialog.Builder adb = new AlertDialog.Builder(
-		 * MenuPrincipal.this); // on attribut un titre à notre boite de
-		 * dialogue adb.setTitle("Sélection Item"); // on insère un message à
-		 * notre boite de dialogue, et ici on // affiche le titre de l'item
-		 * cliqué adb.setMessage("Votre choix : " + map.get("nomActivite")); //
-		 * on indique que l'on veut le bouton ok à notre boite de // dialogue
-		 * adb.setPositiveButton("Ok", null); // on affiche la boite de dialogue
-		 * adb.show(); } });
-		 */
-
-		// On met un écouteur d'évènement sur notre listView
-		listeView.setOnItemClickListener(new OnItemClickListener() {
-			@SuppressWarnings("unchecked")
-			@Override
-			public void onItemClick(AdapterView<?> a, View v, int position,
-					long id) {
-
-				// on récupère la HashMap contenant les infos de notre item
-				// (titre, description, img)
-				HashMap<String, String> map = (HashMap<String, String>) listeView
-						.getItemAtPosition(position);
-
-				Toast.makeText(MenuPrincipal.this, map.get("nomActivite"),
-						Toast.LENGTH_SHORT).show();
-
-				// Envoie des intents
-				CallFunc(position);
-
-			}
-		});
 	}
 
-	/**
-	 * Methode permettant de naviguer entre les activites
-	 * 
-	 * @param position
-	 */
-	private void CallFunc(int position) {
-		Intent intent = null;
-		switch (position) {
-		case 0:
-			intent = new Intent(this.getBaseContext(), MenuPamplemousse.class);
-			break;
-		case 1: 
-			intent = new Intent(this.getBaseContext(), MeteoPrincipal.class);
-			break;
-		case 2:
-			intent = new Intent(this.getBaseContext(), GeolocOSM.class);
-			break;
-		 default:
-			 Toast.makeText(MenuPrincipal.this, "Clic sur option inexistante/imprévue",
-						Toast.LENGTH_SHORT).show();
-			break;
-		}
-		// pour éviter le if tu peux faire un return sur default du switch 
-		// (je n'ai pas compris)
-		if (intent != null){
+	public void pamplemousse(View v) {
+		intent = new Intent(this.getBaseContext(), MenuPamplemousse.class);
+		if (intent != null) {
 			startActivity(intent);
 		}
 	}
 
+	public void geolocalisation(View v) {
+		intent = new Intent(this.getBaseContext(), GeolocOSM.class);
+		if (intent != null) {
+			startActivity(intent);
+		}
+	}
+
+	public void meteo(View v) {
+		intent = new Intent(this.getBaseContext(), MeteoPrincipal.class);
+		if (intent != null) {
+			startActivity(intent);
+		}
+	}
 
 	// Implémentation du menu
 

@@ -1,23 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <WebView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/activites"
+    <Button
+        android:id="@+id/main_act1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/background_light" >
-    </ListView>
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="@color/blue"
+        android:onClick="pamplemousse"
+        android:text="@string/pamp_viewer"
+        android:textColor="@color/black_color" />
+
+    <Button
+        android:id="@+id/main_act2"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:onClick="geolocalisations"
+        android:text="@string/geo"
+        android:textColor="@color/black_color" />
+
+    <Button
+        android:id="@+id/main_act3"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="@color/red"
+        android:onClick="meteo"
+        android:text="@string/meteo"
+        android:textColor="@color/black_color" />
 
 </LinearLayout>
