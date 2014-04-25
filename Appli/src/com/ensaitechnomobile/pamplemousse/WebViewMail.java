@@ -1,31 +1,50 @@
 package com.ensaitechnomobile.pamplemousse;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
+@SuppressLint("SetJavaScriptEnabled")
 public class WebViewMail extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		WebView webview = new WebView(this);
-		setContentView(webview);
-		webview.loadUrl("https://sso-cas.ensai.fr/cas/login?service=http://ent2.ensai.fr/Login");
+
+		// Eventuellement mettre un écran pour dire que le chargement de la
+		// messagerie est en cours
+		// avec une petit icone qui fait comprendre à l'utilisater que quelque
+		// chose se passe .. éventuellement
+		// En même temps j'écris ça dans le train avec le 3G de mon tel donc je
+		// suis face aux pires aléas de la data tout en sachant que je peux
+		// avoir internet
 		
-//		TODO intégrer ceci pour (espérons) saisir le mot de passe automatiquement
-//		webView.getSettings().setJavaScriptEnabled(true);   
-//
-//	    webView.loadUrl("http://your.url");
-//
-//	    webView.setWebViewClient(new WebViewClient() {
-//
-//	        public void onPageFinished(WebView view, String url) {
-//	            view.loadUrl("javascript:document.getElementsByName('school')[0].value = 'schoolname'");
-//	            view.loadUrl("javascript:document.getElementsByName('j_username')[0].value = 'username'");
-//	            view.loadUrl("javascript:document.getElementsByName('j_password')[0].value = 'password'");
-//
-//	            view.loadUrl("javascript:document.forms['login'].submit()");
-//	        }
-//	    });
+		final String id, pass;
+		// Récupération de l'ID et du mot de passe dans les préférences
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		id = preferences.getString("login", "");
+		pass = preferences.getString("password", "");
+
+		// Création de la Webview
+		WebView webView = new WebView(this);
+		setContentView(webView);
+		webView.getSettings().setJavaScriptEnabled(true);
+		webView.loadUrl("https://webmail.ensai.fr/SOGo/so/" + id + "/Mail/view");
+
+		webView.setWebViewClient(new WebViewClient() {
+
+			public void onPageFinished(WebView view, String url) {
+				view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"
+						+ id + "'");
+				view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"
+						+ pass + "'");
+				view.loadUrl("javascript:document.forms['fm1'].submit()");
+			}
+
+		});
 	}
 }
