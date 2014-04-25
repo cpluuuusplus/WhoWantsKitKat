@@ -9,6 +9,10 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 	public static String NOMBASE = "EMPLOI_DU_TEMPS";
 	public static int VERSION = 1;
 
+	/**
+	 * Constructeur
+	 * @param context
+	 */
 	public MyOpenHelper(Context context) {
 		super(context, NOMBASE, null, VERSION);
 		// TODO Auto-generated constructor stub
