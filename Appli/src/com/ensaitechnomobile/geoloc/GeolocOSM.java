@@ -45,13 +45,13 @@ public class GeolocOSM extends Activity {
 		});
 
 		mapView = (MapView) this.findViewById(R.id.mapview);
-		mapView.setTileSource(TileSourceFactory.MAPNIK);
+		mapView.setTileSource(TileSourceFactory.CYCLEMAP);
 		mapView.setBuiltInZoomControls(true);
 		mapView.setMultiTouchControls(true);
 
 		mapController = (MapController) this.mapView.getController();
-		mapController.setZoom(2);
-		mapController.setCenter(new GeoPoint(52.221, 6.893)); // This point is
+		mapController.setZoom(14);
+		mapController.setCenter(new GeoPoint(48.0504189, -1.74098)); // This point is
 																// in Enschede,
 																// Netherlands.
 																// You should
