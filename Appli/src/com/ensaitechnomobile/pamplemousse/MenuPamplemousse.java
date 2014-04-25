@@ -44,7 +44,7 @@ public class MenuPamplemousse extends Activity {
 	}
 
 	public void onClickNotes(View v) {
-		Intent intent = new Intent(getBaseContext(), WebWiewNotes.class);
+		Intent intent = new Intent(getBaseContext(), WebViewNotes.class);
 		if (intent != null)
 			startActivity(intent);
 	}

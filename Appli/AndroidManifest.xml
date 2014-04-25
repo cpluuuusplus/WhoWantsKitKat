@@ -38,7 +38,7 @@
         </activity>
         <activity android:name="com.ensaitechnomobile.pamplemousse.WebViewMail" android:label="@string/remote">
         </activity>
-        <activity android:name="com.ensaitechnomobile.pamplemousse.WebWiewNotes" android:label="@string/remote">
+        <activity android:name="com.ensaitechnomobile.pamplemousse.WebViewNotes" android:label="@string/remote">
         </activity>
         <activity android:name="com.ensaitechnomobile.geolocalisation.GoogleMap" android:label="@string/menu_pampl">
         </activity>
