@@ -149,20 +149,18 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	 */
 	public Localite recupererLocalisationAppareil(View v) {
 		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-				5000, 10, this);
-		
-		
+		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
+
 		Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		double locLat=0;
-		double locLong=0;
-		if(loc != null){
+		double locLat = 0;
+		double locLong = 0;
+		if (loc != null) {
 			locLat = loc.getLatitude();
-			locLong= loc.getLongitude();
+			locLong = loc.getLongitude();
 		}
-		
+
 		Localite local = new Localite(locLat, locLong);
-		Log.i(TAG, "Localisation lue avec succès : " + local.toString() );
+		Log.i(TAG, "Localisation lue avec succès : " + local.toString());
 		return local;
 	}
 
@@ -176,7 +174,7 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		// en un objet Menu
 		MenuInflater inflater = getMenuInflater();
 		// Instanciation du menu XML spécifier en un objet Menu
-		inflater.inflate(R.layout.menu, menu);
+		inflater.inflate(R.layout.action_menu, menu);
 
 		// Il n'est pas possible de modifier l'icône d'entête du sous-menu via
 		// le fichier XML on le fait donc en JAVA
@@ -190,16 +188,10 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
 		switch (item.getItemId()) {
-		case R.id.option:
-			Toast.makeText(this, "Option", Toast.LENGTH_SHORT).show();
-			return true;
-		case R.id.favoris:
-			Toast.makeText(this, "Favoris", Toast.LENGTH_SHORT).show();
-			return true;
-		case R.id.stats:
+		case R.id.action_settings:
 			Toast.makeText(this, "Stats", Toast.LENGTH_SHORT).show();
 			return true;
-		case R.id.quitter:
+		case R.id.action_quit:
 			// Pour fermer l'application il suffit de faire finish()
 			finish();
 			return true;
@@ -210,9 +202,8 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	/**
 	 * 
 	 * 
-	 * Implémentation du LocationListener
-	 * Portée: 3 méthodes suivantes
-	 * Mot d'ordre : on s'en fiche
+	 * Implémentation du LocationListener Portée: 3 méthodes suivantes Mot
+	 * d'ordre : on s'en fiche
 	 * 
 	 */
 	public void onLocationChanged(Location location) {

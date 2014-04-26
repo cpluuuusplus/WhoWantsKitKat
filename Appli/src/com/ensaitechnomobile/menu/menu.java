@@ -25,7 +25,7 @@ public class menu extends Activity {
 		// en un objet Menu
 		MenuInflater inflater = getMenuInflater();
 		// Instanciation du menu XML spécifier en un objet Menu
-		inflater.inflate(R.layout.menu, menu);
+		inflater.inflate(R.layout.action_menu, menu);
 
 		// Il n'est pas possible de modifier l'icône d'entête du sous-menu via
 		// le fichier XML on le fait donc en JAVA
@@ -39,21 +39,14 @@ public class menu extends Activity {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
 		switch (item.getItemId()) {
-		case R.id.option:
-			Toast.makeText(menu.this, "Option", Toast.LENGTH_SHORT).show();
+		case R.id.action_settings:
+			Toast.makeText(this, "Stats", Toast.LENGTH_SHORT).show();
 			return true;
-		case R.id.favoris:
-			Toast.makeText(menu.this, "Favoris", Toast.LENGTH_SHORT).show();
-			return true;
-		case R.id.stats:
-			Toast.makeText(menu.this, "Stats", Toast.LENGTH_SHORT).show();
-			return true;
-		case R.id.quitter:
+		case R.id.action_quit:
 			// Pour fermer l'application il suffit de faire finish()
 			finish();
 			return true;
 		}
 		return false;
 	}
-
 }

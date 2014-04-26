@@ -11,12 +11,15 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -44,9 +47,10 @@ public class PamplemousseViewer extends Activity {
 	private String id, pass;
 	private CoursDAO cdao = new CoursDAO();
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(
-			"dd MMMM yyyy 'à' hh:mm");
+			"EEEE, dd MMMM yyyy 'à' HH:mm", Locale.FRENCH);
 
 	public ArrayAdapter<Cours> adapter;
+	private ProgressDialog progressDialog;
 
 	// Création de la ArrayList qui nous permettra de remplire la listView
 	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
@@ -57,6 +61,7 @@ public class PamplemousseViewer extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pamplemousse_viewer);
+		progressDialog = new ProgressDialog(this);
 		show();
 	}
 
@@ -78,6 +83,11 @@ public class PamplemousseViewer extends Activity {
 		// mise a jour de l'URL
 		majURL();
 
+		progressDialog.setMessage("Chargement en cours");
+		progressDialog.setTitle("Importation des données");
+		progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		progressDialog.setMax(10);
+		progressDialog.show();
 		// lancement d'un noueau thread
 		Runnable code = new Runnable() {
 			URL url = null;
@@ -110,6 +120,7 @@ public class PamplemousseViewer extends Activity {
 										getString(R.string.nb_cours,
 												table.length()),
 										Toast.LENGTH_LONG).show();
+								show();
 							}
 						});
 						db.close();
@@ -124,10 +135,10 @@ public class PamplemousseViewer extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				progressDialog.dismiss();
 			}
 		};
 		new Thread(code).start();
-		show();
 	}
 
 	/**
@@ -249,17 +260,11 @@ public class PamplemousseViewer extends Activity {
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
 
-		// Création d'un MenuInflater qui va permettre d'instancier un Menu XML
-		// en un objet Menu
+		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
-		// Instanciation du menu XML spécifier en un objet Menu
-		inflater.inflate(R.layout.menu, menu);
+		inflater.inflate(R.layout.action_menu, menu);
+		return super.onCreateOptionsMenu(menu);
 
-		// Il n'est pas possible de modifier l'icône d'entête du sous-menu via
-		// le fichier XML on le fait donc en JAVA
-		// menu.getItem(0).getSubMenu().setHeaderIcon(R.drawable.option_white);
-
-		return true;
 	}
 
 	/**
@@ -269,16 +274,10 @@ public class PamplemousseViewer extends Activity {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
 		switch (item.getItemId()) {
-		case R.id.option:
-			Toast.makeText(this, "Option", Toast.LENGTH_SHORT).show();
-			return true;
-		case R.id.favoris:
-			Toast.makeText(this, "Favoris", Toast.LENGTH_SHORT).show();
-			return true;
-		case R.id.stats:
+		case R.id.action_settings:
 			Toast.makeText(this, "Stats", Toast.LENGTH_SHORT).show();
 			return true;
-		case R.id.quitter:
+		case R.id.action_quit:
 			// Pour fermer l'application il suffit de faire finish()
 			finish();
 			return true;

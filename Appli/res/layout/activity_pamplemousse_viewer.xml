@@ -14,16 +14,13 @@
 
     <Button
         android:id="@+id/maj"
+        android:drawableLeft="@drawable/ic_action_refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/black_color"
+        android:textColor="@color/teal"
+        android:textSize="20dp"
         android:onClick="onClickMaj"
         android:text="@string/maj" />
-
-    <Button
-        android:id="@+id/show"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickShow"
-        android:text="@string/show" />
 
 </LinearLayout>

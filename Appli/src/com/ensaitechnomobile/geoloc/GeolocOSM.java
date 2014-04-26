@@ -49,15 +49,17 @@ public class GeolocOSM extends Activity {
 
 		mapController = (MapController) this.mapView.getController();
 		mapController.setZoom(14);
-		mapController.setCenter(new GeoPoint(48.0504189, -1.74098)); // This point is
-																// in Enschede,
-																// Netherlands.
-																// You should
-																// select a
-																// point in your
-																// map or get it
-																// from user's
-																// location.
+		mapController.setCenter(new GeoPoint(48.0504189, -1.74098)); // This
+																		// point
+																		// is
+		// in Enschede,
+		// Netherlands.
+		// You should
+		// select a
+		// point in your
+		// map or get it
+		// from user's
+		// location.
 
 		this.mMyLocationOverlay = new SimpleLocationOverlay(this);
 		this.mapView.getOverlays().add(mMyLocationOverlay);
@@ -65,7 +67,7 @@ public class GeolocOSM extends Activity {
 		this.mScaleBarOverlay = new ScaleBarOverlay(this);
 		this.mapView.getOverlays().add(mScaleBarOverlay);
 	}
-	
+
 	// Implémentation du menu
 
 	// Méthode qui se déclenchera lorsque vous appuierez sur le bouton menu du
@@ -76,7 +78,7 @@ public class GeolocOSM extends Activity {
 		// en un objet Menu
 		MenuInflater inflater = getMenuInflater();
 		// Instanciation du menu XML spécifier en un objet Menu
-		inflater.inflate(R.layout.menu, menu);
+		inflater.inflate(R.layout.action_menu, menu);
 
 		// Il n'est pas possible de modifier l'icône d'entête du sous-menu via
 		// le fichier XML on le fait donc en JAVA
@@ -90,19 +92,10 @@ public class GeolocOSM extends Activity {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
 		switch (item.getItemId()) {
-		case R.id.option:
-			Toast.makeText(this, "Option", Toast.LENGTH_SHORT)
-					.show();
+		case R.id.action_settings:
+			Toast.makeText(this, "Stats", Toast.LENGTH_SHORT).show();
 			return true;
-		case R.id.favoris:
-			Toast.makeText(this, "Favoris", Toast.LENGTH_SHORT)
-					.show();
-			return true;
-		case R.id.stats:
-			Toast.makeText(this, "Stats", Toast.LENGTH_SHORT)
-					.show();
-			return true;
-		case R.id.quitter:
+		case R.id.action_quit:
 			// Pour fermer l'application il suffit de faire finish()
 			finish();
 			return true;
