@@ -1,6 +1,6 @@
 package com.ensaitechnomobile.metier;
 
-public class Cours {
+public class Cours implements Comparable<Cours> {
 
 	/* Attributs */
 	private long debut, fin;
@@ -42,6 +42,11 @@ public class Cours {
 		// TODO Auto-generated method stub
 		return ("debut: " + this.debut + ", nom: " + this.nom + ", salle: "
 				+ this.salle + " fin: " + this.fin);
+	}
+
+	@Override
+	public int compareTo(Cours another) {
+		return (int) (this.debut - another.debut);
 	}
 
 }

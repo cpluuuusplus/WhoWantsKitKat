@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -33,12 +34,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ensaitechnomobile.DAO.CoursDAO;
 import com.ensaitechnomobile.SQL.MyOpenHelper;
 import com.ensaitechnomobile.metier.Cours;
+
 import com.example.pamplemousse.R;
 
 public class PamplemousseViewer extends Activity {
@@ -50,10 +51,11 @@ public class PamplemousseViewer extends Activity {
 	private SimpleDateFormat hFormat = new SimpleDateFormat("HH:mm",
 			Locale.FRENCH);
 	private SimpleDateFormat dFormat = new SimpleDateFormat(
-			"EEEE, dd MMMM yyyy", Locale.FRENCH);
+			"EEEE, dd MMMM yyyy\n", Locale.FRENCH);
 
 	public ArrayAdapter<Cours> adapter;
 	private ProgressDialog progressDialog;
+
 
 	// Création de la ArrayList qui nous permettra de remplire la listView
 	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
@@ -174,14 +176,15 @@ public class PamplemousseViewer extends Activity {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		ArrayList<Cours> lsCours = cdao.getAll(db);
 
+
 		// *********************
 		// arrayAdapter
 		// Création d'un SimpleAdapter qui se chargera de mettre les items
 		// présent dans notre list (listItem) dans la vue affichageitem
 		SimpleAdapter mSchedule = new SimpleAdapter(this, mapping(lsCours),
-				R.layout.affichage_matiere, new String[] { "day", "debut",
-						"fin", "salle", "nom" }, new int[] { R.id.day,
-						R.id.debut, R.id.fin, R.id.salle, R.id.nom });
+				R.layout.affichage_matiere, new String[] { "debut", "fin",
+						"salle", "nom" }, new int[] { R.id.debut, R.id.fin,
+						R.id.salle, R.id.nom });
 		listeView = (ListView) findViewById(R.id.planning);
 		listeView.setAdapter(mSchedule);
 		db.close();
@@ -217,15 +220,15 @@ public class PamplemousseViewer extends Activity {
 	 * @return
 	 */
 	public ArrayList<HashMap<String, String>> mapping(ArrayList<Cours> ls) {
+		Collections.sort(ls);
 		ArrayList<HashMap<String, String>> res = new ArrayList<HashMap<String, String>>();
 		HashMap<String, String> map;
 		String day1 = dFormat.format(new Date(ls.get(0).getDebut()));
 		String day2;
-		String currentDay = day1;
 		map = new HashMap<String, String>();
-		map.put("day", currentDay);
-		map.put("salle", ls.get(0).getSalle());
-		map.put("debut", hFormat.format(new Date(ls.get(0).getDebut())));
+		map.put("salle", "\n" + ls.get(0).getSalle());
+		map.put("debut", dFormat.format(new Date(ls.get(0).getDebut()))
+				+ hFormat.format(new Date(ls.get(0).getDebut())));
 		map.put("nom", ls.get(0).getNom());
 		map.put("fin", hFormat.format(new Date(ls.get(0).getFin())));
 		res.add(map);
@@ -234,13 +237,15 @@ public class PamplemousseViewer extends Activity {
 			map = new HashMap<String, String>();
 			day2 = dFormat.format(new Date(ls.get(i).getDebut()));
 			if (!day1.equals(day2)) {
-				currentDay = day2;
-				map.put("day", currentDay);
-			} else
-				map.put("day", null);
+				map.put("debut", dFormat.format(new Date(ls.get(i).getDebut()))
+						+ hFormat.format(new Date(ls.get(i).getDebut())));
+				map.put("salle", "\n" + ls.get(i).getSalle());
+			} else {
+				map.put("debut", hFormat.format(new Date(ls.get(i).getDebut())));
+				map.put("salle", ls.get(i).getSalle());
+			}
 			day1 = day2;
-			map.put("salle", ls.get(i).getSalle());
-			map.put("debut", hFormat.format(new Date(ls.get(i).getDebut())));
+
 			map.put("nom", ls.get(i).getNom());
 			map.put("fin", hFormat.format(new Date(ls.get(i).getFin())));
 			res.add(map);

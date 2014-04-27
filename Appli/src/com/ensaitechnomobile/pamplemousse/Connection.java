@@ -15,19 +15,29 @@ import android.widget.Toast;
 public class Connection extends Activity {
 	protected static String id;
 	protected static String pass;
+	EditText user_password;
+	EditText identifiant;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_connection);
+		user_password = (EditText) findViewById(R.id.user_password);
+		identifiant = (EditText) findViewById(R.id.identifiant);
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		id = preferences.getString("login", "");
+		pass = preferences.getString("password", "");
+		if (!id.equals("") && !pass.equals("")) {
+			identifiant.setText(id);
+			user_password.setText(pass);
+		}
 	}
 
 	/**
 	 * Click sur le bouton connection
 	 */
 	public void connect(View v) {
-		EditText user_password = (EditText) findViewById(R.id.user_password);
-		EditText identifiant = (EditText) findViewById(R.id.identifiant);
 		id = identifiant.getText().toString();
 		pass = user_password.getText().toString();
 		SharedPreferences preferences = PreferenceManager
