@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -17,7 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
@@ -33,6 +33,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ensaitechnomobile.DAO.CoursDAO;
@@ -46,8 +47,10 @@ public class PamplemousseViewer extends Activity {
 	public String baseUrl;
 	private String id, pass;
 	private CoursDAO cdao = new CoursDAO();
-	private SimpleDateFormat dateFormat = new SimpleDateFormat(
-			"EEEE, dd MMMM yyyy 'à' HH:mm", Locale.FRENCH);
+	private SimpleDateFormat hFormat = new SimpleDateFormat("HH:mm",
+			Locale.FRENCH);
+	private SimpleDateFormat dFormat = new SimpleDateFormat(
+			"EEEE, dd MMMM yyyy", Locale.FRENCH);
 
 	public ArrayAdapter<Cours> adapter;
 	private ProgressDialog progressDialog;
@@ -166,10 +169,6 @@ public class PamplemousseViewer extends Activity {
 	 * 
 	 * @param v
 	 */
-	public void onClickShow(View v) {
-		show();
-	}
-
 	private void show() {
 		SQLiteOpenHelper helper = new MyOpenHelper(this);
 		SQLiteDatabase db = helper.getWritableDatabase();
@@ -180,11 +179,10 @@ public class PamplemousseViewer extends Activity {
 		// Création d'un SimpleAdapter qui se chargera de mettre les items
 		// présent dans notre list (listItem) dans la vue affichageitem
 		SimpleAdapter mSchedule = new SimpleAdapter(this, mapping(lsCours),
-				R.layout.affichage_matiere, new String[] { "debut", "fin",
-						"salle", "nom" }, new int[] { R.id.debut, R.id.fin,
-						R.id.salle, R.id.nom });
+				R.layout.affichage_matiere, new String[] { "day", "debut",
+						"fin", "salle", "nom" }, new int[] { R.id.day,
+						R.id.debut, R.id.fin, R.id.salle, R.id.nom });
 		listeView = (ListView) findViewById(R.id.planning);
-
 		listeView.setAdapter(mSchedule);
 		db.close();
 	}
@@ -221,14 +219,30 @@ public class PamplemousseViewer extends Activity {
 	public ArrayList<HashMap<String, String>> mapping(ArrayList<Cours> ls) {
 		ArrayList<HashMap<String, String>> res = new ArrayList<HashMap<String, String>>();
 		HashMap<String, String> map;
-		for (Cours cours : ls) {
+		String day1 = dFormat.format(new Date(ls.get(0).getDebut()));
+		String day2;
+		String currentDay = day1;
+		map = new HashMap<String, String>();
+		map.put("day", currentDay);
+		map.put("salle", ls.get(0).getSalle());
+		map.put("debut", hFormat.format(new Date(ls.get(0).getDebut())));
+		map.put("nom", ls.get(0).getNom());
+		map.put("fin", hFormat.format(new Date(ls.get(0).getFin())));
+		res.add(map);
+
+		for (int i = 1; i < ls.size(); i++) {
 			map = new HashMap<String, String>();
-			map.put("salle", cours.getSalle());
-			map.put("fin",
-					dateFormat.format((new java.util.Date(cours.getFin()))));
-			map.put("debut",
-					dateFormat.format((new java.util.Date(cours.getDebut()))));
-			map.put("nom", cours.getNom());
+			day2 = dFormat.format(new Date(ls.get(i).getDebut()));
+			if (!day1.equals(day2)) {
+				currentDay = day2;
+				map.put("day", currentDay);
+			} else
+				map.put("day", null);
+			day1 = day2;
+			map.put("salle", ls.get(i).getSalle());
+			map.put("debut", hFormat.format(new Date(ls.get(i).getDebut())));
+			map.put("nom", ls.get(i).getNom());
+			map.put("fin", hFormat.format(new Date(ls.get(i).getFin())));
 			res.add(map);
 		}
 		return res;

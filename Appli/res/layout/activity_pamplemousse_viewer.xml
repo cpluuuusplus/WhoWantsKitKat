@@ -7,20 +7,18 @@
         android:id="@+id/planning"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="2"
-        android:divider="@color/black_color"
-        android:dividerHeight="5dp" >
-    </ListView>
+        android:layout_weight="2" />
+    <!-- android:divider="@color/black_color" -->
+    <!-- android:dividerHeight="5dp"/> -->
 
     <Button
         android:id="@+id/maj"
-        android:drawableLeft="@drawable/ic_action_refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black_color"
-        android:textColor="@color/teal"
-        android:textSize="20dp"
+        android:drawableLeft="@drawable/ic_action_refresh"
         android:onClick="onClickMaj"
-        android:text="@string/maj" />
-
+        android:text="@string/maj"
+        android:textColor="@color/teal"
+        android:textSize="20dp" />
 </LinearLayout>
