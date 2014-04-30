@@ -56,7 +56,6 @@ public class PamplemousseViewer extends Activity {
 	public ArrayAdapter<Cours> adapter;
 	private ProgressDialog progressDialog;
 
-
 	// Création de la ArrayList qui nous permettra de remplire la listView
 	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 	ListView listeView;
@@ -176,7 +175,6 @@ public class PamplemousseViewer extends Activity {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		ArrayList<Cours> lsCours = cdao.getAll(db);
 
-
 		// *********************
 		// arrayAdapter
 		// Création d'un SimpleAdapter qui se chargera de mettre les items
@@ -228,7 +226,7 @@ public class PamplemousseViewer extends Activity {
 		map = new HashMap<String, String>();
 		map.put("salle", "\n" + ls.get(0).getSalle());
 		map.put("debut", dFormat.format(new Date(ls.get(0).getDebut()))
-				+ hFormat.format(new Date(ls.get(0).getDebut())));
+				+hFormat.format(new Date(ls.get(0).getDebut())));
 		map.put("nom", ls.get(0).getNom());
 		map.put("fin", hFormat.format(new Date(ls.get(0).getFin())));
 		res.add(map);

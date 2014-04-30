@@ -66,6 +66,7 @@ public class GeolocOSM extends Activity {
 
 		this.mScaleBarOverlay = new ScaleBarOverlay(this);
 		this.mapView.getOverlays().add(mScaleBarOverlay);
+		
 	}
 
 	// Implémentation du menu

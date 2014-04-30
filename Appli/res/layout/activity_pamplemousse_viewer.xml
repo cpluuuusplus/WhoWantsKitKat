@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     android:orientation="vertical" >
 
     <ListView
@@ -9,7 +10,7 @@
         android:layout_height="fill_parent"
         android:layout_weight="2"
         android:background="@color/black_color"
-        android:divider="@color/white"
+        android:divider="@color/gray"
         android:dividerHeight="5dp" />
 
     <Button

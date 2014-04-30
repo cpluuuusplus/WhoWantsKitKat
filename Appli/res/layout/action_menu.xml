@@ -3,13 +3,14 @@
 
     <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/ic_action_settings"
+        android:icon="@drawable/settings"
         android:showAsAction="always"
         android:title="Settings">
     </item>
 
     <item
         android:id="@+id/action_quit"
+        android:icon="@drawable/quit"
         android:showAsAction="always"
         android:title="Quit">
     </item>
