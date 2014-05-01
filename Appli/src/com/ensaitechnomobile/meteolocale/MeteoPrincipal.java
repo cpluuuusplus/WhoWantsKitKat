@@ -187,16 +187,14 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
-		switch (item.getItemId()) {
-		case R.id.action_settings:
-			Toast.makeText(this, "Stats", Toast.LENGTH_SHORT).show();
+		if (item.getItemId() == R.id.action_settings)
 			return true;
-		case R.id.action_quit:
+		if (item.getItemId() == R.id.action_quit) {
 			// Pour fermer l'application il suffit de faire finish()
 			finish();
 			return true;
-		}
-		return false;
+		} else
+			return false;
 	}
 
 	/**
