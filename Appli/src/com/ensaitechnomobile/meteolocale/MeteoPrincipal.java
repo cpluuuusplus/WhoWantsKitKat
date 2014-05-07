@@ -18,12 +18,13 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.ensaitechnomobile.metier.EtatMeteo;
 import com.ensaitechnomobile.metier.Localite;
@@ -91,11 +92,17 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	 * TODO faire une fonction intermédiaire pour pouvoir saisir la ville
 	 */
 	private void syncMeteo(final String urlString) {
+	    // Get all fields to be updated
+		
+
+
+		
+		final Handler handler = new Handler();
 		Runnable code = new Runnable() {
 			URL url = null;
-
 			public void run() {
 				try {
+					// On récupère le JSON a partir de l'URL
 					url = new URL(urlString);
 					HttpURLConnection urlConnection;
 					urlConnection = (HttpURLConnection) url.openConnection();
@@ -104,10 +111,22 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 					String input = readStream(in);
 					JSONObject json = new JSONObject(input);
 					Log.i(TAG, input);
-
+					// On transforme en météo
 					MeteoJSON mjson = new MeteoJSON();
-					EtatMeteo em = mjson.construireEtatMeteoActuel(json);
+					final EtatMeteo em = mjson.construireEtatMeteoActuel(json);
 					Log.i(TAG, em.toString());
+					
+					// On va chercher
+					TextView txt_loc, txt_temperature, txt_pluie, txt_vent, txt_nuages;
+					txt_loc = (TextView) findViewById(R.id.afficher_localite_meteo);
+					txt_temperature = (TextView) findViewById(R.id.info_temp);
+					txt_pluie = (TextView) findViewById(R.id.info_pluie);
+					txt_vent = (TextView) findViewById(R.id.info_vent);
+					txt_nuages = (TextView) findViewById(R.id.info_nuages);
+					
+						// TODO me débrouiller pour maj 
+					
+					txt_loc.setText(em.getTempMax()+"");
 
 				} catch (MalformedURLException e) {
 					Log.e(TAG, "URL malformée");

@@ -30,7 +30,7 @@ public class MeteoJSON {
 	 * @throws JSONException
 	 *             Si l'objet n'est pas bon
 	 * 
-	 * @return un objet EtatmMétéo
+	 * @return un objet EtatMétéo
 	 */
 	EtatMeteo construireEtatMeteoActuel(JSONObject json) throws JSONException {
 

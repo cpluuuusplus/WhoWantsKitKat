@@ -14,12 +14,20 @@
     <string name="pamp_viewer">Accès à Pamplemousse</string>
     <string name="menu_pampl">Accès à Pamplemousse</string>
     <string name="connection">Accès à Pamplemousse</string>
-      <string name="remote">Accès à Pamplemousse en ligne</string>
+    <string name="remote">Accès à Pamplemousse en ligne</string>
     <string name="pampl_desc">Emploi du temps, mails,...</string>
     <string name="geo">Accés au service de Géolocalisation</string>
     <string name="geo_desc">Géolocalisation</string>
     <string name="meteo">Accés au service Météo</string>
-    <string name="meteo_desc">Prévisions météo</string>
+    <string name="meteo_desc">Prévisions météo pour : </string>
+    <string name="meteo_tc">Températures</string>
+    <string name="meteo_wind">Vent</string>
+    <string name="meteo_rain">Pluie</string>
+    <string name="meteo_clouds">Nuages</string>
+
+    <!-- Cas non défini -->
+
+    <string name="to_be_defined">Doit etre défini</string>
 
     <!-- Test login -->
 

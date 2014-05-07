@@ -1,7 +1,5 @@
 package com.ensaitechnomobile.metier;
 
-import java.util.Date;
-
 import android.util.Log;
 
 /**
@@ -20,11 +18,9 @@ public class EtatMeteo {
 	double pressure = -1;
 	double clouds = -1;
 	double rain = -1;
-	Date jour;
-	Localite loc;
-	
 	// Une prévision à 0 jours c'est la météo
 	int prevision = 0;
+	Localite loc=new Localite("Bruz");
 
 	// constructeurs
 	/**
@@ -47,7 +43,7 @@ public class EtatMeteo {
 	 *            selon qu'on veuille construire une prevision ou pas
 	 */
 	public EtatMeteo(TypeMeteo tm, double wS, double p, double c, double tMin,
-			double tMax, double r, int prev, Localite l) {
+			double tMax, double r, int prev, Localite loc) {
 		typeMet = tm;
 		windSpeed = wS;
 		pressure = p;
@@ -56,7 +52,6 @@ public class EtatMeteo {
 		tempMax=tMax;
 		rain = r;
 		prevision = prev;
-		loc=l;
 	}
 
 	/**

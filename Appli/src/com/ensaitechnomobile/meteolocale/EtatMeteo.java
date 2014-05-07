@@ -2,6 +2,8 @@ package com.ensaitechnomobile.meteolocale;
 
 import android.util.Log;
 
+import com.ensaitechnomobile.metier.TypeMeteo;
+
 /**
  * Cette classe récupèrera le JSON de OpenWeatherMap et permettra d'afficher une
  * vue compacte ainsi qu' une vue détaillée de la météo
