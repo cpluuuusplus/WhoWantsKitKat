@@ -40,7 +40,7 @@ public class menu extends Activity {
 		// action
 		if (item.getItemId() == R.id.action_settings)
 			return true;
-		if (item.getItemId() == R.id.action_quit) {
+		if (item.getItemId() == R.id.action_ret) {
 			// Pour fermer l'application il suffit de faire finish()
 			finish();
 			return true;

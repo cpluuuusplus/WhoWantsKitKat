@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 
 import com.ensaitechnomobile.geoloc.GeolocOSM;
@@ -28,6 +30,9 @@ public class MenuPrincipal extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_menu_principal);
 
 		SharedPreferences preferences = PreferenceManager
@@ -83,7 +88,7 @@ public class MenuPrincipal extends Activity {
 		// action
 		if (item.getItemId() == R.id.action_settings)
 			return true;
-		if (item.getItemId() == R.id.action_quit) {
+		if (item.getItemId() == R.id.action_ret) {
 			// Pour fermer l'application il suffit de faire finish()
 			finish();
 			return true;

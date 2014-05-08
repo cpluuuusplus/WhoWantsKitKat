@@ -5,14 +5,14 @@
         android:id="@+id/action_settings"
         android:icon="@drawable/settings"
         android:showAsAction="always"
-        android:title="Settings">
+        android:title="@string/action_settings">
     </item>
 
     <item
-        android:id="@+id/action_quit"
+        android:id="@+id/action_ret"
         android:icon="@drawable/quit"
         android:showAsAction="always"
-        android:title="Quit">
+        android:title="@string/action_return">
     </item>
 
 </menu>

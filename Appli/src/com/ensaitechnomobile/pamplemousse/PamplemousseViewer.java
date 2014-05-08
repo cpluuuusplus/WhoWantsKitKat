@@ -89,8 +89,6 @@ public class PamplemousseViewer extends Activity {
 
 		progressDialog.setMessage("Chargement en cours");
 		progressDialog.setTitle("Importation des données");
-		progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		progressDialog.setMax(10);
 		progressDialog.show();
 		// lancement d'un noueau thread
 		Runnable code = new Runnable() {
@@ -124,7 +122,6 @@ public class PamplemousseViewer extends Activity {
 										getString(R.string.nb_cours,
 												table.length()),
 										Toast.LENGTH_LONG).show();
-								show();
 							}
 						});
 						db.close();
@@ -133,10 +130,16 @@ public class PamplemousseViewer extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
+					runOnUiThread(new Runnable() {
+						public void run() {
+							Toast.makeText(PamplemousseViewer.this,
+									getString(R.string.url_error),
+									Toast.LENGTH_LONG).show();
+						}
+					});
 					e.printStackTrace();
 				}
 				progressDialog.dismiss();
@@ -174,17 +177,23 @@ public class PamplemousseViewer extends Activity {
 		SQLiteOpenHelper helper = new MyOpenHelper(this);
 		SQLiteDatabase db = helper.getWritableDatabase();
 		ArrayList<Cours> lsCours = cdao.getAll(db);
+		if (lsCours.size() > 0) {
+			// *********************
+			// arrayAdapter
+			// Création d'un SimpleAdapter qui se chargera de mettre les items
+			// présent dans notre list (listItem) dans la vue affichageitem
+			SimpleAdapter mSchedule = new SimpleAdapter(this, mapping(lsCours),
+					R.layout.affichage_matiere, new String[] { "debut", "fin",
+							"salle", "nom" }, new int[] { R.id.debut, R.id.fin,
+							R.id.salle, R.id.nom });
+			listeView = (ListView) findViewById(R.id.planning);
+			listeView.setAdapter(mSchedule);
+		} else {
 
-		// *********************
-		// arrayAdapter
-		// Création d'un SimpleAdapter qui se chargera de mettre les items
-		// présent dans notre list (listItem) dans la vue affichageitem
-		SimpleAdapter mSchedule = new SimpleAdapter(this, mapping(lsCours),
-				R.layout.affichage_matiere, new String[] { "debut", "fin",
-						"salle", "nom" }, new int[] { R.id.debut, R.id.fin,
-						R.id.salle, R.id.nom });
-		listeView = (ListView) findViewById(R.id.planning);
-		listeView.setAdapter(mSchedule);
+			Toast.makeText(PamplemousseViewer.this,
+					getString(R.string.agenda_null), Toast.LENGTH_LONG).show();
+
+		}
 		db.close();
 	}
 
@@ -226,7 +235,7 @@ public class PamplemousseViewer extends Activity {
 		map = new HashMap<String, String>();
 		map.put("salle", "\n" + ls.get(0).getSalle());
 		map.put("debut", dFormat.format(new Date(ls.get(0).getDebut()))
-				+hFormat.format(new Date(ls.get(0).getDebut())));
+				+ hFormat.format(new Date(ls.get(0).getDebut())));
 		map.put("nom", ls.get(0).getNom());
 		map.put("fin", hFormat.format(new Date(ls.get(0).getFin())));
 		res.add(map);
@@ -293,7 +302,7 @@ public class PamplemousseViewer extends Activity {
 		// action
 		if (item.getItemId() == R.id.action_settings)
 			return true;
-		if (item.getItemId() == R.id.action_quit) {
+		if (item.getItemId() == R.id.action_ret) {
 			// Pour fermer l'application il suffit de faire finish()
 			finish();
 			return true;
