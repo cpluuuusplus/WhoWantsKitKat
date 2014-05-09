@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.ensai.appli.R;
-import com.ensaitechnomobile.geoloc.GeolocOSM;
 import com.ensaitechnomobile.geoloc.NewGeolocalisation;
 import com.ensaitechnomobile.meteolocale.MeteoPrincipal;
 import com.ensaitechnomobile.metier.Cours;

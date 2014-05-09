@@ -1,8 +1,5 @@
 package com.ensaitechnomobile.geoloc;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
@@ -10,17 +7,11 @@ import org.osmdroid.http.HttpClientFactory;
 import org.osmdroid.http.IHttpClientFactory;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
-import org.osmdroid.util.ResourceProxyImpl;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.ItemizedIconOverlay;
-import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.SimpleLocationOverlay;
 
-import com.ensai.appli.R;
-
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,6 +19,8 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+
+import com.ensai.appli.R;
 
 public class NewGeolocalisation extends ActionBarActivity implements
 		LocationListener {

@@ -12,6 +12,7 @@ import java.net.URL;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.ensai.appli.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,14 +22,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.ensai.appli.R;
+import com.ensaitechnomobile.metier.CityNotFoundException;
 import com.ensaitechnomobile.metier.EtatMeteo;
 import com.ensaitechnomobile.metier.Localite;
 
@@ -255,10 +254,19 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 				} catch (JSONException e) {
 					Log.e(TAG, "Exception JSON");
 					e.printStackTrace();
+				}catch (CityNotFoundException e){
+					afficherMessageErreurVille();
 				}
 			}
 		};
 		new Thread(code).start();
+	}
+
+	protected void afficherMessageErreurVille() {
+		// Afficher un toast d'erreur
+		Toast.makeText(this, "La ville est invalide, veuillez saisir une ville valide", Toast.LENGTH_LONG)
+		.show();
+		
 	}
 
 	/**
@@ -307,6 +315,7 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		return res;
 
 	}
+
 
 	/**
 	 * 
