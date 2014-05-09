@@ -1,7 +1,6 @@
 package com.ensaitechnomobile.pamplemousse;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;

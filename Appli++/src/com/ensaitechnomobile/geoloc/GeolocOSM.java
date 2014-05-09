@@ -3,8 +3,6 @@ package com.ensaitechnomobile.geoloc;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
-import org.osmdroid.api.IMapController;
-import org.osmdroid.api.Marker;
 import org.osmdroid.http.HttpClientFactory;
 import org.osmdroid.http.IHttpClientFactory;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -14,12 +12,11 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.SimpleLocationOverlay;
 
-import com.ensai.appli.R;
-
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+
+import com.ensai.appli.R;
 
 public class GeolocOSM extends ActionBarActivity {
 

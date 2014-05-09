@@ -17,7 +17,6 @@ import com.ensaitechnomobile.metier.TypeMeteo;
  */
 public class MeteoJSON {
 
-	private static final String TAG = "AMS::MeteoJSON";
 
 	/**
 	 * Constructeur sans rien
