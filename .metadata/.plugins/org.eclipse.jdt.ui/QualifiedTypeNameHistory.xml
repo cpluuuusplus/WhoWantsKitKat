@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="android.view.Window"/>
+<fullyQualifiedTypeName name="android.view.WindowManager"/>
+<fullyQualifiedTypeName name="android.widget.BaseAdapter"/>
+<fullyQualifiedTypeName name="android.app.ActionBar"/>
+<fullyQualifiedTypeName name="com.ensai.appli.R.menu"/>
+<fullyQualifiedTypeName name="org.osmdroid.api.IMapController"/>
+<fullyQualifiedTypeName name="org.osmdroid.api.Marker"/>
+<fullyQualifiedTypeName name="android.location.Location"/>
+<fullyQualifiedTypeName name="android.location.LocationManager"/>
+<fullyQualifiedTypeName name="android.location.LocationListener"/>
+<fullyQualifiedTypeName name="android.os.Bundle"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="android.location.LocationProvider"/>
+<fullyQualifiedTypeName name="com.ensaitechnomobile.geoloc.map"/>
+<fullyQualifiedTypeName name="org.osmdroid.views.MapController"/>
+<fullyQualifiedTypeName name="org.osmdroid.views.overlay.SimpleLocationOverlay"/>
+<fullyQualifiedTypeName name="org.osmdroid.views.overlay.ScaleBarOverlay"/>
+<fullyQualifiedTypeName name="org.osmdroid.http.HttpClientFactory"/>
+<fullyQualifiedTypeName name="android.support.v7.app.ActionBar"/>
+<fullyQualifiedTypeName name="com.ensai.appli.R"/>
+<fullyQualifiedTypeName name="org.osmdroid.http.IHttpClientFactory"/>
+<fullyQualifiedTypeName name="org.apache.http.client.HttpClient"/>
+<fullyQualifiedTypeName name="org.apache.http.impl.client.DefaultHttpClient"/>
+<fullyQualifiedTypeName name="org.apache.http.params.CoreProtocolPNames"/>
+<fullyQualifiedTypeName name="org.osmdroid.tileprovider.tilesource.TileSourceFactory"/>
+<fullyQualifiedTypeName name="org.osmdroid.util.GeoPoint"/>
+<fullyQualifiedTypeName name="android.support.v7.app.ActionBarActivity"/>
+<fullyQualifiedTypeName name="java.util.prefs.Preferences"/>
+<fullyQualifiedTypeName name="org.osmdroid.views.overlay.ItemizedIconOverlay"/>
+<fullyQualifiedTypeName name="org.osmdroid.views.overlay.MyLocationOverlay"/>
+<fullyQualifiedTypeName name="org.osmdroid.util.ResourceProxyImpl"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="com.ensai.appli.R.drawable"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.osmdroid.views.overlay.ItemizedOverlay"/>
+<fullyQualifiedTypeName name="org.osmdroid.views.MapView"/>
+<fullyQualifiedTypeName name="android.graphics.drawable.Drawable"/>
+<fullyQualifiedTypeName name="org.osmdroid.views.overlay.OverlayItem"/>
+</qualifiedTypeNameHistroy>

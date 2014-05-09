@@ -1,0 +1,99 @@
+package com.ensaitechnomobile.menuprincipal;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+
+import com.ensai.appli.R;
+import com.ensaitechnomobile.geoloc.GeolocOSM;
+import com.ensaitechnomobile.meteolocale.MeteoPrincipal;
+import com.ensaitechnomobile.metier.Cours;
+import com.ensaitechnomobile.pamplemousse.MenuPamplemousse;
+
+public class MenuPrincipal extends Activity {
+
+	public static final String TAG = "Menu principal";
+	public ArrayAdapter<Cours> adapter;
+	Intent intent = null;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		// Pour cacher la barre de titre
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		// this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		// this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+		// WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.activity_menu_principal);
+
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		Editor editor = preferences.edit();
+		editor.putString("login", null);
+		editor.putString("password", null);
+	}
+
+	public void pamplemousse(View v) {
+		intent = new Intent(this.getBaseContext(), MenuPamplemousse.class);
+		if (intent != null) {
+			startActivity(intent);
+		}
+	}
+
+	public void geolocalisation(View v) {
+		intent = new Intent(this.getBaseContext(), GeolocOSM.class);
+		if (intent != null) {
+			startActivity(intent);
+		}
+	}
+
+	public void meteo(View v) {
+		intent = new Intent(this.getBaseContext(), MeteoPrincipal.class);
+		if (intent != null) {
+			startActivity(intent);
+		}
+	}
+
+	// Implémentation du menu
+
+	// Méthode qui se déclenchera lorsque vous appuierez sur le bouton menu du
+	// téléphone
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		// Création d'un MenuInflater qui va permettre d'instancier un Menu XML
+		// en un objet Menu
+		MenuInflater inflater = getMenuInflater();
+		// Instanciation du menu XML spécifier en un objet Menu
+		inflater.inflate(R.layout.action_menu, menu);
+
+		// Il n'est pas possible de modifier l'icône d'entête du sous-menu via
+		// le fichier XML on le fait donc en JAVA
+		// menu.getItem(0).getSubMenu().setHeaderIcon(R.drawable.option_white);
+
+		return true;
+	}
+
+	// Méthode qui se déclenchera au clic sur un item
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// On regarde quel item a été cliqué grâce à son id et on déclenche une
+		// action
+		if (item.getItemId() == R.id.action_settings)
+			return true;
+		if (item.getItemId() == R.id.action_ret) {
+			// Pour fermer l'application il suffit de faire finish()
+			finish();
+			return true;
+		} else
+			return false;
+	}
+}
