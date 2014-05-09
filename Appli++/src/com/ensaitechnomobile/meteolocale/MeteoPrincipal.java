@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ensai.appli.R;
 import com.ensaitechnomobile.metier.CityNotFoundException;
 import com.ensaitechnomobile.metier.EtatMeteo;
 import com.ensaitechnomobile.metier.Localite;
@@ -37,6 +38,9 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 
 	protected static final String TAG = "AMS::Meteo";
 	protected static final String APIID = "ef5e65bcdadbcc86a991779742664324";
+	private LocationManager lm;
+	private double latitude;
+	private double longitude;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +100,6 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	 * 
 	 */
 	void actualiserMeteoPreferences(Context cxt) {
-
 		SharedPreferences prefs = cxt.getSharedPreferences("MeteoLocal",
 				Context.MODE_PRIVATE);
 		// On va chercher les textbox
@@ -129,7 +132,6 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		}
 		txt_vent.setText(prefs.getInt("wind", -100) * 3.6 + " km/h");
 		txt_nuages.setText(prefs.getInt("clouds", -100) + "%");
-
 	}
 
 	/**
@@ -150,27 +152,41 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		return contenu;
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		lm = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+		if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER))
+			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0,
+					this);
+		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0,
+				this);
+	}
+
+	public void onLocationChanged(Location location) {
+		latitude = location.getLatitude();
+		longitude = location.getLongitude();
+	}
+
 	/**
 	 * Associé à un bouton Cette méthode récupère la localité
 	 * 
 	 */
 	public void recupererLocalisationAppareil(View v) {
-		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
-
-		Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		double locLat = 0;
-		double locLong = 0;
-		if (loc != null) {
-			locLat = loc.getLatitude();
-			locLong = loc.getLongitude();
-		}
-
-		Localite local = new Localite(locLat, locLong);
-		Log.i(TAG, "Localisation lue avec succès : " + local.toString());
-
-		recupererMeteoActuelleParLocalite(local);
-
+		// LocationManager lm = (LocationManager)
+		// getSystemService(Context.LOCATION_SERVICE);
+		// lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10,
+		// this);
+		// Location location =
+		// lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		// double locLat;
+		// double locLong;
+		// if (location != null) {
+		// locLat = location.getLatitude();
+		// locLong = location.getLongitude();
+		Localite localite = new Localite(longitude, latitude);
+		Log.i(TAG, "Localisation lue avec succès : " + localite.toString());
+		recupererMeteoActuelleParLocalite(localite);
 	}
 
 	/**
@@ -183,7 +199,6 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		EditText et = (EditText) findViewById(R.id.meteo_saisie_localite);
 		String villeSaisie = et.getText().toString();
 		recupererMeteoActuelleParLocalite(new Localite(villeSaisie));
-
 	}
 
 	/**
@@ -254,16 +269,15 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 									Toast.LENGTH_LONG).show();
 						}
 					});
+
 				}
 			}
 		};
 		new Thread(code).start();
 	}
 
-	protected void afficherMessageErreurVille() {
-		// Afficher un toast d'erreur
 
-	}
+
 
 	/**
 	 * 
@@ -309,7 +323,6 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		res += "&APPID=" + apid;
 		Log.v("AMS::Meteo", "URL de récupération des données météo : " + res);
 		return res;
-
 	}
 
 	/**
@@ -319,9 +332,6 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	 * d'ordre : on s'en fiche
 	 * 
 	 */
-	public void onLocationChanged(Location location) {
-	}
-
 	@Override
 	public void onProviderDisabled(String provider) {
 		Log.d("Latitude", "disable");
