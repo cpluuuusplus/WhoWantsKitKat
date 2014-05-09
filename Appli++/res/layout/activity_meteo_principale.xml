@@ -176,7 +176,7 @@
             <EditText
                 android:id="@+id/meteo_saisie_localite"
                 android:layout_width="wrap_content"
-                android:inputType="textAutoCorrect"
+                android:inputType="textCapWords"
                 android:layout_height="wrap_content"
                  android:hint="@string/saisir_localite"
                 android:layout_gravity="center"
@@ -186,7 +186,7 @@
                 android:id="@+id/meteo_valider_localite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="recupererMeteoActuelleParLocalite"
+                android:onClick="validerChoixLocalisationSaisi"
                 android:text="@string/valider_localite" />
         </LinearLayout>
 

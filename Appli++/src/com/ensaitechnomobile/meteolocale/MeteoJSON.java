@@ -53,7 +53,6 @@ public class MeteoJSON {
 				// La ville n'a pas été trouvée
 				throw new CityNotFoundException("La ville n'a pas été trouvée");
 			}
-
 		} catch (JSONException e) {
 
 		}

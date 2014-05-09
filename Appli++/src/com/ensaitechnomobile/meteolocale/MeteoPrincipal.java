@@ -89,7 +89,6 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		editor.putInt("clouds", (int) em.getClouds());
 		// On committe les préférences
 		editor.commit();
-
 	}
 
 	/**
@@ -112,7 +111,7 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		// On les renseigne
 		txt_loc.setText(" " + prefs.getString("localite", "Prefs Pas de loc"));
 		txt_temperature.setText("Entre " + prefs.getInt("tempMin", -100)
-				+ " et " + prefs.getInt("tempMax", -100) + " C");
+				+ "° et " + prefs.getInt("tempMax", -100) + "°C");
 		if (prefs.getInt("rain3", 0) != 0) {
 			// Il y a de la pluie à 3h
 			txt_pluie.setText(prefs.getInt("rain3", -100) / 1000
@@ -259,6 +258,14 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 					e.printStackTrace();
 				} catch (JSONException e) {
 					Log.e(TAG, "Exception JSON");
+					runOnUiThread(new Runnable() {
+						public void run() {
+							Toast.makeText(
+									ctx,
+									"La ville est invalide, veuillez saisir une ville valide",
+									Toast.LENGTH_LONG).show();
+						}
+					});
 					e.printStackTrace();
 				} catch (CityNotFoundException e) {
 					runOnUiThread(new Runnable() {
@@ -269,7 +276,6 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 									Toast.LENGTH_LONG).show();
 						}
 					});
-
 				}
 			}
 		};
