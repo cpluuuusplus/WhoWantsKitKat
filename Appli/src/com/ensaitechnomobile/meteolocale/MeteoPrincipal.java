@@ -20,8 +20,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -320,13 +318,13 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
-		if (item.getItemId() == R.id.action_settings)
-			return true;
-		if (item.getItemId() == R.id.action_ret) {
-			// Pour fermer l'application il suffit de faire finish()
-			finish();
-			return true;
-		} else
+//		if (item.getItemId() == R.id.action_settings)
+//			return true;
+//		if (item.getItemId() == R.id.action_ret) {
+//			// Pour fermer l'application il suffit de faire finish()
+//			finish();
+//			return true;
+//		} else
 			return false;
 	}
 

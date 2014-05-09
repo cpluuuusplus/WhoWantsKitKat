@@ -16,9 +16,10 @@ public class EtatMeteo {
 	double tempMin = -1;
 	double tempMax = -1;
 	double clouds = -1;
-	double rain = -1;
+	double rain1 = -1;
+	double rain3;
 	// Une prévision à 0 jours c'est la météo
-	Localite loc = new Localite("Bruz");
+	Localite loc = new Localite("..");
 
 	// constructeurs
 	/**
@@ -41,13 +42,14 @@ public class EtatMeteo {
 	 *            selon qu'on veuille construire une prevision ou pas
 	 */
 	public EtatMeteo(TypeMeteo tm, double wS, double c, double tMin,
-			double tMax, double r, Localite loc) {
+			double tMax, double r1, double r3, Localite loc) {
 		typeMet = tm;
 		windSpeed = wS;
 		clouds = c;
 		tempMin = tMin;
 		tempMax = tMax;
-		rain = r;
+		rain1 = r1;
+		rain3 = r3;
 		this.loc = loc;
 	}
 
@@ -106,19 +108,27 @@ public class EtatMeteo {
 		this.clouds = clouds;
 	}
 
-	public double getRain() {
-		return rain;
+	public double getRain1() {
+		return rain1;
 	}
 
-	public void setRain(double rain) {
-		this.rain = rain;
+	public void setRain1(double rain) {
+		this.rain1 = rain;
+	}
+	
+	public double getRain3() {
+		return rain3;
+	}
+
+	public void setRain3(double rain) {
+		this.rain3 = rain;
 	}
 
 	// methodes
 	@Override
 	public String toString() {
-		String res = typeMet + "\n" + tempMin + "\n" + tempMax + "\n" + "\n"
-				+ clouds + "\n" + rain + "\n" + windSpeed +"\n"
+		String res = typeMet + "\n Tmin" + tempMin + "\n Tmax" + tempMax + "\n Nuages" 
+				+ clouds + "\n Pluie 1H" + rain1 + "\n Pluie 3H"+ rain3+ "\n" + windSpeed +"\n"
 				+ loc.toString();
 		return res;
 
