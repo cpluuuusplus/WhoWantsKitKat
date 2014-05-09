@@ -8,12 +8,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.ensai.appli.R;
-
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,37 +20,54 @@ import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.ensai.appli.R;
 import com.ensaitechnomobile.metier.CityNotFoundException;
 import com.ensaitechnomobile.metier.EtatMeteo;
 import com.ensaitechnomobile.metier.Localite;
 
-public class MeteoPrincipal extends Activity implements LocationListener {
+public class MeteoPrincipal extends ActionBarActivity implements
+		LocationListener {
 
 	protected static final String TAG = "AMS::Meteo";
 	protected static final String APIID = "ef5e65bcdadbcc86a991779742664324";
 	private LocationManager lm;
-	private double latitude;
-	private double longitude;
+	private double latitude=48.033333;
+	private double longitude=-1.750000;
+	private SearchView searchView;
+	private MenuItem searchItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_meteo_principale);
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		// TODO localisation
 
-		String urlMeteo = urlPreparerMeteo(APIID, new Localite("Eindhoven"), 0,
-				0, false);
-		syncMeteo(urlMeteo, this.getBaseContext());
+		
+		Localite localite = new Localite(longitude, latitude);
+		Log.i(TAG, "Localisation lue avec succès : " + localite.toString());
+		recupererMeteoActuelleParLocalite(localite);
+		
+		// String urlMeteo = urlPreparerMeteo(APIID, new Localite("Eindhoven"),
+		// 0,
+		// 0, false);
+		// syncMeteo(urlMeteo, this.getBaseContext());
 
 	}
 
@@ -112,9 +128,9 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		// On les renseigne
 
 		if (prefs.getString("localite", "Prefs Pas de loc").equals("Bruz")
-				&& prefs.getString("typeMeteo", "?").contains("il pleut") ) {
-			// Si on est a bruz et qu'il pleut ou qu'il pleut un peu, 
-			// je rajoute "pour changer" 
+				&& prefs.getString("typeMeteo", "?").contains("il pleut")) {
+			// Si on est a bruz et qu'il pleut ou qu'il pleut un peu,
+			// je rajoute "pour changer"
 			txt_loc.setText(" "
 					+ prefs.getString("localite", "Prefs Pas de loc") + " "
 					+ prefs.getString("typeMeteo", "?") + " (pour changer)");
@@ -176,7 +192,6 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		if (lm.getAllProviders().contains(LocationManager.GPS_PROVIDER))
 			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100000, 0,
 					this);
-
 	}
 
 	public void onLocationChanged(Location location) {
@@ -366,5 +381,31 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		Log.d("Latitude", "status");
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.layout.action_localisation, menu);
+		searchItem = menu.findItem(R.id.action_search);
+		searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+		searchView.setOnQueryTextListener(queryTextListener);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+		@Override
+		public boolean onQueryTextChange(String newText) {
+			// Do something
+			return true;
+		}
+
+		@SuppressLint("NewApi")
+		@Override
+		public boolean onQueryTextSubmit(String query) {
+			String city = searchView.getQuery() + "";
+			recupererMeteoActuelleParLocalite(new Localite(city));
+			searchItem.collapseActionView();
+			return false;
+		}
+	};
 
 }

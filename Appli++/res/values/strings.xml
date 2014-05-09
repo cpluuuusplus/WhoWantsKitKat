@@ -6,6 +6,9 @@
     <string name="nb_cours">%1$d cours viennent d\'être mis à jours</string>
     <string name="direct">Accès direct à pamplemousse viewer</string>
     <string name="refresh">Refresh</string>
+     <string name="action_search">search</string>
+     <string name="find_city">Rechercher une ville</string>
+     
 
     <!-- Nom des menus ! -->
 
