@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Qui veut manger un KitKat ?</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+        <string name="action_return">Settings</string>
+    <string name="nb_cours">%1$d cours viennent d\'être mis à jours</string>
+    <string name="maj">Mettre à jour les données</string>
+    <string name="show">Refresh</string>
+
+    <!-- Nom des menus ! -->
+
+    <string name="home">Qui veut un KitKat ?</string>
+    <string name="pamp_viewer">Accès à Pamplemousse</string>
+    <string name="agenda_null">Veuillez renseigner vos identifiants pour votre première connection</string>
+    <string name="url_error">Impossible de se connecter au serveur, veuillez vérifier vos identifiants et votre connection à internet</string>
+    <string name="menu_pampl">Accès à Pamplemousse</string>
+    <string name="connection">Accès à Pamplemousse</string>
+    <string name="remote">Accès à Pamplemousse en ligne</string>
+    <string name="pampl_desc">Emploi du temps, mails,...</string>
+    <string name="geo">Accés au service de Géolocalisation</string>
+    <string name="geo_desc">Géolocalisation</string>
+    <string name="meteo">Accés au service Météo</string>
+    <string name="meteo_desc">Prévisions météo pour : </string>
+    <string name="meteo_tc">Températures</string>
+    <string name="meteo_wind">Vent</string>
+    <string name="meteo_rain">Pluie</string>
+    <string name="meteo_clouds">Nuages</string>
+
+    <!-- Cas non défini -->
+
+    <string name="to_be_defined">Doit etre défini</string>
+
+    <!-- Test login -->
+
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="image_content_description">Un Android avec un chien</string>
+    <string name="login">S\'identifier</string>
+    <string name="email">Id utilisateur</string>
+    <string name="password">Mot de passe</string>
+    <string name="connect">Se connecter</string>
+    <string name="get_localite">Récupérer ma localisation actuelle</string>
+    <string name="saisir_localite">Saisir une ville ici</string>
+    <string name="desc_saisie_localite">Vous pouvez saisir une localité</string>
+    <string name="temp">Ce champ doit etre rempli</string>
+    <string name="geoloc_osm">Géolocationsation par OSM/OCM</string>
+
+</resources>
