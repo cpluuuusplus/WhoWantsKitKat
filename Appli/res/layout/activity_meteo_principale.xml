@@ -183,16 +183,16 @@
                 android:id="@+id/meteo_valider_localite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="recupererLocalisationAppareil"
+                android:onClick="validerChoixLocalisationSaisi"
                 android:text="@string/valider_localite" />
-
         </LinearLayout>
-                    <Button
-                android:id="@+id/meteo_recuperer_localite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="recupererLocalisationAppareil"
-                android:text="@string/get_localite" />
+
+        <Button
+            android:id="@+id/meteo_recuperer_localite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="recupererLocalisationAppareil"
+            android:text="@string/get_localite" />
     </LinearLayout>
 
 </LinearLayout>
