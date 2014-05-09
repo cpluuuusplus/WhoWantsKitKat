@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.ensaitechnomobile.metier.EtatMeteo;
 import com.ensaitechnomobile.metier.Localite;
 import com.ensaitechnomobile.metier.TypeMeteo;
@@ -15,6 +17,8 @@ import com.ensaitechnomobile.metier.TypeMeteo;
  * 
  */
 public class MeteoJSON {
+
+	private static final String TAG = "AMS::MeteoJSON";
 
 	/**
 	 * Constructeur sans rien
@@ -39,7 +43,7 @@ public class MeteoJSON {
 		JSONObject objWeather, objMain, objWind, objClouds, objRain;
 		int idMeteo, switchMeteo;
 		TypeMeteo tm;
-		double tempMin, tempMax, windSpeed, clouds, rain, longLocalite, latLocalite;
+		double tempMin, tempMax, windSpeed, clouds, rain1, rain3, longLocalite, latLocalite;
 		String nomLocalite;
 		
 		// Récupérations JSON
@@ -53,8 +57,21 @@ public class MeteoJSON {
 		windSpeed = objWind.getDouble("speed");
 		objClouds = json.getJSONObject("clouds");
 		clouds = objClouds.getDouble("all");
-		objRain = json.getJSONObject("rain");
-		rain = objRain.getDouble("3h");
+		try{
+			// Si il n'y a pas de pluie, il n'y a pas d'objet "rain"
+			// Il faudrait en théorie faire selon les valeurs de l'objet objWeather
+			objRain = json.getJSONObject("rain");
+			rain3 = objRain.getDouble("3h");
+
+		}catch (JSONException e) {
+			rain3=0.0;
+		}
+		try{
+			objRain = json.getJSONObject("rain");
+			rain1 = objRain.getDouble("1h");
+		}catch (JSONException e) {
+			rain1=0.0;
+		}
 		
 		longLocalite= json.getJSONObject("coord").getDouble("lon");
 		latLocalite = json.getJSONObject("coord").getDouble("lat");
@@ -91,7 +108,7 @@ public class MeteoJSON {
 		}
 
 		return new EtatMeteo(tm, windSpeed, clouds, tempMin, tempMax,
-				rain, new Localite(nomLocalite, longLocalite, latLocalite));
+				rain1, rain3, new Localite(nomLocalite, longLocalite, latLocalite));
 
 	}
 

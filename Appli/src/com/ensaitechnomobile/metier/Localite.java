@@ -1,5 +1,7 @@
 package com.ensaitechnomobile.metier;
 
+import android.util.Log;
+
 /**
  * 
  * Cette classe regroupera les informations sur une localité
@@ -23,11 +25,13 @@ public class Localite {
 	 */
 	public Localite(String villeLocalite) {
 		ville = villeLocalite;
+		Log.i("Meteo::Localite", "La localité " + ville
+				+ " vient  d'être construite, sans coordonnées");
 
 	}
 
 	/**
-	 * Constructeur à partir de lat/long TODO va chercher la ville par JSON
+	 * Constructeur à partir de lat/long
 	 * 
 	 * @param latit
 	 *            la latitude
@@ -37,6 +41,9 @@ public class Localite {
 	public Localite(double longit, double latit) {
 		latitude = latit;
 		longitude = longit;
+		Log.i("Meteo::Localite", "La localité située en " + longitude + ", "
+				+ latitude + " vient d'être construite sans ville associée");
+
 		// TODO use :
 		// http://open.mapquestapi.com/nominatim/v1/search?q=48.04,-1.79&format=json
 		// to get ville or something like it
@@ -61,6 +68,9 @@ public class Localite {
 		this.setVille(villeLocalite);
 		this.setLatitude(latit);
 		this.setLongitude(longit);
+		Log.i("Meteo::Localite", "La localité "+villeLocalite+" située en " + longitude + ", "
+				+ latitude + " vient d'être construite.");
+
 	}
 
 	// getters
