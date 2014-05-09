@@ -27,8 +27,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ensai.appli.R;
+import com.ensaitechnomobile.metier.CityNotFoundException;
 import com.ensaitechnomobile.metier.EtatMeteo;
 import com.ensaitechnomobile.metier.Localite;
 
@@ -242,10 +244,19 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 				} catch (JSONException e) {
 					Log.e(TAG, "Exception JSON");
 					e.printStackTrace();
+				}catch (CityNotFoundException e){
+					afficherMessageErreurVille();
 				}
 			}
 		};
 		new Thread(code).start();
+	}
+
+	protected void afficherMessageErreurVille() {
+		// Afficher un toast d'erreur
+		Toast.makeText(this, "La ville est invalide, veuillez saisir une ville valide", Toast.LENGTH_LONG)
+		.show();
+		
 	}
 
 	/**
@@ -295,38 +306,7 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 
 	}
 
-	// Implémentation du menu
 
-	// Méthode qui se déclenchera lorsque vous appuierez sur le bouton menu du
-	// téléphone
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Création d'un MenuInflater qui va permettre d'instancier un Menu XML
-		// en un objet Menu
-		MenuInflater inflater = getMenuInflater();
-		// Instanciation du menu XML spécifier en un objet Menu
-		inflater.inflate(R.layout.action_menu, menu);
-
-		// Il n'est pas possible de modifier l'icône d'entête du sous-menu via
-		// le fichier XML on le fait donc en JAVA
-		// menu.getItem(0).getSubMenu().setHeaderIcon(R.drawable.option_white);
-
-		return true;
-	}
-
-	// Méthode qui se déclenchera au clic sur un item
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// On regarde quel item a été cliqué grâce à son id et on déclenche une
-		// action
-//		if (item.getItemId() == R.id.action_settings)
-//			return true;
-//		if (item.getItemId() == R.id.action_ret) {
-//			// Pour fermer l'application il suffit de faire finish()
-//			finish();
-//			return true;
-//		} else
-			return false;
-	}
 
 	/**
 	 * 
