@@ -12,7 +12,6 @@ import java.net.URL;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.ensai.appli.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,6 +26,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ensai.appli.R;
 import com.ensaitechnomobile.metier.CityNotFoundException;
 import com.ensaitechnomobile.metier.EtatMeteo;
 import com.ensaitechnomobile.metier.Localite;
@@ -38,7 +38,6 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	private LocationManager lm;
 	private double latitude;
 	private double longitude;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +148,7 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		}
 		return contenu;
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -159,6 +158,11 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 					this);
 		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0,
 				this);
+	}
+
+	public void onLocationChanged(Location location) {
+		latitude = location.getLatitude();
+		longitude = location.getLongitude();
 	}
 
 	/**
@@ -177,10 +181,9 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		// if (location != null) {
 		// locLat = location.getLatitude();
 		// locLong = location.getLongitude();
-			Localite localite = new Localite(longitude,latitude);
-			Log.i(TAG, "Localisation lue avec succès : " + localite.toString());
-			recupererMeteoActuelleParLocalite(localite);
-		
+		Localite localite = new Localite(longitude, latitude);
+		Log.i(TAG, "Localisation lue avec succès : " + localite.toString());
+		recupererMeteoActuelleParLocalite(localite);
 	}
 
 	/**
@@ -254,7 +257,7 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 				} catch (JSONException e) {
 					Log.e(TAG, "Exception JSON");
 					e.printStackTrace();
-				}catch (CityNotFoundException e){
+				} catch (CityNotFoundException e) {
 					afficherMessageErreurVille();
 				}
 			}
@@ -264,9 +267,9 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 
 	protected void afficherMessageErreurVille() {
 		// Afficher un toast d'erreur
-		Toast.makeText(this, "La ville est invalide, veuillez saisir une ville valide", Toast.LENGTH_LONG)
-		.show();
-		
+		Toast.makeText(this,
+				"La ville est invalide, veuillez saisir une ville valide",
+				Toast.LENGTH_LONG).show();
 	}
 
 	/**
@@ -313,9 +316,7 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		res += "&APPID=" + apid;
 		Log.v("AMS::Meteo", "URL de récupération des données météo : " + res);
 		return res;
-
 	}
-
 
 	/**
 	 * 
@@ -324,11 +325,6 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	 * d'ordre : on s'en fiche
 	 * 
 	 */
-	public void onLocationChanged(Location location) {
-		latitude = location.getLatitude();
-		longitude = location.getLongitude();
-	}
-
 	@Override
 	public void onProviderDisabled(String provider) {
 		Log.d("Latitude", "disable");
