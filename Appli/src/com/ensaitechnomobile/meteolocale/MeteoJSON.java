@@ -39,7 +39,7 @@ public class MeteoJSON {
 		JSONObject objWeather, objMain, objWind, objClouds, objRain;
 		int idMeteo, switchMeteo;
 		TypeMeteo tm;
-		double tempMin, tempMax, pressure, windSpeed, clouds, rain, longLocalite, latLocalite;
+		double tempMin, tempMax, windSpeed, clouds, rain, longLocalite, latLocalite;
 		String nomLocalite;
 		
 		// Récupérations JSON
@@ -49,7 +49,6 @@ public class MeteoJSON {
 		objMain = json.getJSONObject("main");
 		tempMin = objMain.getDouble("temp_min");
 		tempMax = objMain.getDouble("temp_max");
-		pressure = objMain.getInt("pressure");
 		objWind = json.getJSONObject("wind");
 		windSpeed = objWind.getDouble("speed");
 		objClouds = json.getJSONObject("clouds");
@@ -91,8 +90,8 @@ public class MeteoJSON {
 			break;
 		}
 
-		return new EtatMeteo(tm, windSpeed, pressure, clouds, tempMin, tempMax,
-				rain, 0, new Localite(nomLocalite, longLocalite, latLocalite));
+		return new EtatMeteo(tm, windSpeed, clouds, tempMin, tempMax,
+				rain, new Localite(nomLocalite, longLocalite, latLocalite));
 
 	}
 

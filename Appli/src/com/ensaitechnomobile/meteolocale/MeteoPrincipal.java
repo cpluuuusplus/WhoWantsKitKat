@@ -14,6 +14,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -42,8 +44,8 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 
 		// TODO localisation
 
-		String urlMeteo = urlPreparerMeteo(APIID, "Bruz", 0, 0, false);
-		syncMeteo(urlMeteo);
+		String urlMeteo = urlPreparerMeteo(APIID, new Localite("Bruz"), 0, 0, false);
+		syncMeteo(urlMeteo, this.getBaseContext());
 
 	}
 
@@ -53,7 +55,7 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	 * 
 	 * @param apid
 	 *            : l'APPID de OpenWeatherMap
-	 * @param ville
+	 * @param loc
 	 *            : la ville pour laquelle on veut la météo
 	 * @param coordX
 	 *            : la latitude pour laquelle on veut la météo
@@ -66,7 +68,7 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	 * @return
 	 */
 
-	String urlPreparerMeteo(String apid, String ville, int coordX, int coordY,
+	String urlPreparerMeteo(String apid, Localite loc, int coordX, int coordY,
 			boolean previsions) {
 		String res = "http://api.openweathermap.org/data/2.5/";
 		if (previsions) {
@@ -74,7 +76,18 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		} else {
 			res += "weather";
 		}
-		res += "?q=" + ville;
+
+		if (loc.hasVille()) {
+			res += "?q=" + loc.getVille();
+		} else {
+			if (loc.hasLongLat()) {
+				res += "?lon=" + loc.getLongitude() + "&lat="
+						+ loc.getLatitude();
+			} else {
+				Log.w(TAG, "Ca va planter car localité incorrecte");
+			}
+		}
+
 		res += "&units=metric";
 		res += "&mode=json";
 		res += "&APPID=" + apid;
@@ -91,15 +104,13 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	 * http://api.openweathermap.org/data/2.5/weather?q=Bruz,fr&units=metric
 	 * TODO faire une fonction intermédiaire pour pouvoir saisir la ville
 	 */
-	private void syncMeteo(final String urlString) {
-	    // Get all fields to be updated
-		
+	private void syncMeteo(final String urlString, final Context ctx) {
+		// Get all fields to be updated
 
-
-		
 		final Handler handler = new Handler();
 		Runnable code = new Runnable() {
 			URL url = null;
+
 			public void run() {
 				try {
 					// On récupère le JSON a partir de l'URL
@@ -113,20 +124,18 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 					Log.i(TAG, input);
 					// On transforme en météo
 					MeteoJSON mjson = new MeteoJSON();
-					final EtatMeteo em = mjson.construireEtatMeteoActuel(json);
+					EtatMeteo em = mjson.construireEtatMeteoActuel(json);
 					Log.i(TAG, em.toString());
-					
-					// On va chercher
-					TextView txt_loc, txt_temperature, txt_pluie, txt_vent, txt_nuages;
-					txt_loc = (TextView) findViewById(R.id.afficher_localite_meteo);
-					txt_temperature = (TextView) findViewById(R.id.info_temp);
-					txt_pluie = (TextView) findViewById(R.id.info_pluie);
-					txt_vent = (TextView) findViewById(R.id.info_vent);
-					txt_nuages = (TextView) findViewById(R.id.info_nuages);
-					
-						// TODO me débrouiller pour maj 
-					
-					txt_loc.setText(em.getTempMax()+"");
+
+					ajouterDansPreferences(em, ctx);
+
+					runOnUiThread(new Runnable() {
+						public void run() {
+							actualiserMeteoPreferences(ctx);
+						}
+					});
+
+					// TODO me débrouiller pour maj
 
 				} catch (MalformedURLException e) {
 					Log.e(TAG, "URL malformée");
@@ -144,7 +153,62 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	}
 
 	/**
-	 * Lire un flux de données
+	 * Permet d'ajouter un élément méteo dans les préfeérences
+	 * 
+	 * @param cxt
+	 *            un contexte (Activity.getBaseContext)
+	 * @param em
+	 *            un état météo
+	 * 
+	 */
+	void ajouterDansPreferences(EtatMeteo em, Context cxt) {
+		// On va chercher un objet préférences à éditer
+		SharedPreferences preferences = cxt.getSharedPreferences("MeteoLocal",
+				Context.MODE_PRIVATE);
+		Editor editor = preferences.edit();
+		// On ajoute les valeurs
+		Log.i(TAG, "Dans ADP : " + em.getLoc().toString());
+		editor.putString("localite", em.getLoc().getVille());
+		editor.putInt("tempMax", (int) em.getTempMax());
+		editor.putInt("tempMin", (int) em.getTempMin());
+		editor.putInt("rain", (int) em.getRain());
+		editor.putInt("wind", (int) em.getWindSpeed());
+		editor.putInt("clouds", (int) em.getClouds());
+		// On committe les préférences
+		editor.commit();
+
+	}
+
+	/**
+	 * Lancez moi sur un thread UI !! Récupère la météo stockée dans les
+	 * préférences
+	 * 
+	 * 
+	 * 
+	 */
+	void actualiserMeteoPreferences(Context cxt) {
+
+		SharedPreferences prefs = cxt.getSharedPreferences("MeteoLocal",
+				Context.MODE_PRIVATE);
+		// On va chercher les textbox
+		TextView txt_loc, txt_temperature, txt_pluie, txt_vent, txt_nuages;
+		txt_loc = (TextView) findViewById(R.id.afficher_localite_meteo);
+		txt_temperature = (TextView) findViewById(R.id.info_temp);
+		txt_pluie = (TextView) findViewById(R.id.info_pluie);
+		txt_vent = (TextView) findViewById(R.id.info_vent);
+		txt_nuages = (TextView) findViewById(R.id.info_nuages);
+		// On les renseigne
+		txt_loc.setText(" " + prefs.getString("localite", "Prefs Pas de loc"));
+		txt_temperature.setText("Entre " + prefs.getInt("tempMin", -100)
+				+ " et " + prefs.getInt("tempMax", -100) + " C");
+		txt_pluie.setText(prefs.getInt("rain", -100) + " mm d'ici 3h");
+		txt_vent.setText(prefs.getInt("wind", -100) * 3.6 + " km/h");
+		txt_nuages.setText(prefs.getInt("clouds", -100) + "%");
+
+	}
+
+	/**
+	 * Lit un flux de données et retourne le string correspondant
 	 * 
 	 * @param inputStream
 	 * @return
@@ -180,7 +244,12 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 
 		Localite local = new Localite(locLat, locLong);
 		Log.i(TAG, "Localisation lue avec succès : " + local.toString());
+
+		String urlMeteo = urlPreparerMeteo(APIID, local, 0, 0, false);
+		syncMeteo(urlMeteo, this.getBaseContext());
+
 		return local;
+
 	}
 
 	// Implémentation du menu

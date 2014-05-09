@@ -15,12 +15,10 @@ public class EtatMeteo {
 	double windSpeed = -1;
 	double tempMin = -1;
 	double tempMax = -1;
-	double pressure = -1;
 	double clouds = -1;
 	double rain = -1;
 	// Une prévision à 0 jours c'est la météo
-	int prevision = 0;
-	Localite loc=new Localite("Bruz");
+	Localite loc = new Localite("Bruz");
 
 	// constructeurs
 	/**
@@ -42,16 +40,31 @@ public class EtatMeteo {
 	 * @param prev
 	 *            selon qu'on veuille construire une prevision ou pas
 	 */
-	public EtatMeteo(TypeMeteo tm, double wS, double p, double c, double tMin,
-			double tMax, double r, int prev, Localite loc) {
+	public EtatMeteo(TypeMeteo tm, double wS, double c, double tMin,
+			double tMax, double r, Localite loc) {
 		typeMet = tm;
 		windSpeed = wS;
-		pressure = p;
 		clouds = c;
-		tempMin=tMin;
-		tempMax=tMax;
+		tempMin = tMin;
+		tempMax = tMax;
 		rain = r;
-		prevision = prev;
+		this.loc = loc;
+	}
+
+	public TypeMeteo getTypeMet() {
+		return typeMet;
+	}
+
+	public void setTypeMet(TypeMeteo typeMet) {
+		this.typeMet = typeMet;
+	}
+
+	public Localite getLoc() {
+		return loc;
+	}
+
+	public void setLoc(Localite loc) {
+		this.loc = loc;
 	}
 
 	/**
@@ -85,14 +98,6 @@ public class EtatMeteo {
 		this.tempMax = tempMax;
 	}
 
-	public double getPressure() {
-		return pressure;
-	}
-
-	public void setPressure(double pressure) {
-		this.pressure = pressure;
-	}
-
 	public double getClouds() {
 		return clouds;
 	}
@@ -109,20 +114,12 @@ public class EtatMeteo {
 		this.rain = rain;
 	}
 
-	public int getPrevision() {
-		return prevision;
-	}
-
-	public void setPrevision(int prevision) {
-		this.prevision = prevision;
-	}
-
 	// methodes
 	@Override
 	public String toString() {
-		String res = typeMet + "\n" + tempMin + "\n" + tempMax + "\n"
-				+ pressure + "\n" + clouds + "\n" + rain + "\n" + prevision
-				+ "\n";
+		String res = typeMet + "\n" + tempMin + "\n" + tempMax + "\n" + "\n"
+				+ clouds + "\n" + rain + "\n" + windSpeed +"\n"
+				+ loc.toString();
 		return res;
 
 	}

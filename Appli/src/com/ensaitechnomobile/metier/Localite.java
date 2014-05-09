@@ -9,9 +9,9 @@ package com.ensaitechnomobile.metier;
  */
 public class Localite {
 	// attributs
-	String ville = "Timbuktu";
-	double latitude = 0.0;
-	double longitude = 0.0;
+	String ville = "..";
+	double latitude = -100.0;
+	double longitude = -100.0;
 
 	// constructeurs
 
@@ -56,8 +56,8 @@ public class Localite {
 		 */
 
 	}
-	
-	public Localite(String villeLocalite, double longit, double latit){
+
+	public Localite(String villeLocalite, double longit, double latit) {
 		this.setVille(villeLocalite);
 		this.setLatitude(latit);
 		this.setLongitude(longit);
@@ -72,12 +72,10 @@ public class Localite {
 		return longitude;
 	}
 
-
 	public double getLatitude() {
 		return latitude;
 	}
 
-	
 	// setters
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
@@ -94,6 +92,14 @@ public class Localite {
 	public void setLongLat(double longit, double latit) {
 		this.longitude = longit;
 		this.latitude = latit;
+	}
+
+	public boolean hasVille() {
+		return ville != "..";
+	}
+
+	public boolean hasLongLat() {
+		return (latitude != -100 && longitude != -100);
 	}
 
 	// methodes

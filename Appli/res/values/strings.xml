@@ -27,6 +27,7 @@
     <string name="meteo_wind">Vent</string>
     <string name="meteo_rain">Pluie</string>
     <string name="meteo_clouds">Nuages</string>
+    <string name="valider_localite">Valider</string>
 
     <!-- Cas non défini -->
 
@@ -41,9 +42,9 @@
     <string name="email">Id utilisateur</string>
     <string name="password">Mot de passe</string>
     <string name="connect">Se connecter</string>
-    <string name="get_localite">Récupérer ma localisation actuelle</string>
+    <string name="get_localite">Quel temps fait il ici ?</string>
     <string name="saisir_localite">Saisir une ville ici</string>
-    <string name="desc_saisie_localite">Vous pouvez saisir une localité</string>
+    <string name="desc_saisie_localite">Saisir ville</string>
     <string name="temp">Ce champ doit etre rempli</string>
     <string name="geoloc_osm">Géolocationsation par OSM/OCM</string>
 
