@@ -5,7 +5,6 @@ INDEX VERSION 1.126+/Users/Jeff/Desktop/Android(git)/.metadata/.plugins/org.ecli
 3762508322.index
 4127539670.index
 2854915451.index
-3400683906.index
 4226275299.index
 2228261011.index
 1270315800.index
