@@ -3,6 +3,8 @@ package com.ensaitechnomobile.geoloc;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
+import org.osmdroid.api.IMapController;
+import org.osmdroid.api.Marker;
 import org.osmdroid.http.HttpClientFactory;
 import org.osmdroid.http.IHttpClientFactory;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -14,6 +16,7 @@ import org.osmdroid.views.overlay.SimpleLocationOverlay;
 
 import com.ensai.appli.R;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -43,17 +46,22 @@ public class GeolocOSM extends ActionBarActivity {
 		});
 
 		mapView = (MapView) this.findViewById(R.id.mapview);
-		mapView.setTileSource(TileSourceFactory.CYCLEMAP);
+		// mapView.setTileSource(TileSourceFactory.CYCLEMAP);
+		mapView.setTileSource(TileSourceFactory.MAPNIK);
 		mapView.setBuiltInZoomControls(true);
 		mapView.setMultiTouchControls(true);
 
 		mapController = (MapController) this.mapView.getController();
-		mapController.setZoom(14);
-		mapController.setCenter(new GeoPoint(48.0504189, -1.74098));
+		GeoPoint startPoint = new GeoPoint(48.13, -1.74098);
+		mapController.setZoom(10);
+		mapController.setCenter(startPoint);
+
+		// mapController.setCenter(new GeoPoint(48.0504189, -1.74098));
 		this.mMyLocationOverlay = new SimpleLocationOverlay(this);
 		this.mapView.getOverlays().add(mMyLocationOverlay);
 
 		this.mScaleBarOverlay = new ScaleBarOverlay(this);
 		this.mapView.getOverlays().add(mScaleBarOverlay);
 	}
+
 }

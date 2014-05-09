@@ -10,6 +10,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <!--
@@ -75,16 +77,6 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
-            android:name="com.ensaitechnomobile.geolocalisation.GoogleMap"
-            android:label=""
-            android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
-
-            <!-- Parent activity meta-data to support API level 7+ -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
-        </activity>
-        <activity
             android:name="com.ensaitechnomobile.pamplemousse.PamplemousseViewer"
             android:label=""
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
@@ -115,7 +107,7 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
-            android:name="com.ensaitechnomobile.geolocalisation.Plan"
+            android:name="com.ensaitechnomobile.geoloc.NewGeolocalisation"
             android:label=""
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
 
@@ -123,10 +115,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.ensaitechnomobile.meteolocale.MeteoPrincipal"

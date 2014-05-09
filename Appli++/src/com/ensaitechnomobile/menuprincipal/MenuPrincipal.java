@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 
 import com.ensai.appli.R;
 import com.ensaitechnomobile.geoloc.GeolocOSM;
+import com.ensaitechnomobile.geoloc.NewGeolocalisation;
 import com.ensaitechnomobile.meteolocale.MeteoPrincipal;
 import com.ensaitechnomobile.metier.Cours;
 import com.ensaitechnomobile.pamplemousse.MenuPamplemousse;
@@ -44,7 +45,8 @@ public class MenuPrincipal extends ActionBarActivity {
 	}
 
 	public void geolocalisation(View v) {
-		intent = new Intent(this.getBaseContext(), GeolocOSM.class);
+		// intent = new Intent(this.getBaseContext(), GeolocOSM.class);
+		intent = new Intent(this.getBaseContext(), NewGeolocalisation.class);
 		if (intent != null) {
 			startActivity(intent);
 		}
@@ -56,7 +58,7 @@ public class MenuPrincipal extends ActionBarActivity {
 			startActivity(intent);
 		}
 	}
-	
+
 	// Implémentation du menu
 
 	/**
@@ -79,7 +81,8 @@ public class MenuPrincipal extends ActionBarActivity {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
 		if (item.getItemId() == R.id.action_viewer) {
-			Intent intent = new Intent(getBaseContext(), PamplemousseViewer.class);
+			Intent intent = new Intent(getBaseContext(),
+					PamplemousseViewer.class);
 
 			// pour éviter le if tu peux faire un return sur default du switch
 			if (intent != null)

@@ -1,0 +1,51 @@
+package com.ensaitechnomobile.geoloc;
+
+import org.osmdroid.ResourceProxy;
+import org.osmdroid.api.IMapView;
+import org.osmdroid.views.overlay.ItemizedOverlay;
+import org.osmdroid.views.overlay.OverlayItem;
+
+import android.graphics.Point;
+import android.graphics.drawable.Drawable;
+
+public class CustomOverlay extends ItemizedOverlay<OverlayItem> {
+
+public CustomOverlay(Drawable pDefaultMarker, ResourceProxy pResourceProxy) {
+		super(pDefaultMarker, pResourceProxy);
+		// TODO Auto-generated constructor stub
+	}
+
+private ArrayList<OverlayItem> overlayItems = new ArrayList<OverlayItem>();
+private MapView mapView;
+
+public CustomOverLay(Drawable drawable, MapView mapView) {
+    super(boundCenterBottom(drawable));
+    this.mapView = mapView;
+}
+
+public void addOverlayItem(OverlayItem item) {
+    overlayItems.add(item);
+    populate();
+}
+
+@Override
+protected OverlayItem createItem(int index) {
+    return overlayItems.get(index);
+}
+
+@Override
+public int size() {
+    return overlayItems.size();
+}
+
+@Override
+protected boolean onTap(int index) {
+    return true;
+}
+
+@Override
+public boolean onSnapToItem(int arg0, int arg1, Point arg2, IMapView arg3) {
+	// TODO Auto-generated method stub
+	return false;
+}
+}
