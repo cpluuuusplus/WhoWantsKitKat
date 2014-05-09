@@ -1,13 +1,13 @@
 package com.ensaitechnomobile.metier;
 
 public enum TypeMeteo {
-	ORAGE("Orage!"),
-	CRACHATS("Pluie légère"),
-	PLUIE("Pluie"),
-	NEIGE("Neige"),
-	BROUILLARD("Brouillard"),
-	NUAGES("Nuages"),
-	EXTREME("Extreme"),
+	ORAGE("il fait orage !"),
+	CRACHATS("il pleut un peu."),
+	PLUIE("il pleut."),
+	NEIGE("il neige !"),
+	BROUILLARD("on voit rien."),
+	NUAGES("le ciel est nuageux."),
+	EXTREME("le ciel nous tombe sur la tête !"),
 	CAS_NON_GERE("A mettre en place"),;
 	
 	private String name="";

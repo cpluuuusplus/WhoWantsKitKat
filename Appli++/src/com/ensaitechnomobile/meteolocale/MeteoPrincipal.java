@@ -72,6 +72,7 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		// On ajoute les valeurs
 		Log.i(TAG, "Dans ADP : " + em.getLoc().toString());
 		editor.putString("localite", em.getLoc().getVille());
+		editor.putString("typeMeteo", em.getTypeMet().toString());
 		editor.putInt("tempMax", (int) em.getTempMax());
 		editor.putInt("tempMin", (int) em.getTempMin());
 		if (em.getRain3() != 0.0) {
@@ -109,7 +110,20 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		txt_vent = (TextView) findViewById(R.id.info_vent);
 		txt_nuages = (TextView) findViewById(R.id.info_nuages);
 		// On les renseigne
-		txt_loc.setText(" " + prefs.getString("localite", "Prefs Pas de loc"));
+
+		if (prefs.getString("localite", "Prefs Pas de loc").equals("Bruz")
+				&& prefs.getString("typeMeteo", "?").contains("il pleut") ) {
+			// Si on est a bruz et qu'il pleut ou qu'il pleut un peu, 
+			// je rajoute "pour changer" 
+			txt_loc.setText(" "
+					+ prefs.getString("localite", "Prefs Pas de loc") + " "
+					+ prefs.getString("typeMeteo", "?") + " (pour changer)");
+
+		} else {
+			txt_loc.setText(" "
+					+ prefs.getString("localite", "Prefs Pas de loc") + " "
+					+ prefs.getString("typeMeteo", "?"));
+		}
 		txt_temperature.setText("Entre " + prefs.getInt("tempMin", -100)
 				+ "¡ et " + prefs.getInt("tempMax", -100) + "¡C");
 		if (prefs.getInt("rain3", 0) != 0) {
@@ -155,11 +169,14 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 	protected void onResume() {
 		super.onResume();
 		lm = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-		if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER))
-			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0,
+		if (lm.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
+			lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000,
+					0, this);
+
+		if (lm.getAllProviders().contains(LocationManager.GPS_PROVIDER))
+			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100000, 0,
 					this);
-		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0,
-				this);
+
 	}
 
 	public void onLocationChanged(Location location) {
@@ -258,14 +275,14 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 					e.printStackTrace();
 				} catch (JSONException e) {
 					Log.e(TAG, "Exception JSON");
-					runOnUiThread(new Runnable() {
-						public void run() {
-							Toast.makeText(
-									ctx,
-									"La ville est invalide, veuillez saisir une ville valide",
-									Toast.LENGTH_LONG).show();
-						}
-					});
+					// runOnUiThread(new Runnable() {
+					// public void run() {
+					// Toast.makeText(
+					// ctx,
+					// "La ville est invalide, veuillez saisir une ville valide",
+					// Toast.LENGTH_LONG).show();
+					// }
+					// });
 					e.printStackTrace();
 				} catch (CityNotFoundException e) {
 					runOnUiThread(new Runnable() {
@@ -281,9 +298,6 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		};
 		new Thread(code).start();
 	}
-
-
-
 
 	/**
 	 * 

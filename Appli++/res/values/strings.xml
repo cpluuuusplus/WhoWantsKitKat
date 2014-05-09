@@ -20,7 +20,7 @@
     <string name="geo">Accés au service de Géolocalisation</string>
     <string name="geo_desc">Géolocalisation</string>
     <string name="meteo">Accés au service Météo</string>
-    <string name="meteo_desc">Prévisions météo pour : </string>
+    <string name="meteo_desc">À</string>
     <string name="meteo_tc">Températures</string>
     <string name="meteo_wind">Vent</string>
     <string name="meteo_rain">Pluie</string>
