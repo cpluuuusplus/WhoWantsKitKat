@@ -175,9 +175,12 @@
 
             <EditText
                 android:id="@+id/meteo_saisie_localite"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:inputType="textAutoCorrect"
                 android:layout_height="wrap_content"
-                android:hint="@string/saisir_localite" />
+                 android:hint="@string/saisir_localite"
+                android:layout_gravity="center"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/meteo_valider_localite"
@@ -185,14 +188,14 @@
                 android:layout_height="wrap_content"
                 android:onClick="recupererMeteoActuelleParLocalite"
                 android:text="@string/valider_localite" />
-
         </LinearLayout>
-                    <Button
-                android:id="@+id/meteo_recuperer_localite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="recupererLocalisationAppareil"
-                android:text="@string/get_localite" />
+
+        <Button
+            android:id="@+id/meteo_recuperer_localite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="recupererLocalisationAppareil"
+            android:text="@string/get_localite" />
     </LinearLayout>
 
 </LinearLayout>

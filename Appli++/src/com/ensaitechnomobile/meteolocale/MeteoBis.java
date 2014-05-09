@@ -32,7 +32,7 @@ import com.ensai.appli.R;
 import com.ensaitechnomobile.metier.EtatMeteo;
 import com.ensaitechnomobile.metier.Localite;
 
-public class MeteoPrincipal extends Activity implements LocationListener {
+public class MeteoBis extends Activity implements LocationListener {
 
 	protected static final String TAG = "AMS::Meteo";
 	protected static final String APIID = "ef5e65bcdadbcc86a991779742664324";
