@@ -49,7 +49,7 @@ public class MeteoJSON {
 
 		// Récupérations JSON
 		try {
-			if (json.getString("message") != "Error: not found city") {
+			if (json.getString("message") == "Error: not found city") {
 				// La ville n'a pas été trouvée
 				throw new CityNotFoundException("La ville n'a pas été trouvée");
 			}

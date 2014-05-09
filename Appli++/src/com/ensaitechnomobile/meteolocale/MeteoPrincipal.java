@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ensai.appli.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,6 +22,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -43,8 +45,8 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 
 		// TODO localisation
 
-		String urlMeteo = urlPreparerMeteo(APIID, new Localite("Eindhoven"), 0, 0,
-				false);
+		String urlMeteo = urlPreparerMeteo(APIID, new Localite("Eindhoven"), 0,
+				0, false);
 		syncMeteo(urlMeteo, this.getBaseContext());
 
 	}
@@ -69,12 +71,12 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		editor.putInt("tempMax", (int) em.getTempMax());
 		editor.putInt("tempMin", (int) em.getTempMin());
 		if (em.getRain3() != 0.0) {
-			editor.putInt("rain3", (int) (1000*em.getRain3()));
+			editor.putInt("rain3", (int) (1000 * em.getRain3()));
 		} else {
 			editor.putInt("rain3", 0);
 		}
 		if (em.getRain1() != 0.0) {
-			editor.putInt("rain1", (int) (1000*em.getRain1()));
+			editor.putInt("rain1", (int) (1000 * em.getRain1()));
 		} else {
 			editor.putInt("rain1", 0);
 
@@ -110,12 +112,14 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 				+ " et " + prefs.getInt("tempMax", -100) + " C");
 		if (prefs.getInt("rain3", 0) != 0) {
 			// Il y a de la pluie ˆ 3h
-			txt_pluie.setText(prefs.getInt("rain3", -100)/1000 + "mm de pluie dans les 3h");
+			txt_pluie.setText(prefs.getInt("rain3", -100) / 1000
+					+ "mm de pluie dans les 3h");
 
 		} else {
 			if (prefs.getInt("rain1", 0) != 0) {
 				// Il y a de la pluie a 1h
-				txt_pluie.setText(prefs.getInt("rain1", -100)/1000 + "mm de pluie dans l'heure");
+				txt_pluie.setText(prefs.getInt("rain1", -100) / 1000
+						+ "mm de pluie dans l'heure");
 
 			} else {
 				txt_pluie.setText(0 + " mm");
@@ -241,8 +245,15 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 				} catch (JSONException e) {
 					Log.e(TAG, "Exception JSON");
 					e.printStackTrace();
-				}catch (CityNotFoundException e){
-					afficherMessageErreurVille();
+				} catch (CityNotFoundException e) {
+					runOnUiThread(new Runnable() {
+						public void run() {
+							Toast.makeText(
+									ctx,
+									"La ville est invalide, veuillez saisir une ville valide",
+									Toast.LENGTH_LONG).show();
+						}
+					});
 				}
 			}
 		};
@@ -251,9 +262,7 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 
 	protected void afficherMessageErreurVille() {
 		// Afficher un toast d'erreur
-		Toast.makeText(this, "La ville est invalide, veuillez saisir une ville valide", Toast.LENGTH_LONG)
-		.show();
-		
+
 	}
 
 	/**
@@ -302,7 +311,6 @@ public class MeteoPrincipal extends Activity implements LocationListener {
 		return res;
 
 	}
-
 
 	/**
 	 * 
