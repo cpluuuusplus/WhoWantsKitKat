@@ -62,14 +62,14 @@ public class NewGeolocalisation extends ActionBarActivity implements
 		});
 
 		mapView = (MapView) this.findViewById(R.id.mapview);
-		mapView.setTileSource(TileSourceFactory.MAPNIK);
+		mapView.setTileSource(TileSourceFactory.CYCLEMAP);
 		mapView.setBuiltInZoomControls(true);
 		mapView.setMultiTouchControls(true);
 
 		mc = (MapController) this.mapView.getController();
 		// GeoPoint startPoint = new GeoPoint(48.13, -1.74098);
 		// mc.setCenter(startPoint);
-		mc.setZoom(20);
+		mc.setZoom(17);
 
 	}
 
