@@ -6,9 +6,8 @@
     <string name="nb_cours">%1$d cours viennent d\'être mis à jours</string>
     <string name="direct">Accès direct à pamplemousse viewer</string>
     <string name="refresh">Refresh</string>
-     <string name="action_search">search</string>
-     <string name="find_city">Rechercher une ville</string>
-     
+    <string name="action_search">search</string>
+    <string name="find_city">Rechercher une ville</string>
 
     <!-- Nom des menus ! -->
 
@@ -29,10 +28,15 @@
     <string name="meteo_rain">Pluie</string>
     <string name="meteo_clouds">Nuages</string>
     <string name="valider_localite">Valider</string>
+    <string name="desc_country">Pays</string>
+    <string name="desc_sunrise">Levé du soleil</string>
+    <string name="desc_sunset">Couché du soleil</string>
+    <string name="desc_pressure">Pression</string>
+    
 
     <!-- Cas non défini -->
 
-    <string name="to_be_defined">Doit etre défini</string>
+    <string name="to_be_defined">En attente</string>
 
     <!-- Test login -->
 

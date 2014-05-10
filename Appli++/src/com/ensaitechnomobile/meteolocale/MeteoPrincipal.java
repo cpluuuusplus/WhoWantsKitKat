@@ -8,9 +8,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.ensai.appli.R;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -34,6 +40,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.ensai.appli.R;
 import com.ensaitechnomobile.metier.CityNotFoundException;
 import com.ensaitechnomobile.metier.EtatMeteo;
@@ -45,10 +52,12 @@ public class MeteoPrincipal extends ActionBarActivity implements
 	protected static final String TAG = "AMS::Meteo";
 	protected static final String APIID = "ef5e65bcdadbcc86a991779742664324";
 	private LocationManager lm;
-	private double latitude=48.033333;
-	private double longitude=-1.750000;
+	private double latitude = 48.033333;
+	private double longitude = -1.750000;
 	private SearchView searchView;
 	private MenuItem searchItem;
+	private SimpleDateFormat hFormat = new SimpleDateFormat("HH:mm",
+			Locale.FRENCH);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +68,10 @@ public class MeteoPrincipal extends ActionBarActivity implements
 
 		// TODO localisation
 
-		
 		Localite localite = new Localite(longitude, latitude);
 		Log.i(TAG, "Localisation lue avec succès : " + localite.toString());
 		recupererMeteoActuelleParLocalite(localite);
-		
+
 		// String urlMeteo = urlPreparerMeteo(APIID, new Localite("Eindhoven"),
 		// 0,
 		// 0, false);
@@ -104,6 +112,10 @@ public class MeteoPrincipal extends ActionBarActivity implements
 		}
 		editor.putInt("wind", (int) em.getWindSpeed());
 		editor.putInt("clouds", (int) em.getClouds());
+		editor.putString("country", em.getCountry());
+		editor.putLong("sunrise", (Long) em.getSunrise());
+		editor.putLong("sunset", (Long) em.getSunset());
+		editor.putLong("pressure", (Long) em.getPressure());
 		// On committe les préférences
 		editor.commit();
 	}
@@ -119,12 +131,16 @@ public class MeteoPrincipal extends ActionBarActivity implements
 		SharedPreferences prefs = cxt.getSharedPreferences("MeteoLocal",
 				Context.MODE_PRIVATE);
 		// On va chercher les textbox
-		TextView txt_loc, txt_temperature, txt_pluie, txt_vent, txt_nuages;
+		TextView txt_loc, txt_temperature, txt_pluie, txt_vent, txt_nuages, txt_country, txt_sunrise, txt_pressure, txt_sunset;
 		txt_loc = (TextView) findViewById(R.id.afficher_localite_meteo);
 		txt_temperature = (TextView) findViewById(R.id.info_temp);
 		txt_pluie = (TextView) findViewById(R.id.info_pluie);
 		txt_vent = (TextView) findViewById(R.id.info_vent);
 		txt_nuages = (TextView) findViewById(R.id.info_nuages);
+		txt_country = (TextView) findViewById(R.id.info_country);
+		txt_sunrise = (TextView) findViewById(R.id.info_sunrise);
+		txt_sunset = (TextView) findViewById(R.id.info_sunset);
+		txt_pressure = (TextView) findViewById(R.id.info_pressure);
 		// On les renseigne
 
 		if (prefs.getString("localite", "Prefs Pas de loc").equals("Bruz")
@@ -161,6 +177,13 @@ public class MeteoPrincipal extends ActionBarActivity implements
 		}
 		txt_vent.setText(prefs.getInt("wind", -100) * 3.6 + " km/h");
 		txt_nuages.setText(prefs.getInt("clouds", -100) + "%");
+		txt_country.setText(prefs.getString("country", null));
+		txt_sunrise
+				.setText(hFormat.format(new Date(prefs.getLong("sunrise", 0))));
+		txt_sunset
+				.setText(hFormat.format(new Date(prefs.getLong("sunset", 0))));
+		txt_pressure
+				.setText(prefs.getLong("pressure", 0)+" hPa");
 	}
 
 	/**
@@ -226,11 +249,11 @@ public class MeteoPrincipal extends ActionBarActivity implements
 	 * 
 	 */
 
-	public void validerChoixLocalisationSaisi(View v) {
-		EditText et = (EditText) findViewById(R.id.meteo_saisie_localite);
-		String villeSaisie = et.getText().toString();
-		recupererMeteoActuelleParLocalite(new Localite(villeSaisie));
-	}
+	// public void validerChoixLocalisationSaisi(View v) {
+	// EditText et = (EditText) findViewById(R.id.meteo_saisie_localite);
+	// String villeSaisie = et.getText().toString();
+	// recupererMeteoActuelleParLocalite(new Localite(villeSaisie));
+	// }
 
 	/**
 	 * Recupère la météo dans la localité saisie et met à jour les barres
@@ -403,7 +426,8 @@ public class MeteoPrincipal extends ActionBarActivity implements
 		public boolean onQueryTextSubmit(String query) {
 			String city = searchView.getQuery() + "";
 			recupererMeteoActuelleParLocalite(new Localite(city));
-			searchItem.collapseActionView();
+			searchView.clearFocus();
+			// searchItem.collapseActionView();
 			return false;
 		}
 	};

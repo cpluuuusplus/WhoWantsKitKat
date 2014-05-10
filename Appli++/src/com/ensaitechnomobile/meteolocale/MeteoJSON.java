@@ -17,7 +17,6 @@ import com.ensaitechnomobile.metier.TypeMeteo;
  */
 public class MeteoJSON {
 
-
 	/**
 	 * Constructeur sans rien
 	 */
@@ -42,9 +41,12 @@ public class MeteoJSON {
 		// Déclarations
 		JSONArray tableWeather;
 		JSONObject objWeather, objMain, objWind, objClouds, objRain;
+		String country;
+		long sunset, sunrise, pressure;
 		int idMeteo, switchMeteo;
 		TypeMeteo tm;
-		double tempMin, tempMax, windSpeed, clouds, rain1, rain3, longLocalite, latLocalite;
+		int tempMin, tempMax;
+		double windSpeed, clouds, rain1, rain3, longLocalite, latLocalite;
 		String nomLocalite;
 
 		// Récupérations JSON
@@ -60,8 +62,8 @@ public class MeteoJSON {
 		objWeather = tableWeather.getJSONObject(0);
 		idMeteo = objWeather.getInt("id");
 		objMain = json.getJSONObject("main");
-		tempMin = objMain.getDouble("temp_min");
-		tempMax = objMain.getDouble("temp_max");
+		tempMin = objMain.getInt("temp_min");
+		tempMax = objMain.getInt("temp_max");
 		objWind = json.getJSONObject("wind");
 		windSpeed = objWind.getDouble("speed");
 		objClouds = json.getJSONObject("clouds");
@@ -85,7 +87,11 @@ public class MeteoJSON {
 
 		longLocalite = json.getJSONObject("coord").getDouble("lon");
 		latLocalite = json.getJSONObject("coord").getDouble("lat");
+		country = json.getJSONObject("sys").getString("country");
+		sunrise = json.getJSONObject("sys").getLong("sunrise");
+		sunset = json.getJSONObject("sys").getLong("sunset");
 		nomLocalite = json.getString("name");
+		pressure = json.getJSONObject("main").getLong("pressure");
 
 		switchMeteo = Integer.parseInt(("" + idMeteo).substring(0, 1));
 		switch (switchMeteo) {
@@ -115,8 +121,9 @@ public class MeteoJSON {
 			break;
 		}
 
-		return new EtatMeteo(tm, windSpeed, clouds, tempMin, tempMax, rain1,
-				rain3, new Localite(nomLocalite, longLocalite, latLocalite));
+		return new EtatMeteo(tm, windSpeed, tempMin, tempMax, clouds, rain1,
+				rain3, country, sunrise, sunset, pressure, new Localite(
+						nomLocalite, longLocalite, latLocalite));
 
 	}
 }
