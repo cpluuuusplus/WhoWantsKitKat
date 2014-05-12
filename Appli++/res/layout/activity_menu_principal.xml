@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="@color/black_color"
     android:orientation="vertical" >
 
     <Button
@@ -13,12 +13,12 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:background="@color/black_color"
+        android:background="@drawable/button_shape"
         android:drawableRight="@drawable/ic_action_forward"
-        android:drawableTop="@drawable/pamplemousse"
+        android:drawableTop="@drawable/shcool"
         android:onClick="pamplemousse"
-        android:text="@string/pamp_viewer"
-        android:textColor="@color/white" />
+        android:text="@string/school"
+        android:textColor="@color/black_color" />
 
     <Button
         android:id="@+id/main_act2"
@@ -26,12 +26,12 @@
         android:layout_height="fill_parent"
         android:layout_margin="10dp"
         android:layout_weight="1"
-        android:background="@color/black_color"
+        android:background="@drawable/button_shape"
         android:drawableRight="@drawable/ic_action_forward"
-        android:drawableTop="@drawable/ic_action_web_site"
+        android:drawableTop="@drawable/ic_action_location_searching"
         android:onClick="geolocalisation"
         android:text="@string/geo"
-        android:textColor="@color/white" />
+        android:textColor="@color/black_color" />
 
     <Button
         android:id="@+id/main_act3"
@@ -41,11 +41,11 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
-        android:background="@color/black_color"
+        android:background="@drawable/button_shape"
         android:drawableRight="@drawable/ic_action_forward"
         android:drawableTop="@drawable/weather"
         android:onClick="meteo"
         android:text="@string/meteo"
-        android:textColor="@color/white" />
+        android:textColor="@color/black_color" />
 
 </LinearLayout>

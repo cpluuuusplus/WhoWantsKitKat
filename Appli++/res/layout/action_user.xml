@@ -8,10 +8,4 @@
         yourapp:showAsAction="ifRoom|withText">
     </item>
 
-    <item
-        android:id="@+id/action_sync"
-        android:icon="@drawable/ic_action_refresh"
-        yourapp:showAsAction="ifRoom|withText">
-    </item>
-
 </menu>
