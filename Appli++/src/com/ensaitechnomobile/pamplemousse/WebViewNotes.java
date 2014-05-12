@@ -28,7 +28,7 @@ public class WebViewNotes extends ActionBarActivity {
 		WebView webView = new WebView(this);
 		setContentView(webView);
 		webView.getSettings().setJavaScriptEnabled(true);
-		webView.loadUrl("http://pamplemousse.ensai.fr/ensai/index.php?p=1052");
+		webView.loadUrl("http://pamplemousse.ensai.fr/ensai/");
 
 		webView.setWebViewClient(new WebViewClient() {
 
