@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.geoloc;
+package com.ensaitechnomobile.geolocalisation;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -28,22 +28,18 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import com.ensai.appli.R;
-import com.ensaitechnomobile.meteolocale.MeteoJSON;
+import com.ensaitechnomobile.meteo.locale.MeteoJSON;
 import com.ensaitechnomobile.metier.CityNotFoundException;
 import com.ensaitechnomobile.metier.EtatMeteo;
 import com.ensaitechnomobile.metier.Localite;
-
-import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -54,23 +50,24 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
-public class reNewGeolocalisation extends ActionBarActivity {
+public class GeolocalisationOSM extends ActionBarActivity {
 
 	private MapView myOpenMapView;
 	private MapController myMapController;
 	protected static final String APIID = "ef5e65bcdadbcc86a991779742664324";
 	protected static final String TAG = "OSM::";
-	private double lon, lat;
-
-	LocationManager locationManager;
-
-	ArrayList<OverlayItem> overlayItemArray;
+	private double longitude, latitude;
+	private LocationManager locationManager;
+	private ArrayList<OverlayItem> overlayItemArray;
+	private ProgressDialog progressDialog;
+	private String country = null;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_geoloc_osm);
+		progressDialog = new ProgressDialog(this);
 
 		HttpClientFactory.setFactoryInstance(new IHttpClientFactory() {
 			public HttpClient createHttpClient() {
@@ -100,11 +97,8 @@ public class reNewGeolocalisation extends ActionBarActivity {
 
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-		// for demo, getLastKnownLocation from GPS only, not from NETWORK
 		Location lastLocation = locationManager
 				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		lastLocation = locationManager
-				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		if (lastLocation != null) {
 			updateLoc(lastLocation);
 		} else {
@@ -123,17 +117,12 @@ public class reNewGeolocalisation extends ActionBarActivity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-				0, myLocationListener);
-		locationManager.requestLocationUpdates(
-				LocationManager.NETWORK_PROVIDER, 0, 0, myLocationListener);
 	}
 
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		locationManager.removeUpdates(myLocationListener);
 	}
 
 	private void updateLoc(Location loc) {
@@ -147,51 +136,11 @@ public class reNewGeolocalisation extends ActionBarActivity {
 		GeoPoint overlocGeoPoint = new GeoPoint(overlayloc);
 		// ---
 		overlayItemArray.clear();
-
 		OverlayItem newMyLocationItem = new OverlayItem("My Location",
 				"My Location", overlocGeoPoint);
 		overlayItemArray.add(newMyLocationItem);
 		// ---
 	}
-
-	private LocationListener myLocationListener = new LocationListener() {
-
-		@Override
-		public void onLocationChanged(Location location) {
-			// TODO Auto-generated method stub
-			// updateLoc(location);
-		}
-
-		@Override
-		public void onProviderDisabled(String provider) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void onProviderEnabled(String provider) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void onStatusChanged(String provider, int status, Bundle extras) {
-			String newStatus = "";
-			switch (status) {
-			case LocationProvider.OUT_OF_SERVICE:
-				newStatus = "OUT_OF_SERVICE";
-				break;
-			case LocationProvider.TEMPORARILY_UNAVAILABLE:
-				newStatus = "TEMPORARILY_UNAVAILABLE";
-				break;
-			case LocationProvider.AVAILABLE:
-				newStatus = "AVAILABLE";
-				break;
-			}
-
-		}
-
-	};
 
 	private SearchView searchView;
 	private MenuItem searchItem;
@@ -201,33 +150,34 @@ public class reNewGeolocalisation extends ActionBarActivity {
 		getMenuInflater().inflate(R.layout.action_localisation, menu);
 		searchItem = menu.findItem(R.id.action_search);
 		searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+		searchView.setQueryHint(getString(R.string.find_city));
 		searchView.setOnQueryTextListener(queryTextListener);
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
-		@Override
-		public boolean onQueryTextChange(String newText) {
-			// Do something
-			return true;
-		}
 
-		@SuppressLint("NewApi")
 		@Override
 		public boolean onQueryTextSubmit(String query) {
 			String city = searchView.getQuery() + "";
-			recupererMeteoActuelleParLocalite(new Localite(city));
+			moveToNewCity(new Localite(city));
 			searchView.clearFocus();
+			return false;
+		}
+
+		@Override
+		public boolean onQueryTextChange(String arg0) {
+			// TODO Auto-generated method stub
 			return false;
 		}
 	};
 
-	public void recupererMeteoActuelleParLocalite(Localite loc) {
-		String urlMeteo = urlPreparerMeteo(APIID, loc, 0, 0, false);
-		syncMeteo(urlMeteo, this.getBaseContext());
+	public void moveToNewCity(Localite loc) {
+		String cityURL = prepareURL(APIID, loc, 0, 0, false);
+		findCity(cityURL, this.getBaseContext());
 	}
 
-	String urlPreparerMeteo(String apid, Localite loc, int coordX, int coordY,
+	String prepareURL(String apid, Localite loc, int coordX, int coordY,
 			boolean previsions) {
 		String res = "http://api.openweathermap.org/data/2.5/";
 		if (previsions) {
@@ -244,7 +194,6 @@ public class reNewGeolocalisation extends ActionBarActivity {
 						+ loc.getLatitude();
 			}
 		}
-
 		res += "&units=metric";
 		res += "&mode=json";
 		res += "&APPID=" + apid;
@@ -252,8 +201,13 @@ public class reNewGeolocalisation extends ActionBarActivity {
 		return res;
 	}
 
-	private void syncMeteo(final String urlString, final Context ctx) {
+	private void findCity(final String urlString, final Context ctx) {
 		// Get all fields to be updated
+
+		country = null;
+		progressDialog.setTitle(getString(R.string.searching_city));
+		progressDialog.setMessage(getString(R.string.move_to_city));
+		progressDialog.show();
 
 		Runnable code = new Runnable() {
 			URL url = null;
@@ -272,18 +226,17 @@ public class reNewGeolocalisation extends ActionBarActivity {
 					// On transforme en météo
 					MeteoJSON mjson = new MeteoJSON();
 					EtatMeteo em = mjson.construireEtatMeteoActuel(json);
-					lon = json.getJSONObject("coord").getDouble("lon");
-					lat = json.getJSONObject("coord").getDouble("lat");
+					longitude = json.getJSONObject("coord").getDouble("lon");
+					latitude = json.getJSONObject("coord").getDouble("lat");
+					country = json.getJSONObject("sys").getString("country");
 					Log.i(TAG, json.toString());
 					Log.i(TAG, em.toString());
 
 					runOnUiThread(new Runnable() {
 						public void run() {
-							addLocation(lat, lon);
+							addLocation(latitude, longitude);
 						}
 					});
-
-					// TODO me débrouiller pour maj
 
 				} catch (MalformedURLException e) {
 					Log.e(TAG, "URL malformée");
@@ -304,6 +257,16 @@ public class reNewGeolocalisation extends ActionBarActivity {
 						}
 					});
 				}
+				runOnUiThread(new Runnable() {
+					public void run() {
+						if (country != null) {
+							String city = searchView.getQuery() + "";
+							city += " (" + country + ")";
+							searchView.setQuery(city, false);
+						}
+					}
+				});
+				progressDialog.dismiss();
 			}
 		};
 		new Thread(code).start();
@@ -311,12 +274,11 @@ public class reNewGeolocalisation extends ActionBarActivity {
 
 	private void addLocation(double lat, double lng) {
 		// ---Add a location marker---
-
 		GeoPoint p = new GeoPoint(lat, lng);
-
 		myMapController.animateTo(p);
 		myMapController.setCenter(p);
 		overlayItemArray = new ArrayList<OverlayItem>();
+
 		// Put overlay icon a little way from map center
 		overlayItemArray
 				.add(new OverlayItem("Here u r", "SampleDescription", p));

@@ -1,5 +1,6 @@
 package com.ensaitechnomobile.menuprincipal;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -11,11 +12,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-
 import com.ensai.appli.R;
-import com.ensaitechnomobile.geoloc.NewGeolocalisation;
-import com.ensaitechnomobile.geoloc.reNewGeolocalisation;
-import com.ensaitechnomobile.meteolocale.MeteoPrincipal;
+import com.ensaitechnomobile.geolocalisation.GeolocalisationOSM;
+import com.ensaitechnomobile.meteo.locale.MeteoPrincipal;
 import com.ensaitechnomobile.metier.Cours;
 import com.ensaitechnomobile.pamplemousse.MenuPamplemousse;
 import com.ensaitechnomobile.pamplemousse.PamplemousseViewer;
@@ -26,6 +25,7 @@ public class MenuPrincipal extends ActionBarActivity {
 	public ArrayAdapter<Cours> adapter;
 	Intent intent = null;
 
+	@SuppressLint("CommitPrefEdits")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,7 +46,7 @@ public class MenuPrincipal extends ActionBarActivity {
 
 	public void geolocalisation(View v) {
 		// intent = new Intent(this.getBaseContext(), GeolocOSM.class);
-		intent = new Intent(this.getBaseContext(), reNewGeolocalisation.class);
+		intent = new Intent(this.getBaseContext(), GeolocalisationOSM.class);
 		if (intent != null) {
 			startActivity(intent);
 		}

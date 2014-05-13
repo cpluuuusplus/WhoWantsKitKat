@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.meteolocale;
+package com.ensaitechnomobile.meteo.locale;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -25,9 +25,7 @@ import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -36,15 +34,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.ensai.appli.R;
 import com.ensaitechnomobile.metier.CityNotFoundException;
 import com.ensaitechnomobile.metier.EtatMeteo;
 import com.ensaitechnomobile.metier.Localite;
-import com.ensaitechnomobile.pamplemousse.PamplemousseViewer;
 
 public class MeteoPrincipal extends ActionBarActivity implements
 		LocationListener {
@@ -133,7 +127,7 @@ public class MeteoPrincipal extends ActionBarActivity implements
 		SharedPreferences prefs = cxt.getSharedPreferences("MeteoLocal",
 				Context.MODE_PRIVATE);
 		// On va chercher les textbox
-		TextView txt_loc, txt_temperature, txt_pluie, txt_vent, txt_nuages, txt_country, txt_sunrise, txt_pressure, txt_sunset;
+		TextView txt_loc, txt_temperature, txt_pluie, txt_vent, txt_nuages, txt_sunrise, txt_pressure, txt_sunset;
 		txt_loc = (TextView) findViewById(R.id.afficher_localite_meteo);
 		txt_temperature = (TextView) findViewById(R.id.info_temp);
 		txt_pluie = (TextView) findViewById(R.id.info_pluie);
@@ -152,7 +146,6 @@ public class MeteoPrincipal extends ActionBarActivity implements
 					+ prefs.getString("localite", "Prefs Pas de loc") + " ("
 					+ prefs.getString("country", null) + "), "
 					+ prefs.getString("typeMeteo", "?") + " "
-
 					+ " (pour changer)");
 
 		} else {
@@ -173,12 +166,9 @@ public class MeteoPrincipal extends ActionBarActivity implements
 				// Il y a de la pluie a 1h
 				txt_pluie.setText(prefs.getInt("rain1", -100) / 1000
 						+ "mm de pluie dans l'heure");
-
 			} else {
 				txt_pluie.setText(0 + " mm");
-
 			}
-
 		}
 		txt_vent.setText(prefs.getInt("wind", -100) * 3.6 + " km/h");
 		txt_nuages.setText(prefs.getInt("clouds", -100) + "%");
@@ -236,18 +226,6 @@ public class MeteoPrincipal extends ActionBarActivity implements
 	}
 
 	/**
-	 * associé à un bouton Cette méthode retourne la localité saisie (ville)
-	 * 
-	 * 
-	 */
-
-	// public void validerChoixLocalisationSaisi(View v) {
-	// EditText et = (EditText) findViewById(R.id.meteo_saisie_localite);
-	// String villeSaisie = et.getText().toString();
-	// recupererMeteoActuelleParLocalite(new Localite(villeSaisie));
-	// }
-
-	/**
 	 * Recupère la météo dans la localité saisie et met à jour les barres
 	 * 
 	 * 
@@ -268,8 +246,8 @@ public class MeteoPrincipal extends ActionBarActivity implements
 	private void syncMeteo(final String urlString, final Context ctx) {
 		// Get all fields to be updated
 
-		progressDialog.setMessage("Recherche de la position");
-		progressDialog.setTitle("Vous avez besoin d'une connexion à internet");
+		progressDialog.setTitle(getString(R.string.searching_city));
+		progressDialog.setMessage(getString(R.string.move_to_city));
 		progressDialog.show();
 
 		Runnable code = new Runnable() {
@@ -316,14 +294,6 @@ public class MeteoPrincipal extends ActionBarActivity implements
 					e.printStackTrace();
 				} catch (JSONException e) {
 					Log.e(TAG, "Exception JSON");
-					// runOnUiThread(new Runnable() {
-					// public void run() {
-					// Toast.makeText(
-					// ctx,
-					// "La ville est invalide, veuillez saisir une ville valide",
-					// Toast.LENGTH_LONG).show();
-					// }
-					// });
 					e.printStackTrace();
 				} catch (CityNotFoundException e) {
 					runOnUiThread(new Runnable() {
@@ -414,6 +384,7 @@ public class MeteoPrincipal extends ActionBarActivity implements
 		getMenuInflater().inflate(R.layout.action_localisation, menu);
 		searchItem = menu.findItem(R.id.action_search);
 		searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+		searchView.setQueryHint(getString(R.string.find_city));
 		searchView.setOnQueryTextListener(queryTextListener);
 		return super.onCreateOptionsMenu(menu);
 	}

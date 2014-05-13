@@ -67,6 +67,16 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
+            android:name="com.ensaitechnomobile.pamplemousse.WebViewActivity"
+            android:label=""
+            android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
+
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
+        </activity>
+        <activity
             android:name="com.ensaitechnomobile.pamplemousse.WebViewNotes"
             android:label=""
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
@@ -97,7 +107,7 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
-            android:name="com.ensaitechnomobile.geoloc.GeolocOSM"
+            android:name="com.ensaitechnomobile.geolocalisation.GeolocOSM"
             android:label=""
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
 
@@ -107,7 +117,7 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
-            android:name="com.ensaitechnomobile.geoloc.NewGeolocalisation"
+            android:name="com.ensaitechnomobile.geolocalisation.NewGeolocalisation"
             android:label=""
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
 
@@ -117,7 +127,7 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
-            android:name="com.ensaitechnomobile.geoloc.reNewGeolocalisation"
+            android:name="com.ensaitechnomobile.geolocalisation.GeolocalisationOSM"
             android:label=""
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
 
@@ -127,7 +137,7 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
-            android:name="com.ensaitechnomobile.meteolocale.MeteoPrincipal"
+            android:name="com.ensaitechnomobile.meteo.locale.MeteoPrincipal"
             android:label=""
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
 
