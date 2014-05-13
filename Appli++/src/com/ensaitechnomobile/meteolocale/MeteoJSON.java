@@ -20,7 +20,7 @@ public class MeteoJSON {
 	/**
 	 * Constructeur sans rien
 	 */
-	MeteoJSON() {
+	public MeteoJSON() {
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class MeteoJSON {
 	 * @throws CityNotFoundException
 	 *             Si la ville saisie est incorrecte
 	 */
-	EtatMeteo construireEtatMeteoActuel(JSONObject json) throws JSONException,
+	public EtatMeteo construireEtatMeteoActuel(JSONObject json) throws JSONException,
 			CityNotFoundException {
 
 		// DŽclarations

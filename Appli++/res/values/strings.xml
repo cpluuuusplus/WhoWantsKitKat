@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Qui veut manger un KitKat ?</string>
+    <string name="app_name">L\'Ensaien</string>
     <string name="hello_world">Hello world!</string>
     <string name="nb_cours">%1$d cours viennent d\'être mis à jours</string>
     <string name="direct">Accès direct à pamplemousse viewer</string>
@@ -15,7 +15,7 @@
     <string name="pamp_viewer">Accès à Pamplemousse</string>
     <string name="agenda_null">Première connection ? Renseignez vos identifiants, et synchroniser</string>
     <string name="url_error">Impossible de se connecter au serveur, veuillez vérifier vos identifiants et votre connection à internet</string>
-    <string name="menu_pampl">Accès à Pamplemousse</string>
+    <string name="school">Accès aux services de l\'Ensai</string>
     <string name="connection">Accès à Pamplemousse</string>
     <string name="remote">Accès à Pamplemousse en ligne</string>
     <string name="pampl_desc">Emploi du temps, mails,...</string>
@@ -32,7 +32,6 @@
     <string name="desc_sunrise">Levé du soleil</string>
     <string name="desc_sunset">Couché du soleil</string>
     <string name="desc_pressure">Pression</string>
-    
 
     <!-- Cas non défini -->
 
@@ -46,7 +45,7 @@
     <string name="login">S\'identifier</string>
     <string name="email">Id utilisateur</string>
     <string name="password">Mot de passe</string>
-    <string name="connect">Se connecter</string>
+    <string name="connect">Enregistrer mes identifiants</string>
     <string name="get_localite">Récupérer ma localisation actuelle</string>
     <string name="saisir_localite">Saisir une ville ici</string>
     <string name="desc_saisie_localite">Vous pouvez saisir une localité</string>

@@ -18,8 +18,6 @@ import org.json.JSONObject;
 import com.ensai.appli.R;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -137,7 +135,6 @@ public class MeteoPrincipal extends ActionBarActivity implements
 		txt_pluie = (TextView) findViewById(R.id.info_pluie);
 		txt_vent = (TextView) findViewById(R.id.info_vent);
 		txt_nuages = (TextView) findViewById(R.id.info_nuages);
-		txt_country = (TextView) findViewById(R.id.info_country);
 		txt_sunrise = (TextView) findViewById(R.id.info_sunrise);
 		txt_sunset = (TextView) findViewById(R.id.info_sunset);
 		txt_pressure = (TextView) findViewById(R.id.info_pressure);
@@ -147,14 +144,18 @@ public class MeteoPrincipal extends ActionBarActivity implements
 				&& prefs.getString("typeMeteo", "?").contains("il pleut")) {
 			// Si on est a bruz et qu'il pleut ou qu'il pleut un peu,
 			// je rajoute "pour changer"
-			txt_loc.setText(" "
-					+ prefs.getString("localite", "Prefs Pas de loc") + " "
-					+ prefs.getString("typeMeteo", "?") + " (pour changer)");
+			txt_loc.setText("Ë  "
+					+ prefs.getString("localite", "Prefs Pas de loc") + " ("
+					+ prefs.getString("country", null) + "), "
+					+ prefs.getString("typeMeteo", "?") + " "
+
+					+ " (pour changer)");
 
 		} else {
-			txt_loc.setText(" "
-					+ prefs.getString("localite", "Prefs Pas de loc") + " "
-					+ prefs.getString("typeMeteo", "?"));
+			txt_loc.setText("Ë  "
+					+ prefs.getString("localite", "Prefs Pas de loc") + " ("
+					+ prefs.getString("country", null) + "), "
+					+ prefs.getString("typeMeteo", "?") + " ");
 		}
 		txt_temperature.setText("Entre " + prefs.getInt("tempMin", -100)
 				+ "¡ et " + prefs.getInt("tempMax", -100) + "¡C");
@@ -177,13 +178,11 @@ public class MeteoPrincipal extends ActionBarActivity implements
 		}
 		txt_vent.setText(prefs.getInt("wind", -100) * 3.6 + " km/h");
 		txt_nuages.setText(prefs.getInt("clouds", -100) + "%");
-		txt_country.setText(prefs.getString("country", null));
 		txt_sunrise
 				.setText(hFormat.format(new Date(prefs.getLong("sunrise", 0))));
 		txt_sunset
 				.setText(hFormat.format(new Date(prefs.getLong("sunset", 0))));
-		txt_pressure
-				.setText(prefs.getLong("pressure", 0)+" hPa");
+		txt_pressure.setText(prefs.getLong("pressure", 0) + " hPa");
 	}
 
 	/**

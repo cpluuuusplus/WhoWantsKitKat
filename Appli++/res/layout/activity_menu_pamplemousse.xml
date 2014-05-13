@@ -2,23 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="@color/black_color"
     android:orientation="vertical" >
-
-    <Button
-        android:id="@+id/connexion"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:background="@color/black_color"
-        android:drawableRight="@drawable/ic_action_next_item"
-        android:drawableTop="@drawable/login"
-        android:onClick="onClickLogin"
-        android:text="Enregistrer mes identifiants"
-        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/pampViewer"
@@ -26,12 +11,12 @@
         android:layout_height="fill_parent"
         android:layout_margin="10dp"
         android:layout_weight="1"
-        android:background="@color/black_color"
+        android:background="@drawable/button_shape"
         android:drawableRight="@drawable/ic_action_next_item"
         android:drawableTop="@drawable/calendar"
         android:onClick="onClickPampViewer"
         android:text="Voir emploi du temps"
-        android:textColor="@color/white" />
+        android:textColor="@color/black_color" />
 
     <Button
         android:id="@+id/mails"
@@ -41,12 +26,12 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
-        android:background="@color/black_color"
+        android:background="@drawable/button_shape"
         android:drawableRight="@drawable/ic_action_next_item"
         android:drawableTop="@drawable/mail"
         android:onClick="onClickMail"
         android:text="Accéder à mes mails"
-        android:textColor="@color/white" />
+        android:textColor="@color/black_color" />
 
     <Button
         android:id="@+id/notes"
@@ -56,11 +41,11 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
-        android:background="@color/black_color"
+        android:background="@drawable/button_shape"
         android:drawableRight="@drawable/ic_action_next_item"
         android:drawableTop="@drawable/marks"
         android:onClick="onClickNotes"
         android:text="Accéder à mes notes"
-        android:textColor="@color/white" />
+        android:textColor="@color/black_color" />
 
 </LinearLayout>

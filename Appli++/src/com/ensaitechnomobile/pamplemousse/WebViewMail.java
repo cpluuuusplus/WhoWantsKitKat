@@ -24,7 +24,7 @@ public class WebViewMail extends ActionBarActivity {
 		// En même temps j'écris ça dans le train avec le 3G de mon tel donc je
 		// suis face aux pires aléas de la data tout en sachant que je peux
 		// avoir internet
-		
+
 		final String id, pass;
 		// Récupération de l'ID et du mot de passe dans les préférences
 		SharedPreferences preferences = PreferenceManager

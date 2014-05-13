@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+
 public class WebViewNotes extends ActionBarActivity {
 
 	@SuppressLint("SetJavaScriptEnabled")

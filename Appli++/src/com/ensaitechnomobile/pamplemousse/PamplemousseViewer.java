@@ -18,7 +18,9 @@ import java.util.Locale;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -290,6 +292,11 @@ public class PamplemousseViewer extends ActionBarActivity {
 		// action
 		if (item.getItemId() == R.id.action_sync) {
 			sync();
+			return true;
+		} else if (item.getItemId() == R.id.action_user) {
+			Intent intent = new Intent(getBaseContext(), Connection.class);
+			if (intent != null)
+				startActivity(intent);
 			return true;
 		} else
 			return false;
