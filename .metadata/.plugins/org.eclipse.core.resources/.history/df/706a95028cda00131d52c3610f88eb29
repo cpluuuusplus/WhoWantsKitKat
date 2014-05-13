@@ -86,7 +86,10 @@ public class reNewGeolocalisation extends ActionBarActivity {
 		myOpenMapView.setBuiltInZoomControls(true);
 		myOpenMapView.setMultiTouchControls(true);
 		myMapController = (MapController) myOpenMapView.getController();
-		myMapController.setZoom(15);
+		GeoPoint startPoint = new GeoPoint(48.13, -1.74098);
+		myMapController.setCenter(startPoint);
+		myMapController.setZoom(20);
+
 
 		// --- Create Overlay
 		overlayItemArray = new ArrayList<OverlayItem>();
@@ -103,19 +106,11 @@ public class reNewGeolocalisation extends ActionBarActivity {
 		// for demo, getLastKnownLocation from GPS only, not from NETWORK
 		Location lastLocation = locationManager
 				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		lastLocation = locationManager
-				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		if (lastLocation != null) {
-			updateLoc(lastLocation);
-		} else {
-			lastLocation = locationManager
-					.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-			if (lastLocation != null) {
-				updateLoc(lastLocation);
-			} else {
-				GeoPoint startPoint = new GeoPoint(48.13, -1.74098);
-				myMapController.setCenter(startPoint);
-			}
+			overlayItemArray = new ArrayList<OverlayItem>();
+			// Put overlay icon a little way from map center
+			overlayItemArray
+					.add(new OverlayItem("Here u r", "SampleDescription", p));
 		}
 	}
 
