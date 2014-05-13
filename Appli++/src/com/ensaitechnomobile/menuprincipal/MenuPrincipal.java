@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 
 import com.ensai.appli.R;
 import com.ensaitechnomobile.geoloc.NewGeolocalisation;
+import com.ensaitechnomobile.geoloc.reNewGeolocalisation;
 import com.ensaitechnomobile.meteolocale.MeteoPrincipal;
 import com.ensaitechnomobile.metier.Cours;
 import com.ensaitechnomobile.pamplemousse.MenuPamplemousse;
@@ -45,7 +46,7 @@ public class MenuPrincipal extends ActionBarActivity {
 
 	public void geolocalisation(View v) {
 		// intent = new Intent(this.getBaseContext(), GeolocOSM.class);
-		intent = new Intent(this.getBaseContext(), NewGeolocalisation.class);
+		intent = new Intent(this.getBaseContext(), reNewGeolocalisation.class);
 		if (intent != null) {
 			startActivity(intent);
 		}

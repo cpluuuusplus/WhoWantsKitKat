@@ -18,8 +18,6 @@ import org.json.JSONObject;
 import com.ensai.appli.R;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;

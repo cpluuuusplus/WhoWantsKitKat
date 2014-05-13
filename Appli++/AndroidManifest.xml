@@ -117,6 +117,16 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
+            android:name="com.ensaitechnomobile.geoloc.reNewGeolocalisation"
+            android:label=""
+            android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
+
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
+        </activity>
+        <activity
             android:name="com.ensaitechnomobile.meteolocale.MeteoPrincipal"
             android:label=""
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
