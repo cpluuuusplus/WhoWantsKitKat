@@ -32,13 +32,13 @@ public class MenuPamplemousse extends ActionBarActivity {
 	}
 
 	public void onClickMail(View v) {
-		Intent intent = new Intent(getBaseContext(), WebViewMail.class);
+		Intent intent = new Intent(getBaseContext(), NewWebViewMail.class);
 		if (intent != null)
 			startActivity(intent);
 	}
 
 	public void onClickNotes(View v) {
-		Intent intent = new Intent(getBaseContext(), WebViewNotes.class);
+		Intent intent = new Intent(getBaseContext(), NewWebViewNotes.class);
 		if (intent != null)
 			startActivity(intent);
 	}

@@ -9,8 +9,8 @@
     <string name="move_to_city">Calcul des coordonnées de la nouvelle position</string>
     <string name="searching_city">Recherche en cours / connexion internet requise</string>
     <string name="conection_error">Erreur de connexion à internet</string>
-     <string name="conection">Connexion en cours</string>
-     <string name="ENT">Chargement de l\'ENT</string>
+    <string name="conection">Connexion en cours</string>
+    <string name="ENT">Veuillez patienter, chargement de l\'ENT en cours</string>
     <!-- Nom des menus ! -->
 
     <string name="pamp_viewer">Accès à Pamplemousse</string>
