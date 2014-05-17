@@ -21,7 +21,7 @@ public class WebViewNotes extends ActionBarActivity {
 
 	protected static final String TAG = "NOTES::";
 	private String id, pass;
-	private WebView webView;
+	private WebView webview;
 
 	@SuppressLint("SetJavaScriptEnabled")
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,12 +45,13 @@ public class WebViewNotes extends ActionBarActivity {
 		if (networkInfo != null && networkInfo.isConnected()) {
 
 			// Création de la Webview
-			webView = new WebView(this);
-			webView.getSettings().setJavaScriptEnabled(true);
-			webView.canGoBack();
-			webView.loadUrl("http://pamplemousse.ensai.fr/ensai/");
+			webview = new WebView(this);
+			webview.getSettings().setJavaScriptEnabled(true);
+			webview.canGoBack();
+			webview.loadUrl("http://pamplemousse.ensai.fr/ensai/");
+			webview.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
 
-			webView.setWebViewClient(new WebViewClient() {
+			webview.setWebViewClient(new WebViewClient() {
 
 				public void onPageFinished(WebView view, String url) {
 					view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"
@@ -60,7 +61,7 @@ public class WebViewNotes extends ActionBarActivity {
 					view.loadUrl("javascript:document.forms['fm1'].submit()");
 				}
 			});
-			setContentView(webView);
+			setContentView(webview);
 
 		} else {
 			Toast.makeText(this, getString(R.string.conection_error),

@@ -3,6 +3,7 @@ package com.ensaitechnomobile.pamplemousse;
 import com.ensai.appli.R;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -36,15 +37,6 @@ public class WebViewMail extends ActionBarActivity {
 		myClickHandler();
 	}
 
-	public void onResume() {
-		// TODO Auto-generated method stub
-		CookieSyncManager cookieSyncMngr = CookieSyncManager
-				.createInstance(this);
-		CookieManager cookieManager = CookieManager.getInstance();
-		cookieManager.removeAllCookie();
-		super.onResume();
-	}
-
 	// When user clicks button, calls AsyncTask.
 	// Before attempting to fetch the URL, makes sure that there is a network
 	// connection.
@@ -60,6 +52,8 @@ public class WebViewMail extends ActionBarActivity {
 			webView.loadUrl("https://webmail.ensai.fr/SOGo/so/" + id
 					+ "/Mail/view");
 			setContentView(webView);
+			final AlertDialog alertDialog = new AlertDialog.Builder(this)
+					.create();
 			webView.setWebViewClient(new WebViewClient() {
 
 				public void onPageFinished(WebView view, String url) {

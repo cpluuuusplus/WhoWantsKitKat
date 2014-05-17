@@ -8,16 +8,19 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Window;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.ensai.appli.R;
 
-public class NewWebViewMail extends Activity {
+public class NewWebViewMail extends ActionBarActivity {
 	/** Called when the activity is first created. */
 	// @Override
 	private WebView webview;
@@ -30,10 +33,12 @@ public class NewWebViewMail extends Activity {
 		super.onCreate(savedInstanceState);
 
 		// Get rid of the android title bar
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		// requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		// Set the XML layout
 		setContentView(R.layout.activity_web_view);
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		// Récupération de l'ID et du mot de passe dans les préférences
 		SharedPreferences preferences = PreferenceManager
@@ -50,7 +55,6 @@ public class NewWebViewMail extends Activity {
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 		if (networkInfo != null && networkInfo.isConnected()) {
-
 			// Bundle objectbundle = this.getIntent().getExtras();
 			webview = (WebView) findViewById(R.id.webview01);
 
@@ -103,12 +107,33 @@ public class NewWebViewMail extends Activity {
 		}
 	}
 
-	public void onResume() {
-		// TODO Auto-generated method stub
-		CookieSyncManager cookieSyncMngr = CookieSyncManager
-				.createInstance(this);
-		CookieManager cookieManager = CookieManager.getInstance();
-		cookieManager.removeAllCookie();
-		super.onResume();
+	// Implémentation du menu
+
+	/**
+	 * Méthode qui se déclenchera lorsque vous appuierez sur le bouton menu du
+	 * téléphone
+	 */
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.layout.actionbar_webview, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	/**
+	 * 
+	 */
+	// Méthode qui se déclenchera au clic sur un item
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// On regarde quel item a été cliqué grâce à son id et on déclenche une
+		// action
+		if (item.getItemId() == R.id.actionbar_webview) {
+			CookieManager cookieManager = CookieManager.getInstance();
+			cookieManager.removeAllCookie();
+			myClickHandler();
+			return true;
+		} else
+			return false;
 	}
 }
