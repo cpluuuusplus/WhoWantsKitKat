@@ -6,3 +6,27 @@
 1399908058906	Delete element
 1399931341888	Delete element
 1399934829392	Delete element
+1399995752321	Delete element
+1399995780707	Delete element
+1399995827589	Rename type 'reNewGeolocalisation'
+1399995857507	Rename package 'com.ensaitechnomobile.geoloc'
+1399995892921	Rename package 'com.ensaitechnomobile.meteolocale'
+1399997025251	Rename method 'syncMeteo'
+1399997101360	Rename method 'recupererMeteoActuelleParLocalite'
+1399997139728	Rename method 'urlPreparerMeteo'
+1399998378165	Rename local variable 'urlMeteo'
+1399998484399	Delete element
+1399998624238	Rename field 'lon'
+1399998630650	Rename field 'lat'
+1400007334477	Rename type 'WebWiew'
+1400007363596	Rename resource 'activity_webwiew.xml'
+1400007383878	Rename resource 'activity_web_wiew.xml'
+1400256813786	Rename type 'WebViewNotes'
+1400256908361	Rename type 'NewWebViewNotes'
+1400256936057	Rename type 'WebViewActivity'
+1400314182100	Copy file
+1400314196838	Rename resource 'action_user_webWiew.xml'
+1400314265430	Delete element
+1400314294995	Copy file
+1400314316515	Delete element
+1400317352720	Rename field 'webView'

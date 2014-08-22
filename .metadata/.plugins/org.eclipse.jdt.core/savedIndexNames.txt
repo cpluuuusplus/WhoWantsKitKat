@@ -1,13 +1,6 @@
-INDEX VERSION 1.126+/Users/Jeff/Desktop/Android(git)/.metadata/.plugins/org.eclipse.jdt.core
-1270315800.index
-714292735.index
-4127539670.index
-4226275299.index
-4069148425.index
-1678818130.index
-2228261011.index
-1615684065.index
-3762508322.index
-782052378.index
-1576634946.index
+INDEX VERSION 1.126+/Users/Jeff/Documents/Android/Application files/Android(git)/.metadata/.plugins/org.eclipse.jdt.core
 2668456968.index
+4031465436.index
+1576634946.index
+3693664932.index
+1270315800.index

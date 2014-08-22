@@ -57,7 +57,27 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
-            android:name="com.ensaitechnomobile.pamplemousse.WebViewMail"
+            android:name="com.ensaitechnomobile.pamplemousse.WebviewMail"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
+
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
+        </activity>
+        <activity
+            android:name="com.ensaitechnomobile.pamplemousse.WebviewNotes"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
+
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
+        </activity>
+        <activity
+            android:name="com.ensaitechnomobile.pamplemousse.AgendaViewer"
             android:label=""
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
 
@@ -67,7 +87,7 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
-            android:name="com.ensaitechnomobile.pamplemousse.WebViewNotes"
+            android:name="com.ensaitechnomobile.pamplemousse.SectionListExample"
             android:label=""
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
 
@@ -77,7 +97,7 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
-            android:name="com.ensaitechnomobile.pamplemousse.PamplemousseViewer"
+            android:name="com.ensaitechnomobile.pamplemousse.Authentification"
             android:label=""
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
 
@@ -87,8 +107,7 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
-            android:name="com.ensaitechnomobile.pamplemousse.Connection"
-            android:label=""
+            android:name="com.ensaitechnomobile.geolocalisation.OSM"
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
 
             <!-- Parent activity meta-data to support API level 7+ -->
@@ -97,37 +116,7 @@
                 android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
         </activity>
         <activity
-            android:name="com.ensaitechnomobile.geoloc.GeolocOSM"
-            android:label=""
-            android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
-
-            <!-- Parent activity meta-data to support API level 7+ -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
-        </activity>
-        <activity
-            android:name="com.ensaitechnomobile.geoloc.NewGeolocalisation"
-            android:label=""
-            android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
-
-            <!-- Parent activity meta-data to support API level 7+ -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
-        </activity>
-        <activity
-            android:name="com.ensaitechnomobile.geoloc.reNewGeolocalisation"
-            android:label=""
-            android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
-
-            <!-- Parent activity meta-data to support API level 7+ -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
-        </activity>
-        <activity
-            android:name="com.ensaitechnomobile.meteolocale.MeteoPrincipal"
+            android:name="com.ensaitechnomobile.meteo.locale.Meteo"
             android:label=""
             android:parentActivityName="com.ensaitechnomobile.menuprincipal.MenuPrincipal" >
 

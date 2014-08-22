@@ -12,17 +12,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+
 import com.ensai.appli.R;
-import com.ensaitechnomobile.geolocalisation.GeolocalisationOSM;
-import com.ensaitechnomobile.meteo.locale.MeteoPrincipal;
-import com.ensaitechnomobile.metier.Cours;
-import com.ensaitechnomobile.pamplemousse.MenuPamplemousse;
-import com.ensaitechnomobile.pamplemousse.PamplemousseViewer;
+import com.ensaitechnomobile.geolocalisation.OSM;
+import com.ensaitechnomobile.meteo.locale.Meteo;
+import com.ensaitechnomobile.metier.LessonItem;
+import com.ensaitechnomobile.pamplemousse.AgendaViewer;
+import com.ensaitechnomobile.pamplemousse.Authentification;
+import com.ensaitechnomobile.pamplemousse.WebviewMail;
+import com.ensaitechnomobile.pamplemousse.WebviewNotes;
 
 public class MenuPrincipal extends ActionBarActivity {
 
 	public static final String TAG = "Menu principal";
-	public ArrayAdapter<Cours> adapter;
+	public ArrayAdapter<LessonItem> adapter;
 	Intent intent = null;
 
 	@SuppressLint("CommitPrefEdits")
@@ -37,23 +40,38 @@ public class MenuPrincipal extends ActionBarActivity {
 		editor.putString("password", null);
 	}
 
-	public void pamplemousse(View v) {
-		intent = new Intent(this.getBaseContext(), MenuPamplemousse.class);
-		if (intent != null) {
+	// Implémentation des listeners bouton
+	public void onClickPampViewer(View v) {
+		Intent intent = new Intent(getBaseContext(), AgendaViewer.class);
+		// Intent intent = new Intent(getBaseContext(),
+		// SectionListExample.class);
+
+		// pour éviter le if tu peux faire un return sur default du switch
+		if (intent != null)
 			startActivity(intent);
-		}
+	}
+
+	public void onClickMail(View v) {
+		Intent intent = new Intent(getBaseContext(), WebviewMail.class);
+		if (intent != null)
+			startActivity(intent);
+	}
+
+	public void onClickNotes(View v) {
+		Intent intent = new Intent(getBaseContext(), WebviewNotes.class);
+		if (intent != null)
+			startActivity(intent);
 	}
 
 	public void geolocalisation(View v) {
-		// intent = new Intent(this.getBaseContext(), GeolocOSM.class);
-		intent = new Intent(this.getBaseContext(), GeolocalisationOSM.class);
+		intent = new Intent(this.getBaseContext(), OSM.class);
 		if (intent != null) {
 			startActivity(intent);
 		}
 	}
 
 	public void meteo(View v) {
-		intent = new Intent(this.getBaseContext(), MeteoPrincipal.class);
+		intent = new Intent(this.getBaseContext(), Meteo.class);
 		if (intent != null) {
 			startActivity(intent);
 		}
@@ -69,7 +87,7 @@ public class MenuPrincipal extends ActionBarActivity {
 
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.layout.main_menu, menu);
+		inflater.inflate(R.layout.action_bar_authentification, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -80,11 +98,8 @@ public class MenuPrincipal extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
-		if (item.getItemId() == R.id.action_viewer) {
-			Intent intent = new Intent(getBaseContext(),
-					PamplemousseViewer.class);
-
-			// pour éviter le if tu peux faire un return sur default du switch
+		if (item.getItemId() == R.id.action_user) {
+			Intent intent = new Intent(getBaseContext(), Authentification.class);
 			if (intent != null)
 				startActivity(intent);
 			return true;

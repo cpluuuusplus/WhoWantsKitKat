@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ensaitechnomobile.SQL.MyOpenHelper;
-import com.ensaitechnomobile.metier.Cours;
+import com.ensaitechnomobile.metier.LessonItem;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -19,9 +19,9 @@ public class CoursDAO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void insertAll(SQLiteDatabase db, List<Cours> ls) {
+	public void insertAll(SQLiteDatabase db, List<LessonItem> ls) {
 		ContentValues values = new ContentValues();
-		for (Cours cours : ls) {
+		for (LessonItem cours : ls) {
 			values.put("nom", cours.getNom());
 			values.put("salle", cours.getSalle());
 			values.put("uid", cours.getUid());
@@ -31,8 +31,8 @@ public class CoursDAO {
 		}
 	}
 
-	public ArrayList<Cours> getAll(SQLiteDatabase db) {
-		ArrayList<Cours> res = new ArrayList<Cours>();
+	public ArrayList<LessonItem> getAll(SQLiteDatabase db) {
+		ArrayList<LessonItem> res = new ArrayList<LessonItem>();
 
 		Cursor curs = db.rawQuery("select debut,nom,salle,uid,fin from "
 				+ MyOpenHelper.NOM_TABLE, null);
@@ -47,14 +47,14 @@ public class CoursDAO {
 			salle = curs.getString(2);
 			uid = curs.getString(3);
 			fin = curs.getLong(4);
-			res.add(new Cours(debut, fin, nom, salle, uid));
+			res.add(new LessonItem(debut, fin, nom, salle, uid));
 		}
 		curs.close();
 		return res;
 	}
 
-	public List<Cours> get(SQLiteDatabase db, String cs) {
-		List<Cours> res = new ArrayList<Cours>();
+	public List<LessonItem> get(SQLiteDatabase db, String cs) {
+		List<LessonItem> res = new ArrayList<LessonItem>();
 
 		Cursor curs = db.rawQuery("select debut,nom,salle,uid,fin from "
 				+ MyOpenHelper.NOM_TABLE + "where" + cs, null);
@@ -69,7 +69,7 @@ public class CoursDAO {
 			salle = curs.getString(2);
 			uid = curs.getString(3);
 			fin = curs.getLong(4);
-			res.add(new Cours(debut, fin, nom, salle, uid));
+			res.add(new LessonItem(debut, fin, nom, salle, uid));
 		}
 		curs.close();
 		return res;
