@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.geolocalisation;
+package com.ensaitechnomobile.osm;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -28,10 +28,11 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import com.ensai.appli.R;
-import com.ensaitechnomobile.meteo.locale.MeteoJSON;
+import com.ensaitechnomobile.meteo.station.MeteoJSON;
 import com.ensaitechnomobile.metier.CityNotFoundException;
 import com.ensaitechnomobile.metier.EtatMeteo;
 import com.ensaitechnomobile.metier.Localite;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -148,52 +149,53 @@ public class OSM extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.layout.action_bar_osm, menu);
-		searchItem = menu.findItem(R.id.action_bar_localisation_search);
+		searchItem = menu.findItem(R.id.action_bar_osm_search);
 		searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 		searchView.setQueryHint(getString(R.string.find_city));
 		searchView.setOnQueryTextListener(queryTextListener);
 		return super.onCreateOptionsMenu(menu);
 	}
-
+	
+	
 	/**
 	 * 
 	 */
-	// Méthode qui se déclenchera au clic sur un item
+//	 Méthode qui se déclenchera au clic sur un item
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
-		if (item.getItemId() == R.id.action_bar_localisation_find) {
+		if (item.getItemId() == R.id.action_bar_osm_find) {
 			localiserDevice();
 			return true;
-		} else if (item.getItemId() == R.id.action_bar_localisation_cyclemap) {
+		} else if (item.getItemId() == R.id.action_bar_osm_cyclemap) {
 			if (item.isChecked())
 				item.setChecked(false);
 			else
 				item.setChecked(true);
 			myOpenMapView.setTileSource(TileSourceFactory.CYCLEMAP);
 			return true;
-		} else if (item.getItemId() == R.id.action_bar_localisation_mapnik) {
+		} else if (item.getItemId() == R.id.action_bar_osm_mapnik) {
 			if (item.isChecked())
 				item.setChecked(false);
 			else
 				item.setChecked(true);
 			myOpenMapView.setTileSource(TileSourceFactory.MAPNIK);
 			return true;
-		} else if (item.getItemId() == R.id.action_bar_localisation_mapquestosm) {
+		} else if (item.getItemId() == R.id.action_bar_osm_mapquestosm) {
 			if (item.isChecked())
 				item.setChecked(false);
 			else
 				item.setChecked(true);
 			myOpenMapView.setTileSource(TileSourceFactory.MAPQUESTOSM);
 			return true;
-		} else if (item.getItemId() == R.id.action_bar_localisation_public_transport) {
+		} else if (item.getItemId() == R.id.action_bar_osm_public_transport) {
 			if (item.isChecked())
 				item.setChecked(false);
 			else
 				item.setChecked(true);
 			myOpenMapView.setTileSource(TileSourceFactory.PUBLIC_TRANSPORT);
 			return true;
-		} else if (item.getItemId() == R.id.action_bar_localisation_mapquestaerial) {
+		} else if (item.getItemId() == R.id.action_bar_osm_mapquestaerial) {
 			if (item.isChecked())
 				item.setChecked(false);
 			else

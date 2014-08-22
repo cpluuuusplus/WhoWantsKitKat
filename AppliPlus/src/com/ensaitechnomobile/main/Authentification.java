@@ -1,7 +1,6 @@
-package com.ensaitechnomobile.pamplemousse;
+package com.ensaitechnomobile.main;
 
 import com.ensai.appli.R;
-import com.ensaitechnomobile.menuprincipal.MenuPrincipal;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,8 +22,8 @@ public class Authentification extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_authentification);
-		user_password = (EditText) findViewById(R.id.user_password);
-		identifiant = (EditText) findViewById(R.id.identifiant);
+		user_password = (EditText) findViewById(R.id.activity_authentification_user_password);
+		identifiant = (EditText) findViewById(R.id.activity_authentification_id);
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		id = preferences.getString("login", "");
@@ -50,7 +49,7 @@ public class Authentification extends Activity {
 
 		Toast.makeText(this, "Identifiants enregistrés", Toast.LENGTH_LONG)
 				.show();
-		Intent intent = new Intent(getBaseContext(), MenuPrincipal.class);
+		Intent intent = new Intent(getBaseContext(), Main.class);
 
 		// pour éviter le if tu peux faire un return sur default du switch
 		if (intent != null)

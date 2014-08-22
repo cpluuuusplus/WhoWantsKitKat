@@ -3,57 +3,49 @@
     xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
 
     <item
-        android:id="@+id/action_bar_localisation_search"
+        android:id="@+id/action_bar_osm_search"
         android:icon="@drawable/abc_ic_search"
         android:title="@string/action_search"
         yourapp:actionViewClass="android.support.v7.widget.SearchView"
         yourapp:showAsAction="ifRoom|collapseActionView"/>
 
     <item
-        android:id="@+id/action_bar_localisation_find"
+        android:id="@+id/action_bar_osm_find"
         android:icon="@drawable/ic_location_find"
-        yourapp:showAsAction="always">
-    </item>
-
-    <!-- <item -->
-    <!-- android:id="@+id/root_menu" -->
-    <!-- android:icon="@drawable/ic_action_settings" -->
-    <!-- android:showAsAction="never" -->
-    <!-- android:title="Sélectionner le type de carte"> -->
+        yourapp:showAsAction="always"/>
 
     <group android:checkableBehavior="single" >
 
         <item
-            android:id="@+id/action_bar_localisation_cyclemap"
-            android:icon="@drawable/ic_action_settings"
-            android:showAsAction="never"
+            android:id="@+id/action_bar_osm_cyclemap"
             android:checked="true"
-            android:title="Route et chemin"/>
+            android:icon="@drawable/ic_action_settings"
+            android:title="Route et chemin"
+            yourapp:showAsAction="never"/>
 
         <item
-            android:id="@+id/action_bar_localisation_mapnik"
+            android:id="@+id/action_bar_osm_mapnik"
             android:icon="@drawable/ic_action_settings"
-            android:showAsAction="never"
-            android:title="Carte routière"/>
+            android:title="Carte routière"
+            yourapp:showAsAction="never"/>
 
         <item
-            android:id="@+id/action_bar_localisation_mapquestosm"
+            android:id="@+id/action_bar_osm_mapquestosm"
             android:icon="@drawable/ic_action_settings"
-            android:showAsAction="never"
-            android:title="Mixte"/>
+            android:title="Mixte"
+            yourapp:showAsAction="never"/>
 
         <item
-            android:id="@+id/action_bar_localisation_public_transport"
+            android:id="@+id/action_bar_osm_public_transport"
             android:icon="@drawable/ic_action_settings"
-            android:showAsAction="never"
-            android:title="Transports publics"/>
+            android:title="Transports publics"
+            yourapp:showAsAction="never"/>
 
         <item
-            android:id="@+id/action_bar_localisation_mapquestaerial"
+            android:id="@+id/action_bar_osm_mapquestaerial"
             android:icon="@drawable/ic_action_settings"
-            android:showAsAction="never"
-            android:title="Reliefs terrestres"/>
+            android:title="Reliefs terrestres"
+            yourapp:showAsAction="never"/>
     </group>
-    <!-- </item> -->
 
 </menu>

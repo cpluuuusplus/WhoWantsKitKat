@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.meteo.locale;
+package com.ensaitechnomobile.meteo.station;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

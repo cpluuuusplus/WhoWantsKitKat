@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.pamplemousse;
+package com.ensaitechnomobile.agenda;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -39,6 +39,7 @@ import android.widget.Toast;
 import com.ensai.appli.R;
 import com.ensaitechnomobile.DAO.CoursDAO;
 import com.ensaitechnomobile.SQL.MyOpenHelper;
+import com.ensaitechnomobile.main.Authentification;
 import com.ensaitechnomobile.metier.DayItem;
 import com.ensaitechnomobile.metier.Item;
 import com.ensaitechnomobile.metier.LessonItem;
@@ -186,7 +187,7 @@ public class AgendaViewer extends ActionBarActivity {
 				}
 			}
 			LessonAdapter adapter = new LessonAdapter(this, items);
-			listeView = (ListView) findViewById(R.id.planning);
+			listeView = (ListView) findViewById(R.id.activity_agenda_planning);
 			listeView.setAdapter(adapter);
 			// *********************
 			// arrayAdapter
@@ -310,10 +311,10 @@ public class AgendaViewer extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
-		if (item.getItemId() == R.id.action_sync) {
+		if (item.getItemId() == R.id.action_bar_agenda_sync) {
 			sync();
 			return true;
-		} else if (item.getItemId() == R.id.action_user) {
+		} else if (item.getItemId() == R.id.action_bar_agenda_user) {
 			Intent intent = new Intent(getBaseContext(), Authentification.class);
 			if (intent != null)
 				startActivity(intent);

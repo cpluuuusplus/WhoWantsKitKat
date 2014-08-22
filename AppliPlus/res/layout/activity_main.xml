@@ -7,79 +7,70 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/black_color"
+        android:layout_height="wrap_content"
+        android:background="@drawable/backmotif"
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/pampViewer"
+            android:id="@+id/activity_main_button_agenda"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="@drawable/button_shape"
-            android:drawableRight="@drawable/ic_action_next_item"
-            android:drawableTop="@drawable/calendar"
+            android:drawableLeft="@drawable/calendar"
             android:onClick="onClickPampViewer"
             android:text="@string/agenda_button"
             android:textColor="@color/black_color" />
 
+        <!-- android:layout_margin="10dp" -->
+        <!-- android:background="@drawable/button_shape" -->
+
+
+        <!-- android:drawableRight="@drawable/ic_action_next_item" -->
+
         <Button
-            android:id="@+id/mails"
+            android:id="@+id/activity_main_button_mails"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="@drawable/button_shape"
-            android:drawableRight="@drawable/ic_action_next_item"
-            android:drawableTop="@drawable/mail"
+            android:drawableLeft="@drawable/mail"
             android:onClick="onClickMail"
             android:text="@string/mails_button"
             android:textColor="@color/black_color" />
 
+        <!-- android:layout_marginBottom="10dp" -->
+        <!-- android:layout_marginLeft="10dp" -->
+        <!-- android:layout_marginRight="10dp" -->
+        <!-- android:background="@drawable/button_shape" -->
+
+
+        <!-- android:drawableRight="@drawable/ic_action_next_item" -->
+
         <Button
-            android:id="@+id/notes"
+            android:id="@+id/activity_main_button_notes"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="@drawable/button_shape"
-            android:drawableRight="@drawable/ic_action_next_item"
-            android:drawableTop="@drawable/marks"
+            android:drawableLeft="@drawable/marks"
             android:onClick="onClickNotes"
             android:text="@string/marks_button"
             android:textColor="@color/black_color" />
 
         <Button
-            android:id="@+id/main_act2"
+            android:id="@+id/activity_main_button_osm"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="@drawable/button_shape"
-            android:drawableRight="@drawable/ic_action_forward"
-            android:drawableTop="@drawable/ic_action_location_searching"
+            android:drawableLeft="@drawable/ic_action_location_searching"
             android:onClick="geolocalisation"
             android:text="@string/OSM_button"
             android:textColor="@color/black_color" />
 
         <Button
-            android:id="@+id/main_act3"
+            android:id="@+id/activity_main_button_meteo"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="@drawable/button_shape"
-            android:drawableRight="@drawable/ic_action_forward"
-            android:drawableTop="@drawable/weather"
+            android:drawableLeft="@drawable/weather"
             android:onClick="meteo"
             android:text="@string/weather_button"
             android:textColor="@color/black_color" />

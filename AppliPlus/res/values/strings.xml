@@ -15,9 +15,9 @@
     <!-- Boutons du menu principal -->
     
     <string name="agenda_button">Emploi du temps</string>
-    <string name="mails_button">Mails</string>
-    <string name="marks_button">Pamplemousse</string>
-    <string name="weather_button">Météo en direct</string>
+    <string name="mails_button">Mes mails (via l\'ENT)</string>
+    <string name="marks_button">Pamplemousse (via l\'ENT)</string>
+    <string name="weather_button">Station météo</string>
     <string name="OSM_button">Open Street Map (OSM)</string>
     
     <!-- Activité agenda -->

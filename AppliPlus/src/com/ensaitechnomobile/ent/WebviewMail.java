@@ -1,31 +1,47 @@
-package com.ensaitechnomobile.pamplemousse;
+package com.ensaitechnomobile.ent;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.CookieManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.ensai.appli.R;
 
-public class WebviewNotes extends ActionBarActivity {
+public class WebviewMail extends ActionBarActivity {
 	/** Called when the activity is first created. */
 	// @Override
 	private WebView webview;
 	private String id, pass;
-	private ProgressDialog progressDialog;
+	ProgressBar progressBar;
+	protected static final String TAG = "MAIL::";
+
+	// To handle "Back" key press event for WebView to go back to previous
+	// screen.
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
+			webview.goBack();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,53 +68,72 @@ public class WebviewNotes extends ActionBarActivity {
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 		if (networkInfo != null && networkInfo.isConnected()) {
 
-			// Bundle objectbundle = this.getIntent().getExtras();
 			webview = (WebView) findViewById(R.id.webview01);
-
-			final Activity activity = this;
+			progressBar = (ProgressBar) findViewById(R.id.web_view_progress);
 
 			// Enable JavaScript and lets the browser go back
 			webview.getSettings().setJavaScriptEnabled(true);
 			webview.canGoBack();
+			webview.getSettings().setSupportZoom(true);
+			webview.getSettings().setBuiltInZoomControls(true);
+			webview.setInitialScale(100);
+			webview.getSettings().setLoadWithOverviewMode(true);
+			webview.getSettings().setUseWideViewPort(true);
 
 			webview.setWebViewClient(new WebViewClient() {
+				@Override
 				public boolean shouldOverrideUrlLoading(WebView view, String url) {
 					view.loadUrl(url);
 					return true;
 				}
 
+				@Override
 				public void onLoadResource(WebView view, String url) {
-					// Check to see if there is a progress dialog
-					if (progressDialog == null) {
-						// If no progress dialog, make one and set message
-						progressDialog = new ProgressDialog(WebviewNotes.this);
-						progressDialog.setCanceledOnTouchOutside(false);
-						progressDialog.setMessage(getString(R.string.ENT));
-						progressDialog.show();
-
-						// Hide the webview while loading
-						webview.setEnabled(false);
-					}
+					webview.setEnabled(false);
 				}
 
+				@Override
+				public void onPageStarted(WebView view, String url,
+						Bitmap favicon) {
+					super.onPageStarted(view, url, favicon);
+					progressBar.setVisibility(View.VISIBLE);
+					webview.setEnabled(false);
+				}
+
+				@Override
 				public void onPageFinished(WebView view, String url) {
-					// Page is done loading;
-					// hide the progress dialog and show the webview
-					// view.loadUrl("javascript:document.forms['fm1'].submit()");
-					if (progressDialog.isShowing()) {
-						progressDialog.dismiss();
-						progressDialog = null;
-						webview.setEnabled(true);
-					}
+					progressBar.setVisibility(View.GONE);
+					webview.setEnabled(true);
 					view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"
 							+ id + "'");
 					view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"
 							+ pass + "'");
 				}
+
+				@Override
+				public void onReceivedError(WebView view, int errorCode,
+						String description, String failingUrl) {
+					if (view.canGoBack()) {
+						view.goBack();
+					}
+					Toast toast = Toast.makeText(getBaseContext(), description,
+							Toast.LENGTH_SHORT);
+					toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
+					toast.show();
+				}
+			});
+
+			webview.setWebChromeClient(new WebChromeClient() {
+				public void onProgressChanged(WebView view, int progress) {
+					progressBar.setProgress(progress);
+				}
 			});
 
 			// The URL that webview is loading
-			webview.loadUrl("http://pamplemousse.ensai.fr/ensai/");
+			// webview.loadUrl("https://webmail.ensai.fr/SOGo/so/" + id
+			// + "/Mail/view");
+
+			webview.loadUrl("https://webmail.ensai.fr/SOGo/so/");
 		} else {
 			Toast.makeText(this, getString(R.string.conection_error),
 					Toast.LENGTH_LONG).show();
@@ -126,7 +161,7 @@ public class WebviewNotes extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
-		if (item.getItemId() == R.id.actionbar_webview) {
+		if (item.getItemId() == R.id.action_bar_webview) {
 			CookieManager cookieManager = CookieManager.getInstance();
 			cookieManager.removeAllCookie();
 			myClickHandler();

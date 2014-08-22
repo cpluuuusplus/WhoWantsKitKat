@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.menuprincipal;
+package com.ensaitechnomobile.main;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,15 +14,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.ensai.appli.R;
-import com.ensaitechnomobile.geolocalisation.OSM;
-import com.ensaitechnomobile.meteo.locale.Meteo;
+import com.ensaitechnomobile.agenda.AgendaViewer;
+import com.ensaitechnomobile.ent.WebviewMail;
+import com.ensaitechnomobile.ent.WebviewNotes;
+import com.ensaitechnomobile.meteo.station.Meteo;
 import com.ensaitechnomobile.metier.LessonItem;
-import com.ensaitechnomobile.pamplemousse.AgendaViewer;
-import com.ensaitechnomobile.pamplemousse.Authentification;
-import com.ensaitechnomobile.pamplemousse.WebviewMail;
-import com.ensaitechnomobile.pamplemousse.WebviewNotes;
+import com.ensaitechnomobile.osm.OSM;
 
-public class MenuPrincipal extends ActionBarActivity {
+public class Main extends ActionBarActivity {
 
 	public static final String TAG = "Menu principal";
 	public ArrayAdapter<LessonItem> adapter;
@@ -32,7 +31,7 @@ public class MenuPrincipal extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_menu_principal);
+		setContentView(R.layout.activity_main);
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		Editor editor = preferences.edit();
@@ -45,8 +44,6 @@ public class MenuPrincipal extends ActionBarActivity {
 		Intent intent = new Intent(getBaseContext(), AgendaViewer.class);
 		// Intent intent = new Intent(getBaseContext(),
 		// SectionListExample.class);
-
-		// pour éviter le if tu peux faire un return sur default du switch
 		if (intent != null)
 			startActivity(intent);
 	}
@@ -87,7 +84,7 @@ public class MenuPrincipal extends ActionBarActivity {
 
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.layout.action_bar_authentification, menu);
+		inflater.inflate(R.layout.action_bar_main, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -98,7 +95,7 @@ public class MenuPrincipal extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
-		if (item.getItemId() == R.id.action_user) {
+		if (item.getItemId() == R.id.action_bar_main_user) {
 			Intent intent = new Intent(getBaseContext(), Authentification.class);
 			if (intent != null)
 				startActivity(intent);

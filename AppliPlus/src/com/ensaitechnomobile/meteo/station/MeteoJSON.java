@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.meteo.locale;
+package com.ensaitechnomobile.meteo.station;
 
 import org.json.JSONArray;
 import org.json.JSONException;

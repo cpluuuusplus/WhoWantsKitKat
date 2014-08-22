@@ -12,7 +12,7 @@
     </org.osmdroid.views.MapView>
 
     <Button
-        android:id="@+id/meteo_recuperer_localite"
+        android:id="@+id/activity_osm_recuperer_localite"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"

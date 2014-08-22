@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.pamplemousse;
+package com.ensaitechnomobile.agenda;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
