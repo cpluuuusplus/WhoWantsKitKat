@@ -13,22 +13,21 @@
     <string name="ENT">Veuillez patienter, chargement de l\'ENT en cours</string>
 
     <!-- Boutons du menu principal -->
-    
+
     <string name="agenda_button">Emploi du temps</string>
     <string name="mails_button">Mes mails (via l\'ENT)</string>
     <string name="marks_button">Pamplemousse (via l\'ENT)</string>
     <string name="weather_button">Station météo</string>
     <string name="OSM_button">Open Street Map (OSM)</string>
-    
+
     <!-- Activité agenda -->
 
     <string name="agenda_null">Première connection ? Renseignez vos identifiants, et synchroniser</string>
     <string name="url_error">Impossible de se connecter au serveur, veuillez vérifier vos identifiants et votre connexion à internet</string>
     <string name="url_error_meteo">Impossible de se connecter au serveur, veuillez vérifier votre connexion à internet</string>
 
-
     <!-- Activité OSM -->
-    
+
     <string name="meteo_tc">Températures</string>
     <string name="meteo_wind">Vent</string>
     <string name="meteo_rain">Pluie</string>
@@ -38,6 +37,10 @@
     <string name="desc_sunrise">Levé du soleil</string>
     <string name="desc_sunset">Couché du soleil</string>
     <string name="desc_pressure">Pression</string>
+
+    <!-- Exceptions -->
+    <string name="CityNotFoundException_message">L\'exception CityNotFound a été relevée</string>
+    <string name="CityNotFoundException_toast">Désolé, la ville de %1$s n\'a pas été trouvée</string>
 
     <!-- Cas non défini -->
 

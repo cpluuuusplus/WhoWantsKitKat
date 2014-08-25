@@ -13,9 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.ensai.appli.R;
-import com.ensaitechnomobile.metier.DayItem;
-import com.ensaitechnomobile.metier.Item;
-import com.ensaitechnomobile.metier.LessonItem;
+import com.ensaitechnomobile.agenda.metier.DayItem;
+import com.ensaitechnomobile.agenda.metier.Item;
+import com.ensaitechnomobile.agenda.metier.LessonItem;
 
 public class LessonAdapter extends ArrayAdapter<Item> {
 	private SimpleDateFormat hFormat = new SimpleDateFormat("HH:mm",
@@ -74,40 +74,3 @@ public class LessonAdapter extends ArrayAdapter<Item> {
 		return v;
 	}
 }
-
-// @Override
-// public View getView(int position, View convertView, ViewGroup parent) {
-// View v = convertView;
-//
-// final Item i = items.get(position);
-// if (i != null) {
-// if (i.isSection()) {
-// DayItem si = (DayItem) i;
-// v = vi.inflate(R.layout.list_item_section,null);
-//
-// v.setOnClickListener(null);
-// v.setOnLongClickListener(null);
-// v.setLongClickable(false);
-//
-// final TextView sectionView = (TextView) v
-// .findViewById(R.id.list_item_section_text);
-// sectionView.setText(dFormat.format(new Date(si.getTitle())));
-//
-// } else {
-// EntryItem ei = (EntryItem) i;
-// v = vi.inflate(R.layout.list_item_entry, parent, false);
-// final TextView title = (TextView) v
-// .findViewById(R.id.list_item_entry_title);
-// final TextView subtitle = (TextView) v
-// .findViewById(R.id.list_item_entry_summary);
-//
-// if (title != null)
-// title.setText(ei.title);
-// if (subtitle != null)
-// subtitle.setText(ei.subtitle);
-// }
-// }
-// return v;
-// }
-//
-// }

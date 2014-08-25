@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.osm;
+package com.ensaitechnomobile.OSM;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -27,12 +27,6 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
-import com.ensai.appli.R;
-import com.ensaitechnomobile.meteo.station.MeteoJSON;
-import com.ensaitechnomobile.metier.CityNotFoundException;
-import com.ensaitechnomobile.metier.EtatMeteo;
-import com.ensaitechnomobile.metier.Localite;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -45,14 +39,21 @@ import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
+import com.ensai.appli.R;
+import com.ensaitechnomobile.common.metier.City;
+import com.ensaitechnomobile.exceptions.CityNotFoundException;
+
 public class OSM extends ActionBarActivity {
 
+	private SearchView searchView;
+	private MenuItem searchItem;
 	private MapView myOpenMapView;
 	private MapController myMapController;
 	protected static final String APIID = "ef5e65bcdadbcc86a991779742664324";
@@ -126,41 +127,23 @@ public class OSM extends ActionBarActivity {
 		}
 	}
 
-	private void updateLoc(Location loc) {
-		GeoPoint locGeoPoint = new GeoPoint(loc.getLatitude(),
-				loc.getLongitude());
-		myMapController.setCenter(locGeoPoint);
-		setOverlayLoc(loc);
-	}
-
-	private void setOverlayLoc(Location overlayloc) {
-		GeoPoint overlocGeoPoint = new GeoPoint(overlayloc);
-		// ---
-		overlayItemArray.clear();
-		OverlayItem newMyLocationItem = new OverlayItem("My Location",
-				"My Location", overlocGeoPoint);
-		overlayItemArray.add(newMyLocationItem);
-		// ---
-	}
-
-	private SearchView searchView;
-	private MenuItem searchItem;
+	// Implémentation de l'Action Bar
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.layout.action_bar_osm, menu);
 		searchItem = menu.findItem(R.id.action_bar_osm_search);
 		searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+		searchView.setInputType(InputType.TYPE_CLASS_TEXT
+				| InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 		searchView.setQueryHint(getString(R.string.find_city));
 		searchView.setOnQueryTextListener(queryTextListener);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
-	
+
 	/**
-	 * 
+	 * Méthode qui se déclenchera au clic sur un item
 	 */
-//	 Méthode qui se déclenchera au clic sur un item
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
@@ -206,12 +189,17 @@ public class OSM extends ActionBarActivity {
 			return false;
 	}
 
-	final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+	// Implémentation de la search View
+
+	/**
+	 * Argument permettant de personnaliser le listener de la searchView
+	 */
+	private final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
 
 		@Override
 		public boolean onQueryTextSubmit(String query) {
 			String city = searchView.getQuery() + "";
-			moveToNewCity(new Localite(city));
+			findNewCity(new City(city));
 			searchView.clearFocus();
 			return false;
 		}
@@ -223,20 +211,17 @@ public class OSM extends ActionBarActivity {
 		}
 	};
 
-	public void moveToNewCity(Localite loc) {
-		String cityURL = prepareURL(APIID, loc, 0, 0, false);
-		findCity(cityURL, this.getBaseContext());
-	}
-
-	String prepareURL(String apid, Localite loc, int coordX, int coordY,
-			boolean previsions) {
-		String res = "http://api.openweathermap.org/data/2.5/";
-		if (previsions) {
-			res += "forecast/Daily";
-		} else {
-			res += "weather";
-		}
-
+	/**
+	 * Prépare l'URL pour la connection en ligne
+	 * 
+	 * @param apid
+	 * @param loc
+	 * @param coordX
+	 * @param coordY
+	 * @return
+	 */
+	private String prepareURL(String apid, City loc, int coordX, int coordY) {
+		String res = "http://api.openweathermap.org/data/2.5/weather";
 		if (loc.hasVille()) {
 			res += "?q=" + loc.getVille();
 		} else {
@@ -252,7 +237,23 @@ public class OSM extends ActionBarActivity {
 		return res;
 	}
 
-	private void findCity(final String urlString, final Context ctx) {
+	/**
+	 * Recherche d'une nouvelle ville
+	 * 
+	 * @param loc
+	 */
+	private void findNewCity(City loc) {
+		String cityURL = prepareURL(APIID, loc, 0, 0);
+		locateNewCity(cityURL, this.getBaseContext());
+	}
+
+	/**
+	 * Récupère les coordonnées de la ville recherchée
+	 * 
+	 * @param urlString
+	 * @param ctx
+	 */
+	private void locateNewCity(final String urlString, final Context ctx) {
 		// Get all fields to be updated
 
 		country = null;
@@ -274,21 +275,24 @@ public class OSM extends ActionBarActivity {
 							urlConnection.getInputStream());
 					String input = readStream(in);
 					JSONObject json = new JSONObject(input);
-					Log.i(TAG, input);
-					// On transforme en météo
-					MeteoJSON mjson = new MeteoJSON();
-					EtatMeteo em = mjson.construireEtatMeteoActuel(json);
-					longitude = json.getJSONObject("coord").getDouble("lon");
-					latitude = json.getJSONObject("coord").getDouble("lat");
-					country = json.getJSONObject("sys").getString("country");
-					Log.i(TAG, json.toString());
-					Log.i(TAG, em.toString());
-
-					runOnUiThread(new Runnable() {
-						public void run() {
-							addLocation(latitude, longitude);
-						}
-					});
+					if (json.getInt("cod") == 404) {
+						// La ville n'a pas été trouvée
+						throw new CityNotFoundException(
+								getString(R.string.CityNotFoundException_message));
+					} else {
+						Log.i(TAG, input);
+						Log.i(TAG, json.toString());
+						longitude = json.getJSONObject("coord")
+								.getDouble("lon");
+						latitude = json.getJSONObject("coord").getDouble("lat");
+						country = json.getJSONObject("sys")
+								.getString("country");
+						runOnUiThread(new Runnable() {
+							public void run() {
+								moveToSearchedCity(latitude, longitude);
+							}
+						});
+					}
 
 				} catch (MalformedURLException e) {
 					Log.e(TAG, "URL malformée");
@@ -302,10 +306,12 @@ public class OSM extends ActionBarActivity {
 				} catch (CityNotFoundException e) {
 					runOnUiThread(new Runnable() {
 						public void run() {
+							String city = searchView.getQuery() + "";
 							Toast.makeText(
 									ctx,
-									"La ville est invalide, veuillez saisir une ville valide",
-									Toast.LENGTH_LONG).show();
+									getString(
+											R.string.CityNotFoundException_toast,
+											city), Toast.LENGTH_LONG).show();
 						}
 					});
 				}
@@ -324,7 +330,60 @@ public class OSM extends ActionBarActivity {
 		new Thread(code).start();
 	}
 
-	private void addLocation(double lat, double lng) {
+	/**
+	 * Lit un flux de données et retourne le string correspondant
+	 * 
+	 * @param inputStream
+	 * @return
+	 * @throws IOException
+	 */
+	private String readStream(InputStream inputStream) throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				inputStream));
+		String ligne = null;
+		String contenu = "";
+		while ((ligne = reader.readLine()) != null) {
+			contenu += ligne;
+		}
+		return contenu;
+	}
+
+	// Gestion de la map
+
+	/**
+	 * Positionne la carte à l'écran
+	 * 
+	 * @param loc
+	 */
+	private void updateLoc(Location loc) {
+		GeoPoint locGeoPoint = new GeoPoint(loc.getLatitude(),
+				loc.getLongitude());
+		myMapController.setCenter(locGeoPoint);
+		setOverlayLoc(loc);
+	}
+
+	/**
+	 * Met en forme la carte avec l'icone
+	 * 
+	 * @param overlayloc
+	 */
+	private void setOverlayLoc(Location overlayloc) {
+		GeoPoint overlocGeoPoint = new GeoPoint(overlayloc);
+		// ---
+		overlayItemArray.clear();
+		OverlayItem newMyLocationItem = new OverlayItem("My Location",
+				"My Location", overlocGeoPoint);
+		overlayItemArray.add(newMyLocationItem);
+		// ---
+	}
+
+	/**
+	 * Méthode permettant l'animation d'une ville à une autre
+	 * 
+	 * @param lat
+	 * @param lng
+	 */
+	private void moveToSearchedCity(double lat, double lng) {
 		// ---Add a location marker---
 		GeoPoint p = new GeoPoint(lat, lng);
 		myMapController.animateTo(p);
@@ -337,23 +396,8 @@ public class OSM extends ActionBarActivity {
 	}
 
 	/**
-	 * Lit un flux de données et retourne le string correspondant
-	 * 
-	 * @param inputStream
-	 * @return
-	 * @throws IOException
+	 * Classe permettant de personnaliser la map
 	 */
-	public String readStream(InputStream inputStream) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				inputStream));
-		String ligne = null;
-		String contenu = "";
-		while ((ligne = reader.readLine()) != null) {
-			contenu += ligne;
-		}
-		return contenu;
-	}
-
 	public class MyItemizedIconOverlay extends ItemizedIconOverlay<OverlayItem> {
 
 		public MyItemizedIconOverlay(

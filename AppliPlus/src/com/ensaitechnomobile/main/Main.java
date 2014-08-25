@@ -14,12 +14,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.ensai.appli.R;
+import com.ensaitechnomobile.ENT.WebviewMail;
+import com.ensaitechnomobile.ENT.WebviewNotes;
+import com.ensaitechnomobile.OSM.OSM;
 import com.ensaitechnomobile.agenda.AgendaViewer;
-import com.ensaitechnomobile.ent.WebviewMail;
-import com.ensaitechnomobile.ent.WebviewNotes;
-import com.ensaitechnomobile.meteo.station.Meteo;
-import com.ensaitechnomobile.metier.LessonItem;
-import com.ensaitechnomobile.osm.OSM;
+import com.ensaitechnomobile.agenda.metier.LessonItem;
+import com.ensaitechnomobile.meteo.Meteo;
 
 public class Main extends ActionBarActivity {
 

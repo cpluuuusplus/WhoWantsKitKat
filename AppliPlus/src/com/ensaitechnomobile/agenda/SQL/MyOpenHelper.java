@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.SQL;
+package com.ensaitechnomobile.agenda.SQL;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

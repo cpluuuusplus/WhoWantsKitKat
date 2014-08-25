@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.metier;
+package com.ensaitechnomobile.agenda.metier;
 
 public interface Item {
 

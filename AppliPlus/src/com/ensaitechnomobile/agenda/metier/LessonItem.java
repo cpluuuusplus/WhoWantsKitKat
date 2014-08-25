@@ -1,4 +1,5 @@
-package com.ensaitechnomobile.metier;
+package com.ensaitechnomobile.agenda.metier;
+
 
 public class LessonItem implements Comparable<LessonItem>, Item {
 

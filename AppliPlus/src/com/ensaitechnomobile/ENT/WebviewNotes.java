@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.ent;
+package com.ensaitechnomobile.ENT;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,13 +24,12 @@ import android.widget.Toast;
 
 import com.ensai.appli.R;
 
-public class WebviewMail extends ActionBarActivity {
+public class WebviewNotes extends ActionBarActivity {
 	/** Called when the activity is first created. */
 	// @Override
 	private WebView webview;
 	private String id, pass;
-	ProgressBar progressBar;
-	protected static final String TAG = "MAIL::";
+	private ProgressBar progressBar;
 
 	// To handle "Back" key press event for WebView to go back to previous
 	// screen.
@@ -68,17 +67,13 @@ public class WebviewMail extends ActionBarActivity {
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 		if (networkInfo != null && networkInfo.isConnected()) {
 
+			// Bundle objectbundle = this.getIntent().getExtras();
 			webview = (WebView) findViewById(R.id.webview01);
 			progressBar = (ProgressBar) findViewById(R.id.web_view_progress);
 
 			// Enable JavaScript and lets the browser go back
 			webview.getSettings().setJavaScriptEnabled(true);
 			webview.canGoBack();
-			webview.getSettings().setSupportZoom(true);
-			webview.getSettings().setBuiltInZoomControls(true);
-			webview.setInitialScale(100);
-			webview.getSettings().setLoadWithOverviewMode(true);
-			webview.getSettings().setUseWideViewPort(true);
 
 			webview.setWebViewClient(new WebViewClient() {
 				@Override
@@ -130,10 +125,7 @@ public class WebviewMail extends ActionBarActivity {
 			});
 
 			// The URL that webview is loading
-			// webview.loadUrl("https://webmail.ensai.fr/SOGo/so/" + id
-			// + "/Mail/view");
-
-			webview.loadUrl("https://webmail.ensai.fr/SOGo/so/");
+			webview.loadUrl("http://pamplemousse.ensai.fr/ensai/");
 		} else {
 			Toast.makeText(this, getString(R.string.conection_error),
 					Toast.LENGTH_LONG).show();

@@ -1,10 +1,10 @@
-package com.ensaitechnomobile.DAO;
+package com.ensaitechnomobile.agenda.DAO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ensaitechnomobile.SQL.MyOpenHelper;
-import com.ensaitechnomobile.metier.LessonItem;
+import com.ensaitechnomobile.agenda.SQL.MyOpenHelper;
+import com.ensaitechnomobile.agenda.metier.LessonItem;
 
 import android.content.ContentValues;
 import android.database.Cursor;

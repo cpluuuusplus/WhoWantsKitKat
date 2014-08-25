@@ -37,12 +37,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ensai.appli.R;
-import com.ensaitechnomobile.DAO.CoursDAO;
-import com.ensaitechnomobile.SQL.MyOpenHelper;
+import com.ensaitechnomobile.agenda.DAO.CoursDAO;
+import com.ensaitechnomobile.agenda.SQL.MyOpenHelper;
+import com.ensaitechnomobile.agenda.metier.DayItem;
+import com.ensaitechnomobile.agenda.metier.Item;
+import com.ensaitechnomobile.agenda.metier.LessonItem;
 import com.ensaitechnomobile.main.Authentification;
-import com.ensaitechnomobile.metier.DayItem;
-import com.ensaitechnomobile.metier.Item;
-import com.ensaitechnomobile.metier.LessonItem;
 
 public class AgendaViewer extends ActionBarActivity {
 
@@ -50,8 +50,6 @@ public class AgendaViewer extends ActionBarActivity {
 	public String baseUrl;
 	private String id, pass;
 	private CoursDAO cdao = new CoursDAO();
-	// private SimpleDateFormat hFormat = new SimpleDateFormat("HH:mm",
-	// Locale.FRENCH);
 	private SimpleDateFormat dFormat = new SimpleDateFormat(
 			"EEEE, dd MMMM yyyy\n", Locale.FRENCH);
 
@@ -182,6 +180,7 @@ public class AgendaViewer extends ActionBarActivity {
 				if (day.equals(dFormat.format(new Date(lessonItem.getDebut())))) {
 					items.add(lessonItem);
 				} else {
+					day = dFormat.format(new Date(lessonItem.getDebut()));
 					items.add(new DayItem(lessonItem.getDebut()));
 					items.add(lessonItem);
 				}
@@ -189,16 +188,6 @@ public class AgendaViewer extends ActionBarActivity {
 			LessonAdapter adapter = new LessonAdapter(this, items);
 			listeView = (ListView) findViewById(R.id.activity_agenda_planning);
 			listeView.setAdapter(adapter);
-			// *********************
-			// arrayAdapter
-			// Création d'un SimpleAdapter qui se chargera de mettre les items
-			// présent dans notre list (listItem) dans la vue affichageitem
-			// SimpleAdapter mSchedule = new SimpleAdapter(this, mapping(ls),
-			// R.layout.affichage_matiere, new String[] { "debut", "fin",
-			// "salle", "nom" }, new int[] { R.id.debut, R.id.fin,
-			// R.id.salle, R.id.nom });
-			// listeView = (ListView) findViewById(R.id.planning);
-			// listeView.setAdapter(mSchedule);
 		} else {
 			Toast.makeText(AgendaViewer.this, getString(R.string.agenda_null),
 					Toast.LENGTH_LONG).show();
@@ -227,50 +216,6 @@ public class AgendaViewer extends ActionBarActivity {
 		}
 		return listeCours;
 	}
-
-	/**
-	 * Méthode permettant l'affichage des cours par le layout afficher_matiere à
-	 * partir d'un arraylist de cours
-	 * 
-	 * @param ls
-	 *            arraylist contenant les matières
-	 * @return
-	 */
-	// private ArrayList<HashMap<String, String>> mapping(ArrayList<LessonItem>
-	// ls) {
-	// Collections.sort(ls);
-	// ArrayList<HashMap<String, String>> res = new ArrayList<HashMap<String,
-	// String>>();
-	// HashMap<String, String> map;
-	// String day1 = dFormat.format(new Date(ls.get(0).getDebut()));
-	// String day2;
-	// map = new HashMap<String, String>();
-	// map.put("salle", "\n" + ls.get(0).getSalle());
-	// map.put("debut", dFormat.format(new Date(ls.get(0).getDebut()))
-	// + hFormat.format(new Date(ls.get(0).getDebut())));
-	// map.put("nom", ls.get(0).getNom());
-	// map.put("fin", hFormat.format(new Date(ls.get(0).getFin())));
-	// res.add(map);
-	//
-	// for (int i = 1; i < ls.size(); i++) {
-	// map = new HashMap<String, String>();
-	// day2 = dFormat.format(new Date(ls.get(i).getDebut()));
-	// if (!day1.equals(day2)) {
-	// map.put("debut", dFormat.format(new Date(ls.get(i).getDebut()))
-	// + hFormat.format(new Date(ls.get(i).getDebut())));
-	// map.put("salle", "\n" + ls.get(i).getSalle());
-	// } else {
-	// map.put("debut", hFormat.format(new Date(ls.get(i).getDebut())));
-	// map.put("salle", ls.get(i).getSalle());
-	// }
-	// day1 = day2;
-	//
-	// map.put("nom", ls.get(i).getNom());
-	// map.put("fin", hFormat.format(new Date(ls.get(i).getFin())));
-	// res.add(map);
-	// }
-	// return res;
-	// }
 
 	/**
 	 * Lire un flux de données

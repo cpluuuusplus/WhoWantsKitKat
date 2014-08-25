@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.metier;
+package com.ensaitechnomobile.common.metier;
 
 import android.util.Log;
 
@@ -9,7 +9,7 @@ import android.util.Log;
  * @author nicolas
  * 
  */
-public class Localite {
+public class City {
 	// attributs
 	String ville = "..";
 	double latitude = -100.0;
@@ -23,7 +23,7 @@ public class Localite {
 	 * 
 	 * @param villeLocalite
 	 */
-	public Localite(String villeLocalite) {
+	public City(String villeLocalite) {
 		ville = villeLocalite;
 		Log.i("Meteo::Localite", "La localité " + ville
 				+ " vient  d'être construite, sans coordonnées");
@@ -38,7 +38,7 @@ public class Localite {
 	 * @param longit
 	 *            la longitude
 	 */
-	public Localite(double longit, double latit) {
+	public City(double longit, double latit) {
 		latitude = latit;
 		longitude = longit;
 		Log.i("Meteo::Localite", "La localité située en " + longitude + ", "
@@ -64,7 +64,7 @@ public class Localite {
 
 	}
 
-	public Localite(String villeLocalite, double longit, double latit) {
+	public City(String villeLocalite, double longit, double latit) {
 		this.setVille(villeLocalite);
 		this.setLatitude(latit);
 		this.setLongitude(longit);
