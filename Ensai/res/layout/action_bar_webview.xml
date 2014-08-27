@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_bar_webview"
-        android:icon="@drawable/ic_change_user"
+        android:icon="@drawable/ic_user_cancel"
         yourapp:showAsAction="ifRoom|withText">
     </item>
 

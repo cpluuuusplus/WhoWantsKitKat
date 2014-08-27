@@ -11,7 +11,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 
@@ -23,6 +22,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.ConnectivityManager;
@@ -37,6 +37,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -60,16 +61,23 @@ public class Agenda extends ActionBarActivity {
 	public ArrayAdapter<LessonItem> adapter;
 
 	// Création de la ArrayList qui nous permettra de remplire la listView
-	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
-	ListView listeView;
-	JSONArray table = null;
+	private ListView listeView;
+	private JSONArray table = null;
+	private SharedPreferences preferences;
+	private LinearLayout agendaBack;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_agenda_viewer);
+		setContentView(R.layout.activity_agenda);
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		agendaBack = (LinearLayout) findViewById(R.id.activity_agenda_linear_layout);
+		agendaBack.setBackgroundResource(preferences.getInt("AGENDA_COLOR",
+				R.drawable.backmotif_blue));
+
 		displayLessons();
 	}
 
@@ -205,9 +213,22 @@ public class Agenda extends ActionBarActivity {
 	// Implémentation du menu
 
 	/**
+	 * Méthode permettant de cocher la bonne couleur de background
+	 */
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		super.onPrepareOptionsMenu(menu);
+		menu.findItem(
+				preferences.getInt("AGENDA_ITEM", R.id.action_bar_agenda_blue))
+				.setChecked(true);
+		return true;
+	}
+
+	/**
 	 * Méthode qui se déclenchera lorsque vous appuierez sur le bouton menu du
 	 * téléphone
 	 */
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu items for use in the action bar
@@ -222,6 +243,7 @@ public class Agenda extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
+		// agendaback.setBackgroundResource(R.drawable.backmotif_blue);
 		if (item.getItemId() == R.id.action_bar_agenda_sync) {
 			ConnectivityManager cm = (ConnectivityManager) this
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -241,6 +263,72 @@ public class Agenda extends ActionBarActivity {
 			Intent intent = new Intent(getBaseContext(), Authentification.class);
 			if (intent != null)
 				startActivity(intent);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_agenda_blue) {
+			Editor edit = preferences.edit();
+			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_blue);
+			edit.putInt("AGENDA_ITEM", item.getItemId());
+			edit.commit();
+			agendaBack.setBackgroundResource(R.drawable.backmotif_blue);
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_agenda_green) {
+			Editor edit = preferences.edit();
+			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_green);
+			edit.putInt("AGENDA_ITEM", item.getItemId());
+			edit.commit();
+			agendaBack.setBackgroundResource(R.drawable.backmotif_green);
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_agenda_orange) {
+			Editor edit = preferences.edit();
+			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_orange);
+			edit.putInt("AGENDA_ITEM", item.getItemId());
+			edit.commit();
+			agendaBack.setBackgroundResource(R.drawable.backmotif_orange);
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_agenda_pink) {
+			Editor edit = preferences.edit();
+			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_pink);
+			edit.putInt("AGENDA_ITEM", item.getItemId());
+			edit.commit();
+			agendaBack.setBackgroundResource(R.drawable.backmotif_pink);
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_agenda_gold) {
+			Editor edit = preferences.edit();
+			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_gold);
+			edit.putInt("AGENDA_ITEM", item.getItemId());
+			edit.commit();
+			agendaBack.setBackgroundResource(R.drawable.backmotif_gold);
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_agenda_darkred) {
+			Editor edit = preferences.edit();
+			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_darkred);
+			edit.putInt("AGENDA_ITEM", item.getItemId());
+			edit.commit();
+			agendaBack.setBackgroundResource(R.drawable.backmotif_darkred);
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
 			return true;
 		} else
 			return false;

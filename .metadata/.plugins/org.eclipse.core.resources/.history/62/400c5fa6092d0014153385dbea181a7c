@@ -1,0 +1,16 @@
+package com.ensaitechnomobile.main;
+
+import com.ensai.appli.R;
+
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
+
+public class Credits extends ActionBarActivity {
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_credits);
+	}
+}

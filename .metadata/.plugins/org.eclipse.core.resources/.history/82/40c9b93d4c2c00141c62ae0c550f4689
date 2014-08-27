@@ -1,0 +1,34 @@
+package com.ensaitechnomobile.meteo.metier;
+
+public class NewEtatMeteo {
+	// attributs
+
+	// Objet du JSON : dt
+	long dt;
+
+	// Objet du JSON : name
+	String name;
+
+	// Objet du JSON : coord
+	double lon, lat;
+
+	// Objet du JSON : sys
+	String sysCountry;
+	long sysSunrise, sysSunset;
+
+	// Objet du JSON : main
+	int mainTemp, mainHumidity, mainPressure, mainTempMin, mainTempMax;
+
+	// Objet du JSON : wind
+	double windSpeed;
+
+	// Objet du JSON : clouds
+	double cloudsAll;
+
+	// Objet du JSON : weather
+	int weatherId;
+	String weatherMain, weatherDesc, weatherIcon;
+
+	// Objet du JSON : rain
+	double rain3h, rain1h;
+}

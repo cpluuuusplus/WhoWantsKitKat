@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- <ScrollView xmlns:android="http://schemas.android.com/apk/res/android" -->
+<!-- android:id="@+id/scrollView1" -->
+<!-- android:layout_width="wrap_content" -->
+<!-- android:layout_height="wrap_content" -->
+<!-- android:fillViewport="true" > -->
+
+
+<!-- xmlns:tools="http://schemas.android.com/tools" -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/backmotif"
+    android:fillViewport="true"
+    android:paddingBottom="20dp"
+    android:paddingTop="12dp"
+    android:scrollbarStyle="outsideOverlay"
+    android:scrollbars="vertical" >
+
+    <HorizontalScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        android:scrollbarStyle="outsideOverlay" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/activity_meteo_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="@string/to_be_defined"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/activity_meteo_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:scaleX="2.0"
+                android:scaleY="2.0" />
+
+            <TableLayout
+                android:id="@+id/activity_meteo_table1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+
+                <TableRow
+                    android:id="@+id/activity_meteo_table1_row_latitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table1_row_latitude_desc"
+                        android:layout_width="fill_parent"
+                        android:layout_marginRight="20dp"
+                        android:gravity="left"
+                        android:text="@string/activity_meteo_table1_row_latitude_desc"
+                        android:textColor="@color/silver" />
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table1_row_latitude_info"
+                        android:layout_width="fill_parent"
+                        android:gravity="right"
+                        android:text="@string/to_be_defined"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/activity_meteo_table1_row_longitute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table1_row_longitute_desc"
+                        android:layout_width="fill_parent"
+                        android:layout_marginRight="20dp"
+                        android:gravity="left"
+                        android:text="@string/activity_meteo_table1_row_longitute_desc"
+                        android:textColor="@color/silver" />
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table1_row_longitude_info"
+                        android:layout_width="fill_parent"
+                        android:gravity="right"
+                        android:text="@string/to_be_defined"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/activity_meteo_table1_row_sunrise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table1_row_sunrise_desc"
+                        android:layout_width="fill_parent"
+                        android:layout_marginRight="20dp"
+                        android:gravity="left"
+                        android:text="@string/activity_meteo_table1_row_sunrise_desc"
+                        android:textColor="@color/silver" />
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table1_row_sunrise_info"
+                        android:layout_width="fill_parent"
+                        android:gravity="right"
+                        android:text="@string/to_be_defined"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <!-- sunset -->
+
+                <TableRow
+                    android:id="@+id/activity_meteo_table1_row_sunset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table1_row_sunset_desc"
+                        android:layout_width="fill_parent"
+                        android:layout_marginRight="20dp"
+                        android:gravity="left"
+                        android:text="@string/activity_meteo_table1_row_sunset_desc"
+                        android:textColor="@color/silver" />
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table1_row_sunset_info"
+                        android:layout_width="fill_parent"
+                        android:gravity="right"
+                        android:text="@string/to_be_defined"
+                        android:textColor="@color/white" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/activity_meteo_hour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="@string/to_be_defined"
+                android:textColor="@color/black_color"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <TableLayout
+                android:id="@+id/activity_meteo_table2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+
+                <TableRow
+                    android:id="@+id/activity_meteo_table2_row_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_main_desc"
+                        android:layout_width="fill_parent"
+                        android:layout_marginRight="20dp"
+                        android:gravity="left"
+                        android:text="@string/activity_meteo_table2_row_main_desc"
+                        android:textColor="@color/silver" />
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_main_info"
+                        android:layout_width="fill_parent"
+                        android:gravity="right"
+                        android:text="@string/to_be_defined"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/activity_meteo_table2_row_clouds"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_clouds_desc"
+                        android:layout_width="fill_parent"
+                        android:layout_marginRight="20dp"
+                        android:gravity="left"
+                        android:text="@string/activity_meteo_table2_row_clouds_desc"
+                        android:textColor="@color/silver" />
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_clouds_info"
+                        android:layout_width="fill_parent"
+                        android:gravity="right"
+                        android:text="@string/to_be_defined"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <!-- température -->
+
+                <TableRow
+                    android:id="@+id/activity_meteo_table2_row_temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_temperature_desc"
+                        android:layout_width="fill_parent"
+                        android:layout_marginRight="20dp"
+                        android:gravity="left"
+                        android:text="@string/activity_meteo_table2_row_temperature_desc"
+                        android:textColor="@color/silver" />
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_temperature_moy_info"
+                        android:layout_width="fill_parent"
+                        android:gravity="right"
+                        android:text="@string/to_be_defined"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/activity_meteo_table2_row_humidity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_humidity_desc"
+                        android:layout_width="fill_parent"
+                        android:layout_marginRight="20dp"
+                        android:gravity="left"
+                        android:text="@string/activity_meteo_table2_row_humidity_desc"
+                        android:textColor="@color/silver" />
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_humidity_info"
+                        android:layout_width="fill_parent"
+                        android:gravity="right"
+                        android:text="@string/to_be_defined"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/activity_meteo_table2_row_rain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_rain_desc"
+                        android:layout_width="fill_parent"
+                        android:layout_marginRight="20dp"
+                        android:gravity="left"
+                        android:text="@string/activity_meteo_table2_row_rain_desc"
+                        android:textColor="@color/silver" />
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_rain_info"
+                        android:layout_width="fill_parent"
+                        android:gravity="right"
+                        android:text="@string/to_be_defined"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/activity_meteo_table2_row_pressure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_pressure_desc"
+                        android:layout_width="fill_parent"
+                        android:layout_marginRight="20dp"
+                        android:gravity="left"
+                        android:text="@string/activity_meteo_table2_row_pressure_desc"
+                        android:textColor="@color/silver" />
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_pressure_info"
+                        android:layout_width="fill_parent"
+                        android:gravity="right"
+                        android:text="@string/to_be_defined"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <!-- vent -->
+
+                <TableRow
+                    android:id="@+id/activity_meteo_table2_row_wind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_wind_desc"
+                        android:layout_width="fill_parent"
+                        android:layout_marginRight="20dp"
+                        android:gravity="left"
+                        android:text="@string/activity_meteo_table2_row_wind_desc"
+                        android:textColor="@color/silver" />
+
+                    <TextView
+                        android:id="@+id/activity_meteo_table2_row_wind_info"
+                        android:layout_width="fill_parent"
+                        android:gravity="right"
+                        android:text="@string/to_be_defined"
+                        android:textColor="@color/white" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</ScrollView>

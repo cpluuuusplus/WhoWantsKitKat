@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- <bitmap xmlns:android="http://schemas.android.com/apk/res/android" -->
+<!-- android:dither="true" -->
+<!-- android:scaleType="fitStart" -->
+<!-- android:src="@drawable/apple" > -->
+
+
+<!-- </bitmap> -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+    <gradient
+        android:endColor="#B22222"
+        android:gradientRadius="495.0"
+        android:startColor="#800000"
+        android:type="radial" />
+
+<!--     android:endColor="#ff2c4988" -->
+<!-- android:startColor="#ff5774b5" -->
+</shape>

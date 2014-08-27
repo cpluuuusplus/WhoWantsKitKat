@@ -29,6 +29,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -38,6 +39,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,12 +62,20 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	private SimpleDateFormat hFormat = new SimpleDateFormat("HH:mm",
 			Locale.FRENCH);
 
+	private SharedPreferences preferences;
+	private ScrollView meteoBack;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_meteo);
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		meteoBack = (ScrollView) findViewById(R.id.activity_meteo_scroll_view);
+		meteoBack.setBackgroundResource(preferences.getInt("METEO_COLOR",
+				R.drawable.backmotif_blue));
 
 		locateDevice();
 		City city = new City(longitude, latitude);
@@ -373,6 +383,23 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 		longitude = location.getLongitude();
 	}
 
+	// Implémentation du menu
+
+	/**
+	 * Méthode permettant de cocher la bonne couleur de background
+	 */
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		super.onPrepareOptionsMenu(menu);
+		menu.findItem(
+				preferences.getInt("METEO_ITEM", R.id.action_bar_meteo_blue))
+				.setChecked(true);
+		return true;
+	}
+
+	/**
+	 * Méthode permettant de mettre en place l'action bar
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.layout.action_bar_meteo, menu);
@@ -385,7 +412,9 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	// Méthode qui se déclenchera au clic sur un item
+	/**
+	 * Méthode qui se déclenchera au clic sur un item
+	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
@@ -393,6 +422,72 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 			locateDevice();
 			City city = new City(longitude, latitude);
 			locateWithCity(city);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_meteo_blue) {
+			Editor edit = preferences.edit();
+			edit.putInt("METEO_COLOR", R.drawable.backmotif_blue);
+			edit.putInt("METEO_ITEM", item.getItemId());
+			edit.commit();
+			meteoBack.setBackgroundResource(R.drawable.backmotif_blue);
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_meteo_green) {
+			Editor edit = preferences.edit();
+			edit.putInt("METEO_COLOR", R.drawable.backmotif_green);
+			edit.putInt("METEO_ITEM", item.getItemId());
+			edit.commit();
+			meteoBack.setBackgroundResource(R.drawable.backmotif_green);
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_meteo_orange) {
+			Editor edit = preferences.edit();
+			edit.putInt("METEO_COLOR", R.drawable.backmotif_orange);
+			edit.putInt("METEO_ITEM", item.getItemId());
+			edit.commit();
+			meteoBack.setBackgroundResource(R.drawable.backmotif_orange);
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_meteo_pink) {
+			Editor edit = preferences.edit();
+			edit.putInt("METEO_COLOR", R.drawable.backmotif_pink);
+			edit.putInt("METEO_ITEM", item.getItemId());
+			edit.commit();
+			meteoBack.setBackgroundResource(R.drawable.backmotif_pink);
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_meteo_gold) {
+			Editor edit = preferences.edit();
+			edit.putInt("METEO_COLOR", R.drawable.backmotif_gold);
+			edit.putInt("METEO_ITEM", item.getItemId());
+			edit.commit();
+			meteoBack.setBackgroundResource(R.drawable.backmotif_gold);
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_meteo_darkred) {
+			Editor edit = preferences.edit();
+			edit.putInt("METEO_COLOR", R.drawable.backmotif_darkred);
+			edit.putInt("METEO_ITEM", item.getItemId());
+			edit.commit();
+			meteoBack.setBackgroundResource(R.drawable.backmotif_darkred);
+			if (item.isChecked())
+				item.setChecked(false);
+			else
+				item.setChecked(true);
 			return true;
 		} else
 			return false;

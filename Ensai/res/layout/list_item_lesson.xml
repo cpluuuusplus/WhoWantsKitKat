@@ -39,7 +39,7 @@
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
                 android:text="@string/list_item_lesson_debut"
-                android:textColor="@color/gray" />
+                android:textColor="#A9A9A9" />
 
             <TextView
                 android:id="@+id/list_item_lesson_debut"
@@ -60,7 +60,7 @@
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
                 android:text="@string/list_item_lesson_fin"
-                android:textColor="@color/gray" />
+                android:textColor="#A9A9A9" />
 
             <TextView
                 android:id="@+id/list_item_lesson_fin"
@@ -88,7 +88,7 @@
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
                 android:text="@string/list_item_lesson_salle"
-                android:textColor="@color/gray" />
+                android:textColor="#A9A9A9" />
 
             <TextView
                 android:id="@+id/list_item_lesson_salle"

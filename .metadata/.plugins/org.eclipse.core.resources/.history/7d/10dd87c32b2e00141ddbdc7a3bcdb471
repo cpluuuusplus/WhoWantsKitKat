@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
+
+        <item
+        android:id="@+id/action_test_agenda_user"
+        android:icon="@drawable/ic_user_change"
+        yourapp:showAsAction="ifRoom|withText">
+    </item>
+    
+    <item
+        android:id="@+id/action_bar_authentification_color_change"
+        android:icon="@drawable/ic_action_settings"
+        android:showAsAction="always"
+        android:title="@string/color_change">
+
+        <menu>
+
+            <group
+                android:checkableBehavior="single"
+                yourapp:showAsAction="never" >
+
+                <item
+                    android:id="@+id/action_bar_authentification_blue"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/color_blue"
+                    yourapp:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/action_bar_authentification_darkred"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/color_red"
+                    yourapp:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/action_bar_authentification_pink"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/color_pink"
+                    yourapp:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/action_bar_authentification_gold"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/color_gold"
+                    yourapp:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/action_bar_authentification_orange"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/color_orange"
+                    yourapp:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/action_bar_authentification_green"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/color_green"
+                    yourapp:showAsAction="never"/>
+            </group>
+        </menu>
+    </item>
+
+</menu>

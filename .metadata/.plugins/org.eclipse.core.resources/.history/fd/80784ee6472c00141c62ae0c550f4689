@@ -1,0 +1,152 @@
+package com.ensaitechnomobile.meteo.metier;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.ensaitechnomobile.common.metier.City;
+import com.ensaitechnomobile.exceptions.CityNotFoundException;
+
+/**
+ * Cette classe renverra un ou plusieurs objets EtatMeteo à partir d'un JSON
+ * 
+ * @author nicolas
+ * 
+ */
+public class MeteoJSON {
+
+	/**
+	 * Constructeur sans rien
+	 */
+	public MeteoJSON() {
+	}
+
+	/**
+	 * 
+	 * Initialisateur à partir du JSON de la météo du jour même
+	 * 
+	 * @param json
+	 * @throws JSONException
+	 *             Si l'objet JSON est invalide
+	 * 
+	 * @return un objet EtatMétéo
+	 * @throws CityNotFoundException
+	 *             Si la ville saisie est incorrecte
+	 */
+	public EtatMeteo construireEtatMeteoActuel(JSONObject json)
+			throws JSONException, CityNotFoundException {
+		// Récupérations JSON
+		if (json.getInt("cod") == 404) {
+			// La ville n'a pas été trouvée
+			throw new CityNotFoundException("La ville n'a pas été trouvée");
+		} else {
+			// Déclarations
+
+			String weatherDesc, weatherMain;
+			double lat, lon;
+
+			int weatherId, switchMeteo;
+			TypeMeteo tm;
+
+			// Objet du JSON : main
+			int mainTemp, mainTempMin, mainTempMax, mainPressure, mainHumidity;
+
+			// Objet du JSON : clouds
+			double windSpeed;
+
+			// Objet du JSON : clouds
+			double cloudsAll;
+
+			// Objet du JSON : rain
+			double rain1h, rain3h;
+
+			String nomLocalite;
+
+			// Coordonnées
+			lon = json.getJSONObject("coord").getDouble("lon");
+			lat = json.getJSONObject("coord").getDouble("lat");
+
+			// Objet du JSON : sys
+			String sysCountry;
+			long sysSunset, sysSunrise;
+			sysCountry = json.getJSONObject("sys").getString("country");
+			sysSunrise = json.getJSONObject("sys").getLong("sunrise");
+			sysSunset = json.getJSONObject("sys").getLong("sunset");
+
+			// Description générale du climat
+			weatherId = json.getJSONArray("weather").getJSONObject(0)
+					.getInt("id");
+			weatherMain = json.getJSONArray("weather").getJSONObject(0)
+					.getString("main");
+			weatherDesc = json.getJSONArray("weather").getJSONObject(0)
+					.getString("description");
+
+			// Description détaillée du climat
+			mainTemp = json.getJSONObject("main").getInt("temp");
+			mainHumidity = json.getJSONObject("main").getInt("humidity");
+			mainPressure = json.getJSONObject("main").getInt("pressure");
+			mainTempMin = json.getJSONObject("main").getInt("temp_min");
+			mainTempMax = json.getJSONObject("main").getInt("temp_max");
+
+			// Description du vent
+			windSpeed = json.getJSONObject("wind").getDouble("speed");
+
+			// Description des nuages
+			cloudsAll = json.getJSONObject("clouds").getDouble("all");
+			
+			nomLocalite = json.getString("name");
+			return new EtatMeteo(tm, windSpeed, mainTempMin, mainTempMax,
+					cloudsAll, rain1h, rain3h, sysCountry, sysSunrise, sysSunset,
+					mainPressure, new City(nomLocalite, lon, lat));
+
+			// Description de la pluie
+			// Si il n'y a pas de pluie, il n'y a pas d'objet "rain"
+			// Il faudrait en théorie faire selon les valeurs de l'objet
+			// objWeather
+			try {
+				rain3h = json.getJSONObject("rain").getDouble("3h");
+
+			} catch (JSONException e) {
+				rain3h = 0.0;
+			}
+			try {
+				rain1h = json.getJSONObject("rain").getDouble("1h");
+			} catch (JSONException e) {
+				rain1h = 0.0;
+			}
+
+			
+
+			return new EtatMeteo(tm, windSpeed, mainTempMin, mainTempMax,
+					cloudsAll, rain1h, rain3h, sysCountry, sysSunrise, sysSunset,
+					mainPressure, new City(nomLocalite, lon, lat));
+			switchMeteo = Integer.parseInt(("" + weatherId).substring(0, 1));
+			switch (switchMeteo) {
+			case 2:
+				tm = TypeMeteo.ORAGE;
+				break;
+			case 3:
+				tm = TypeMeteo.CRACHATS;
+				break;
+			case 5:
+				tm = TypeMeteo.PLUIE;
+				break;
+			case 6:
+				tm = TypeMeteo.NEIGE;
+				break;
+			case 7:
+				tm = TypeMeteo.BROUILLARD;
+				break;
+			case 8:
+				tm = TypeMeteo.NUAGES;
+				break;
+			case 9:
+				tm = TypeMeteo.EXTREME;
+				break;
+			default:
+				tm = TypeMeteo.CAS_NON_GERE;
+				break;
+			}
+		}
+	}
+}

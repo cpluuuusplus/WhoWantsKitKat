@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/action_bar_main_credits"
+        android:layout_gravity="center"
+        android:icon="@drawable/ic_credits"
+        android:title="@string/action_bar_main_credits_title"
+        yourapp:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_bar_main_user"
+        android:icon="@drawable/ic_user_change"
+        yourapp:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_bar_main_color_change"
+        android:icon="@drawable/ic_action_settings"
+        android:showAsAction="always"
+        android:title="@string/color_change">
+
+        <menu>
+
+            <group
+                android:checkableBehavior="single"
+                yourapp:showAsAction="never" >
+
+                <item
+                    android:id="@+id/action_bar_main_blue"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/color_blue"
+                    yourapp:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/action_bar_main_darkred"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/color_red"
+                    yourapp:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/action_bar_main_pink"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/color_pink"
+                    yourapp:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/action_bar_main_gold"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/color_gold"
+                    yourapp:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/action_bar_main_orange"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/color_orange"
+                    yourapp:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/action_bar_main_green"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/color_green"
+                    yourapp:showAsAction="never"/>
+            </group>
+        </menu>
+    </item>
+
+</menu>

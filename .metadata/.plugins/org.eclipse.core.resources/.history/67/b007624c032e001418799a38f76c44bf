@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/action_bar_main_credits"
+        android:layout_gravity="center"
+        android:icon="@drawable/ic_credits"
+        android:title="@string/action_bar_main_credits_title"
+        yourapp:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_bar_main_user"
+        android:icon="@drawable/ic_user_change"
+        yourapp:showAsAction="always"/>
+
+    <group android:checkableBehavior="single" >
+
+        <item
+            android:id="@+id/action_bar_main_blue"
+            android:checked="true"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/color_blue"
+            yourapp:showAsAction="ifRoom"/>
+
+        <item
+            android:id="@+id/action_bar_main_darkred"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/color_red"
+            yourapp:showAsAction="ifRoom"/>
+
+        <item
+            android:id="@+id/action_bar_main_pink"
+            android:icon="@drawable/ic_action_settings"
+            android:title="Pink"
+            yourapp:showAsAction="ifRoom"/>
+
+        <item
+            android:id="@+id/action_bar_main_gold"
+            android:icon="@drawable/ic_action_settings"
+            android:title="Gold"
+            yourapp:showAsAction="ifRoom"/>
+
+        <item
+            android:id="@+id/action_bar_main_orange"
+            android:icon="@drawable/ic_action_settings"
+            android:title="Orange"
+            yourapp:showAsAction="ifRoom"/>
+
+        <item
+            android:id="@+id/action_bar_main_green"
+            android:icon="@drawable/ic_action_settings"
+            android:title="Green"
+            yourapp:showAsAction="ifRoom"/>
+    </group>
+
+</menu>
