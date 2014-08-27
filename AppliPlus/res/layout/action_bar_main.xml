@@ -7,4 +7,11 @@
         android:icon="@drawable/user"
         yourapp:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_bar_main_credits"
+        android:title="@string/action_bar_main_credits_title"
+        android:icon="@drawable/ic_credits"
+        android:layout_gravity="center"
+        yourapp:showAsAction="always"/>
+
 </menu>

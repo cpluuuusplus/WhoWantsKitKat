@@ -46,9 +46,8 @@ public class Authentification extends Activity {
 		editor.putString("login", id);
 		editor.putString("password", pass);
 		editor.commit();
-
-		Toast.makeText(this, "Identifiants enregistrés", Toast.LENGTH_LONG)
-				.show();
+		Toast.makeText(this, getString(R.string.authentification_ok),
+				Toast.LENGTH_LONG).show();
 		Intent intent = new Intent(getBaseContext(), Main.class);
 
 		// pour éviter le if tu peux faire un return sur default du switch

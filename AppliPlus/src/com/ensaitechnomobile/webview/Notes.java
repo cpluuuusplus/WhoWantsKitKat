@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.ENT;
+package com.ensaitechnomobile.webview;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,24 +24,12 @@ import android.widget.Toast;
 
 import com.ensai.appli.R;
 
-public class WebviewMail extends ActionBarActivity {
+public class Notes extends ActionBarActivity {
 	/** Called when the activity is first created. */
 	// @Override
-	private WebView webview;
+	private WebView webview = null;
 	private String id, pass;
-	ProgressBar progressBar;
-	protected static final String TAG = "MAIL::";
-
-	// To handle "Back" key press event for WebView to go back to previous
-	// screen.
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
-			webview.goBack();
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+	private ProgressBar progressBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,25 +48,46 @@ public class WebviewMail extends ActionBarActivity {
 		myClickHandler();
 	}
 
+	// To handle "Back" key press event for WebView to go back to previous
+	// screen.
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		ConnectivityManager cm = (ConnectivityManager) this
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		boolean isConnected = activeNetwork != null
+				&& activeNetwork.isConnectedOrConnecting();
+		if (isConnected && webview != null) {
+			if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
+				webview.goBack();
+				return true;
+			}
+			return super.onKeyDown(keyCode, event);
+		} else {
+			return false;
+		}
+	}
+
 	// When user clicks button, calls AsyncTask.
 	// Before attempting to fetch the URL, makes sure that there is a network
 	// connection.
-	public void myClickHandler() {
-		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-		if (networkInfo != null && networkInfo.isConnected()) {
+	private void myClickHandler() {
+		ConnectivityManager cm = (ConnectivityManager) this
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		boolean isConnected = activeNetwork != null
+				&& activeNetwork.isConnectedOrConnecting();
+		if (isConnected) {
+
+			// Bundle objectbundle = this.getIntent().getExtras();
 			webview = (WebView) findViewById(R.id.webview01);
 			progressBar = (ProgressBar) findViewById(R.id.web_view_progress);
 
 			// Enable JavaScript and lets the browser go back
 			webview.getSettings().setJavaScriptEnabled(true);
 			webview.canGoBack();
-			webview.getSettings().setSupportZoom(true);
-			webview.getSettings().setBuiltInZoomControls(true);
-			webview.setInitialScale(100);
-			webview.getSettings().setLoadWithOverviewMode(true);
-			webview.getSettings().setUseWideViewPort(true);
 
 			webview.setWebViewClient(new WebViewClient() {
 				@Override
@@ -130,12 +139,10 @@ public class WebviewMail extends ActionBarActivity {
 			});
 
 			// The URL that webview is loading
-			// webview.loadUrl("https://webmail.ensai.fr/SOGo/so/" + id
-			// + "/Mail/view");
-
-			webview.loadUrl("https://webmail.ensai.fr/SOGo/so/");
+			webview.loadUrl(getString(R.string.webviewnotes_URL));
 		} else {
-			Toast.makeText(this, getString(R.string.conection_error),
+			Toast.makeText(this,
+					getString(R.string.webview_internet_conection_error),
 					Toast.LENGTH_LONG).show();
 		}
 	}

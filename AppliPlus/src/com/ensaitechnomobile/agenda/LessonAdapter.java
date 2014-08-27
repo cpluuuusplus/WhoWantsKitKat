@@ -56,10 +56,10 @@ public class LessonAdapter extends ArrayAdapter<Item> {
 			} else {
 				LessonItem li = (LessonItem) i;
 				v = vi.inflate(R.layout.list_item_lesson, parent, false);
-				final TextView debut = (TextView) v.findViewById(R.id.debut);
-				final TextView salle = (TextView) v.findViewById(R.id.salle);
-				final TextView nom = (TextView) v.findViewById(R.id.nom);
-				final TextView fin = (TextView) v.findViewById(R.id.fin);
+				final TextView debut = (TextView) v.findViewById(R.id.list_item_lesson_debut);
+				final TextView salle = (TextView) v.findViewById(R.id.list_item_lesson_salle);
+				final TextView nom = (TextView) v.findViewById(R.id.list_item_lesson_nom);
+				final TextView fin = (TextView) v.findViewById(R.id.list_item_lesson_fin);
 
 				if (debut != null)
 					debut.setText(hFormat.format(new Date(li.getDebut())));

@@ -5,16 +5,16 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/nom"
+        android:id="@+id/list_item_lesson_nom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dip"
         android:layout_marginLeft="25dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="6dip"
-        android:singleLine="true"
+        android:maxLines="2"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="?android:attr/textColorSecondary" />
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,17 +38,18 @@
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
-                android:text="Début"
+                android:text="@string/list_item_lesson_debut"
                 android:textColor="@color/gray" />
 
             <TextView
-                android:id="@+id/debut"
+                android:id="@+id/list_item_lesson_debut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,17 +59,18 @@
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
-                android:text="Fin"
+                android:text="@string/list_item_lesson_fin"
                 android:textColor="@color/gray" />
 
             <TextView
-                android:id="@+id/fin"
+                android:id="@+id/list_item_lesson_fin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -85,17 +87,19 @@
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
-                android:text="Salle"
+                android:text="@string/list_item_lesson_salle"
                 android:textColor="@color/gray" />
 
             <TextView
-                android:id="@+id/salle"
+                android:id="@+id/list_item_lesson_salle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
+                android:hint="@string/list_item_lesson_na"
                 android:singleLine="true"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 

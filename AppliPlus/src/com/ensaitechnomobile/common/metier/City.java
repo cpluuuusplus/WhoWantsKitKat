@@ -43,33 +43,14 @@ public class City {
 		longitude = longit;
 		Log.i("Meteo::Localite", "La localité située en " + longitude + ", "
 				+ latitude + " vient d'être construite sans ville associée");
-
-		// TODO use :
-		// http://open.mapquestapi.com/nominatim/v1/search?q=48.04,-1.79&format=json
-		// to get ville or something like it
-		/*
-		 * [{"place_id":"38395620","licence":"Data \u00a9 OpenStreetMap
-		 * contributors, ODbL 1.0.
-		 * http:\/\/www.openstreetmap.org\/copyright","osm_type
-		 * ":"way","osm_id":"
-		 * 26379829","boundingbox":["48.0376069","48.0419978","
-		 * -1.7973583","-1.7929719
-		 * "],"lat":"48.03980235","lon":"-1.79710009847924
-		 * ","display_name":"\u00c9tang de la Sillandais, D 36, Goven, Redon,
-		 * Ille-et-Vilaine, Brittany, Metropolitan
-		 * France","class":"natural","type":"water","importance":0.001}] TODO
-		 * écrire une fonction : JSONObject getJSONObject(String URL) dans un
-		 * runnable avec des asynctasks ou des handlers et des messages
-		 */
-
 	}
 
 	public City(String villeLocalite, double longit, double latit) {
 		this.setVille(villeLocalite);
 		this.setLatitude(latit);
 		this.setLongitude(longit);
-		Log.i("Meteo::Localite", "La localité "+villeLocalite+" située en " + longitude + ", "
-				+ latitude + " vient d'être construite.");
+		Log.i("Meteo::Localite", "La localité " + villeLocalite + " située en "
+				+ longitude + ", " + latitude + " vient d'être construite.");
 
 	}
 

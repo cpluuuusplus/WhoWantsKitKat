@@ -2,13 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/backmotif"
     android:fillViewport="true"
     android:scrollbarStyle="outsideOverlay" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/backmotif"
         android:orientation="vertical" >
 
         <Button
@@ -17,15 +17,10 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:drawableLeft="@drawable/calendar"
+            android:drawableRight="@drawable/ic_action_next_item"
             android:onClick="onClickPampViewer"
-            android:text="@string/agenda_button"
+            android:text="@string/activity_main_agenda_button"
             android:textColor="@color/black_color" />
-
-        <!-- android:layout_margin="10dp" -->
-        <!-- android:background="@drawable/button_shape" -->
-
-
-        <!-- android:drawableRight="@drawable/ic_action_next_item" -->
 
         <Button
             android:id="@+id/activity_main_button_mails"
@@ -33,17 +28,10 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:drawableLeft="@drawable/mail"
+            android:drawableRight="@drawable/ic_action_next_item"
             android:onClick="onClickMail"
-            android:text="@string/mails_button"
+            android:text="@string/activity_main_mails_button"
             android:textColor="@color/black_color" />
-
-        <!-- android:layout_marginBottom="10dp" -->
-        <!-- android:layout_marginLeft="10dp" -->
-        <!-- android:layout_marginRight="10dp" -->
-        <!-- android:background="@drawable/button_shape" -->
-
-
-        <!-- android:drawableRight="@drawable/ic_action_next_item" -->
 
         <Button
             android:id="@+id/activity_main_button_notes"
@@ -51,8 +39,9 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:drawableLeft="@drawable/marks"
+            android:drawableRight="@drawable/ic_action_next_item"
             android:onClick="onClickNotes"
-            android:text="@string/marks_button"
+            android:text="@string/activity_main_marks_button"
             android:textColor="@color/black_color" />
 
         <Button
@@ -61,8 +50,9 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:drawableLeft="@drawable/ic_action_location_searching"
+            android:drawableRight="@drawable/ic_action_next_item"
             android:onClick="geolocalisation"
-            android:text="@string/OSM_button"
+            android:text="@string/activity_main_OSM_button"
             android:textColor="@color/black_color" />
 
         <Button
@@ -71,8 +61,9 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:drawableLeft="@drawable/weather"
+            android:drawableRight="@drawable/ic_action_next_item"
             android:onClick="meteo"
-            android:text="@string/weather_button"
+            android:text="@string/activity_main_weather_button"
             android:textColor="@color/black_color" />
     </LinearLayout>
 

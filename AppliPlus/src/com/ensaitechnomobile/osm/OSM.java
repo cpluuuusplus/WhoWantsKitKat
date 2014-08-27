@@ -1,4 +1,4 @@
-package com.ensaitechnomobile.OSM;
+package com.ensaitechnomobile.osm;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -35,6 +35,9 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -61,7 +64,6 @@ public class OSM extends ActionBarActivity {
 	private double longitude, latitude;
 	private LocationManager locationManager;
 	private ArrayList<OverlayItem> overlayItemArray;
-	private ProgressDialog progressDialog;
 	private String country = null;
 
 	/** Called when the activity is first created. */
@@ -69,7 +71,6 @@ public class OSM extends ActionBarActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_osm);
-		progressDialog = new ProgressDialog(this);
 
 		HttpClientFactory.setFactoryInstance(new IHttpClientFactory() {
 			public HttpClient createHttpClient() {
@@ -101,14 +102,13 @@ public class OSM extends ActionBarActivity {
 				overlayItemArray, null, defaultResourceProxyImpl);
 		myOpenMapView.getOverlays().add(myItemizedIconOverlay);
 		// ---
-
-		localiserDevice();
+		locateDevice();
 	}
 
 	/**
 	 * Localiser le device
 	 */
-	private void localiserDevice() {
+	private void locateDevice() {
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		Location lastLocation = locationManager
@@ -148,7 +148,7 @@ public class OSM extends ActionBarActivity {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
 		if (item.getItemId() == R.id.action_bar_osm_find) {
-			localiserDevice();
+			locateDevice();
 			return true;
 		} else if (item.getItemId() == R.id.action_bar_osm_cyclemap) {
 			if (item.isChecked())
@@ -221,7 +221,7 @@ public class OSM extends ActionBarActivity {
 	 * @return
 	 */
 	private String prepareURL(String apid, City loc, int coordX, int coordY) {
-		String res = "http://api.openweathermap.org/data/2.5/weather";
+		String res = getString(R.string.osm_URL);
 		if (loc.hasVille()) {
 			res += "?q=" + loc.getVille();
 		} else {
@@ -244,90 +244,70 @@ public class OSM extends ActionBarActivity {
 	 */
 	private void findNewCity(City loc) {
 		String cityURL = prepareURL(APIID, loc, 0, 0);
-		locateNewCity(cityURL, this.getBaseContext());
+		ConnectivityManager cm = (ConnectivityManager) this
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		boolean isConnected = activeNetwork != null
+				&& activeNetwork.isConnectedOrConnecting();
+		if (isConnected) {
+			new LayoutRefresher().execute(cityURL);
+		} else {
+			Toast.makeText(OSM.this, R.string.osm_internet_conection_error,
+					Toast.LENGTH_LONG).show();
+		}
 	}
 
 	/**
-	 * Récupère les coordonnées de la ville recherchée
+	 * On recupere les coordonnees de la ville recherchee
 	 * 
-	 * @param urlString
-	 * @param ctx
+	 * @param cityURL
 	 */
-	private void locateNewCity(final String urlString, final Context ctx) {
-		// Get all fields to be updated
-
-		country = null;
-		progressDialog.setTitle(getString(R.string.searching_city));
-		progressDialog.setMessage(getString(R.string.move_to_city));
-		progressDialog.setCanceledOnTouchOutside(false);
-		progressDialog.show();
-
-		Runnable code = new Runnable() {
-			URL url = null;
-
-			public void run() {
-				try {
-					// On récupère le JSON a partir de l'URL
-					url = new URL(urlString);
-					HttpURLConnection urlConnection;
-					urlConnection = (HttpURLConnection) url.openConnection();
-					BufferedInputStream in = new BufferedInputStream(
-							urlConnection.getInputStream());
-					String input = readStream(in);
-					JSONObject json = new JSONObject(input);
-					if (json.getInt("cod") == 404) {
-						// La ville n'a pas été trouvée
-						throw new CityNotFoundException(
-								getString(R.string.CityNotFoundException_message));
-					} else {
-						Log.i(TAG, input);
-						Log.i(TAG, json.toString());
-						longitude = json.getJSONObject("coord")
-								.getDouble("lon");
-						latitude = json.getJSONObject("coord").getDouble("lat");
-						country = json.getJSONObject("sys")
-								.getString("country");
-						runOnUiThread(new Runnable() {
-							public void run() {
-								moveToSearchedCity(latitude, longitude);
-							}
-						});
-					}
-
-				} catch (MalformedURLException e) {
-					Log.e(TAG, "URL malformée");
-					e.printStackTrace();
-				} catch (IOException e) {
-					Log.e(TAG, "Exception d'E/S");
-					e.printStackTrace();
-				} catch (JSONException e) {
-					Log.e(TAG, "Exception JSON");
-					e.printStackTrace();
-				} catch (CityNotFoundException e) {
-					runOnUiThread(new Runnable() {
-						public void run() {
-							String city = searchView.getQuery() + "";
-							Toast.makeText(
-									ctx,
-									getString(
-											R.string.CityNotFoundException_toast,
-											city), Toast.LENGTH_LONG).show();
-						}
-					});
-				}
-				runOnUiThread(new Runnable() {
-					public void run() {
-						if (country != null) {
-							String city = searchView.getQuery() + "";
-							city += " (" + country + ")";
-							searchView.setQuery(city, false);
-						}
-					}
-				});
-				progressDialog.dismiss();
+	private void downloadCoord(String cityURL) {
+		// On récupère le JSON a partir de l'URL
+		URL url;
+		try {
+			// On récupère le JSON a partir de l'URL
+			url = new URL(cityURL);
+			HttpURLConnection urlConnection;
+			urlConnection = (HttpURLConnection) url.openConnection();
+			BufferedInputStream in = new BufferedInputStream(
+					urlConnection.getInputStream());
+			String input = readStream(in);
+			JSONObject json = new JSONObject(input);
+			if (json.getInt("cod") == 404) {
+				// La ville n'a pas été trouvée
+				throw new CityNotFoundException(
+						getString(R.string.CityNotFoundException_message));
+			} else {
+				Log.i(TAG, json.toString());
+				longitude = json.getJSONObject("coord").getDouble("lon");
+				latitude = json.getJSONObject("coord").getDouble("lat");
+				country = json.getJSONObject("sys").getString("country");
 			}
-		};
-		new Thread(code).start();
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CityNotFoundException e) {
+			// TODO Auto-generated catch block
+			runOnUiThread(new Runnable() {
+				public void run() {
+					String city = searchView.getQuery() + "";
+					Toast.makeText(
+							OSM.this,
+							getString(R.string.CityNotFoundException_toast,
+									city), Toast.LENGTH_LONG).show();
+				}
+			});
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -422,7 +402,7 @@ public class OSM extends ActionBarActivity {
 				mapview.getProjection().toPixels(in, out);
 
 				Bitmap bm = BitmapFactory.decodeResource(getResources(),
-						R.drawable.ic_action_location_found);
+						R.drawable.ic_position);
 				canvas.drawBitmap(bm, out.x - bm.getWidth() / 2, // shift the
 																	// bitmap
 																	// center
@@ -441,6 +421,48 @@ public class OSM extends ActionBarActivity {
 		public boolean onSingleTapConfirmed(MotionEvent event, MapView mapView) {
 			return true;
 
+		}
+	}
+
+	/**
+	 * Classe permettant de changer de ville en AsyncTask
+	 * 
+	 * @author Jeff
+	 * 
+	 */
+	private class LayoutRefresher extends AsyncTask<String, Void, Void> {
+
+		private ProgressDialog progressDialog;
+
+		public LayoutRefresher() {
+			this.progressDialog = new ProgressDialog(OSM.this);
+			this.progressDialog.setTitle(getString(R.string.searching_city));
+			this.progressDialog.setMessage(getString(R.string.move_to_city));
+		}
+
+		@Override
+		protected void onPreExecute() {
+			this.progressDialog.show();
+			this.progressDialog.setCanceledOnTouchOutside(false);
+		}
+
+		@Override
+		protected Void doInBackground(String... params) {
+			downloadCoord(params[0]);
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void unused) {
+			if (country != null) {
+				String city = searchView.getQuery() + "";
+				city += " (" + country + ")";
+				searchView.setQuery(city, false);
+			}
+			moveToSearchedCity(latitude, longitude);
+			if (this.progressDialog.isShowing()) {
+				this.progressDialog.dismiss();
+			}
 		}
 	}
 }

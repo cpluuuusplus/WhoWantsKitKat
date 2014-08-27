@@ -14,12 +14,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.ensai.appli.R;
-import com.ensaitechnomobile.ENT.WebviewMail;
-import com.ensaitechnomobile.ENT.WebviewNotes;
-import com.ensaitechnomobile.OSM.OSM;
-import com.ensaitechnomobile.agenda.AgendaViewer;
+import com.ensaitechnomobile.agenda.Agenda;
 import com.ensaitechnomobile.agenda.metier.LessonItem;
 import com.ensaitechnomobile.meteo.Meteo;
+import com.ensaitechnomobile.osm.OSM;
+import com.ensaitechnomobile.webview.Mails;
+import com.ensaitechnomobile.webview.Notes;
 
 public class Main extends ActionBarActivity {
 
@@ -41,7 +41,7 @@ public class Main extends ActionBarActivity {
 
 	// Implémentation des listeners bouton
 	public void onClickPampViewer(View v) {
-		Intent intent = new Intent(getBaseContext(), AgendaViewer.class);
+		Intent intent = new Intent(getBaseContext(), Agenda.class);
 		// Intent intent = new Intent(getBaseContext(),
 		// SectionListExample.class);
 		if (intent != null)
@@ -49,13 +49,13 @@ public class Main extends ActionBarActivity {
 	}
 
 	public void onClickMail(View v) {
-		Intent intent = new Intent(getBaseContext(), WebviewMail.class);
+		Intent intent = new Intent(getBaseContext(), Mails.class);
 		if (intent != null)
 			startActivity(intent);
 	}
 
 	public void onClickNotes(View v) {
-		Intent intent = new Intent(getBaseContext(), WebviewNotes.class);
+		Intent intent = new Intent(getBaseContext(), Notes.class);
 		if (intent != null)
 			startActivity(intent);
 	}
@@ -97,6 +97,11 @@ public class Main extends ActionBarActivity {
 		// action
 		if (item.getItemId() == R.id.action_bar_main_user) {
 			Intent intent = new Intent(getBaseContext(), Authentification.class);
+			if (intent != null)
+				startActivity(intent);
+			return true;
+		} else if (item.getItemId() == R.id.action_bar_main_credits) {
+			Intent intent = new Intent(getBaseContext(), Credits.class);
 			if (intent != null)
 				startActivity(intent);
 			return true;

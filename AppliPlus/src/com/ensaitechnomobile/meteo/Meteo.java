@@ -25,6 +25,8 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -42,8 +44,8 @@ import android.widget.Toast;
 import com.ensai.appli.R;
 import com.ensaitechnomobile.common.metier.City;
 import com.ensaitechnomobile.exceptions.CityNotFoundException;
-import com.ensaitechnomobile.meteo.metier.EtatMeteoJSON;
 import com.ensaitechnomobile.meteo.metier.EtatMeteo;
+import com.ensaitechnomobile.meteo.metier.EtatMeteoJSON;
 
 public class Meteo extends ActionBarActivity implements LocationListener {
 
@@ -52,11 +54,11 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	private LocationManager lm;
 	private double latitude = 48.033333;
 	private double longitude = -1.750000;
+	private LocationManager locationManager;
 	private SearchView searchView;
 	private MenuItem searchItem;
 	private SimpleDateFormat hFormat = new SimpleDateFormat("HH:mm",
 			Locale.FRENCH);
-	private ProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +66,42 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 		setContentView(R.layout.activity_meteo);
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		progressDialog = new ProgressDialog(this);
+
+		locateDevice();
 		City city = new City(longitude, latitude);
-		Log.i(TAG, "Localisation obtenue avec succès : " + city.toString());
 		locateWithCity(city);
+	}
+
+	/**
+	 * Permet d'affecter les dernières coordonnées connues par le device
+	 * 
+	 * @param loc
+	 */
+	private void updateLoc(Location location) {
+		latitude = location.getLatitude();
+		longitude = location.getLongitude();
+	}
+
+	/**
+	 * Localiser le device
+	 */
+	private void locateDevice() {
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+		Location lastLocation = locationManager
+				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		if (lastLocation != null) {
+			updateLoc(lastLocation);
+		} else {
+			lastLocation = locationManager
+					.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			if (lastLocation != null) {
+				updateLoc(lastLocation);
+			} else {
+				latitude = 48.033333;
+				longitude = -1.750000;
+			}
+		}
 	}
 
 	// Gestion des preferences pour la meteo
@@ -140,7 +174,7 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 		txt_dt.setText("Heure de prise des mesures  "
 				+ hFormat.format(new Date(prefs.getLong("dt", 0) * 1000)));
 
-		TextView txt_temp = (TextView) findViewById(R.id.activity_meteo_table2_row_temperature_moy_info);
+		TextView txt_temp = (TextView) findViewById(R.id.activity_meteo_table2_row_temperature_info);
 		txt_temp.setText(prefs.getInt("temp", 99)
 				+ "°C"
 				+ " +/- "
@@ -193,11 +227,9 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	 * @param previsions
 	 * @return
 	 */
-
-	// Recherche d'une ville
 	private String prepareURL(String apid, City loc, int coordX, int coordY,
 			boolean previsions) {
-		String res = "http://api.openweathermap.org/data/2.5/";
+		String res = getString(R.string.meteo_URL);
 		if (previsions) {
 			res += "forecast/Daily";
 		} else {
@@ -211,7 +243,7 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 				res += "?lon=" + loc.getLongitude() + "&lat="
 						+ loc.getLatitude();
 			} else {
-				Log.w(TAG, "Ca va planter car localité incorrecte");
+				Log.w(TAG, "Crash");
 			}
 		}
 
@@ -223,89 +255,85 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	}
 
 	/**
+	 * Méthode appelée dans l'Async task pour télécharger les données
+	 * 
+	 * @param urlMeteo
+	 */
+	private void importMeteoInPrefs(String urlMeteo) {
+		// On récupère le JSON a partir de l'URL
+		URL url;
+		try {
+			url = new URL(urlMeteo);
+			HttpURLConnection urlConnection;
+			urlConnection = (HttpURLConnection) url.openConnection();
+			BufferedInputStream in = new BufferedInputStream(
+					urlConnection.getInputStream());
+			String input = readStream(in);
+			JSONObject json = new JSONObject(input);
+			if (json.getInt("cod") == 404) {
+				// La ville n'a pas été trouvée
+				throw new CityNotFoundException(
+						getString(R.string.CityNotFoundException_message));
+			} else {
+				Log.i(TAG, input);
+
+				// On transforme en météo
+				EtatMeteoJSON mjson = new EtatMeteoJSON();
+				EtatMeteo em = mjson.construireEtatMeteoActuelBis(json);
+				Log.i(TAG, em.toString());
+				addInPrefs(em, Meteo.this);
+			}
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			runOnUiThread(new Runnable() {
+				public void run() {
+					Toast.makeText(Meteo.this,
+							getString(R.string.url_error_meteo),
+							Toast.LENGTH_LONG).show();
+				}
+			});
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CityNotFoundException e) {
+			// TODO Auto-generated catch block
+			runOnUiThread(new Runnable() {
+				public void run() {
+					String city = searchView.getQuery() + "";
+					Toast.makeText(
+							Meteo.this,
+							getString(R.string.CityNotFoundException_toast,
+									city), Toast.LENGTH_LONG).show();
+				}
+			});
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * Recupère la météo dans la localité saisie et met à jour les barres
 	 * 
 	 * @param loc
 	 */
 	private void locateWithCity(City loc) {
 		String urlMeteo = prepareURL(APIID, loc, 0, 0, false);
-		syncMeteo(urlMeteo, this.getBaseContext());
-	}
+		ConnectivityManager cm = (ConnectivityManager) this
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-	/**
-	 * Thread parallèle qui ajoute des données quelquepart .. à partir des infos
-	 * sur le web
-	 * 
-	 * Input : url : l'URL a appeler qui devrait Exemple d'URL :
-	 * http://api.openweathermap.org/data/2.5/weather?q=Bruz,fr&units=metric
-	 * TODO faire une fonction intermédiaire pour pouvoir saisir la ville
-	 */
-	private void syncMeteo(final String urlString, final Context ctx) {
-		// Get all fields to be updated
-
-		progressDialog.setTitle(getString(R.string.searching_city));
-		progressDialog.setMessage(getString(R.string.move_to_city));
-		progressDialog.setCanceledOnTouchOutside(false);
-		progressDialog.show();
-
-		Runnable code = new Runnable() {
-			URL url = null;
-
-			public void run() {
-				try {
-					// On récupère le JSON a partir de l'URL
-					url = new URL(urlString);
-					HttpURLConnection urlConnection;
-					urlConnection = (HttpURLConnection) url.openConnection();
-					BufferedInputStream in = new BufferedInputStream(
-							urlConnection.getInputStream());
-					String input = readStream(in);
-					JSONObject json = new JSONObject(input);
-					Log.i(TAG, input);
-					// On transforme en météo
-					EtatMeteoJSON mjson = new EtatMeteoJSON();
-					EtatMeteo nem = mjson.construireEtatMeteoActuelBis(json);
-					Log.i(TAG, nem.toString());
-					addInPrefs(nem, ctx);
-
-					runOnUiThread(new Runnable() {
-						public void run() {
-							displayPrefs(ctx);
-						}
-					});
-
-				} catch (MalformedURLException e) {
-					Log.e(TAG, "URL malformée");
-					e.printStackTrace();
-				} catch (IOException e) {
-					Log.e(TAG, "Exception d'E/S");
-					runOnUiThread(new Runnable() {
-						public void run() {
-							Toast.makeText(Meteo.this,
-									getString(R.string.url_error_meteo),
-									Toast.LENGTH_LONG).show();
-						}
-					});
-					e.printStackTrace();
-				} catch (JSONException e) {
-					Log.e(TAG, "Exception JSON");
-					e.printStackTrace();
-				} catch (CityNotFoundException e) {
-					runOnUiThread(new Runnable() {
-						public void run() {
-							String city = searchView.getQuery() + "";
-							Toast.makeText(
-									ctx,
-									getString(
-											R.string.CityNotFoundException_toast,
-											city), Toast.LENGTH_LONG).show();
-						}
-					});
-				}
-				progressDialog.dismiss();
-			}
-		};
-		new Thread(code).start();
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		boolean isConnected = activeNetwork != null
+				&& activeNetwork.isConnectedOrConnecting();
+		if (isConnected) {
+			new LayoutRefresher().execute(urlMeteo);
+		} else {
+			Toast.makeText(Meteo.this, R.string.meteo_internet_conection_error,
+					Toast.LENGTH_LONG).show();
+		}
 	}
 
 	// Implémentation du LocationListener Portée: 3 méthodes suivantes Mot
@@ -362,20 +390,12 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
 		if (item.getItemId() == R.id.action_bar_meteo_find) {
-			recupererLocalisationAppareil();
+			locateDevice();
+			City city = new City(longitude, latitude);
+			locateWithCity(city);
 			return true;
 		} else
 			return false;
-	}
-
-	/**
-	 * Associé à un bouton Cette méthode récupère la localité
-	 * 
-	 */
-	public void recupererLocalisationAppareil() {
-		City localite = new City(longitude, latitude);
-		Log.i(TAG, "Localisation lue avec succès : " + localite.toString());
-		locateWithCity(localite);
 	}
 
 	private final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
@@ -441,6 +461,44 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 
 		protected void onPostExecute(Bitmap result) {
 			bmImage.setImageBitmap(result);
+		}
+	}
+
+	/**
+	 * Classe permettant de mettre à jour les informations d'une nouvelle ville
+	 * en asyncTask
+	 * 
+	 * @author Jeff
+	 * 
+	 */
+	private class LayoutRefresher extends AsyncTask<String, Void, Void> {
+
+		private ProgressDialog progressDialog;
+
+		public LayoutRefresher() {
+			this.progressDialog = new ProgressDialog(Meteo.this);
+			this.progressDialog.setTitle(getString(R.string.searching_city));
+			this.progressDialog.setMessage(getString(R.string.move_to_city));
+		}
+
+		@Override
+		protected void onPreExecute() {
+			this.progressDialog.show();
+			this.progressDialog.setCanceledOnTouchOutside(false);
+		}
+
+		@Override
+		protected Void doInBackground(String... params) {
+			importMeteoInPrefs(params[0]);
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void unused) {
+			displayPrefs(Meteo.this);
+			if (this.progressDialog.isShowing()) {
+				this.progressDialog.dismiss();
+			}
 		}
 	}
 }

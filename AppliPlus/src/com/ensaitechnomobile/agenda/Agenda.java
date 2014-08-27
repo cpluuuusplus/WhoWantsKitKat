@@ -20,10 +20,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
@@ -37,24 +41,23 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ensai.appli.R;
-import com.ensaitechnomobile.agenda.DAO.CoursDAO;
-import com.ensaitechnomobile.agenda.SQL.MyOpenHelper;
+import com.ensaitechnomobile.agenda.dao.CoursDAO;
 import com.ensaitechnomobile.agenda.metier.DayItem;
 import com.ensaitechnomobile.agenda.metier.Item;
 import com.ensaitechnomobile.agenda.metier.LessonItem;
+import com.ensaitechnomobile.agenda.sql.MyOpenHelper;
 import com.ensaitechnomobile.main.Authentification;
 
-public class AgendaViewer extends ActionBarActivity {
+public class Agenda extends ActionBarActivity {
 
 	public static final String TAG = "MultiService";
-	public String baseUrl;
+	public String baseUrl = "";
 	private String id, pass;
 	private CoursDAO cdao = new CoursDAO();
 	private SimpleDateFormat dFormat = new SimpleDateFormat(
 			"EEEE, dd MMMM yyyy\n", Locale.FRENCH);
 
 	public ArrayAdapter<LessonItem> adapter;
-	private ProgressDialog progressDialog;
 
 	// Création de la ArrayList qui nous permettra de remplire la listView
 	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
@@ -64,109 +67,16 @@ public class AgendaViewer extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		progressDialog = new ProgressDialog(this);
 		setContentView(R.layout.activity_agenda_viewer);
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		show();
+		displayLessons();
 	}
 
 	/**
-	 * Thread parallèle qui ajoute des données à la table à partir des infos sur
-	 * le web
+	 * Methode permettant d'afficher l'emploi du temps à partir de SQLOpenHelper
 	 */
-	private void sync() {
-		// mise a jour de l'URL
-		majURL();
-
-		progressDialog.setMessage("Chargement en cours");
-		progressDialog.setTitle("Importation des données");
-		progressDialog.show();
-		// lancement d'un noueau thread
-		Runnable code = new Runnable() {
-			URL url = null;
-
-			public void run() {
-				try {
-					url = new URL(baseUrl);
-					HttpURLConnection urlConnection;
-					urlConnection = (HttpURLConnection) url.openConnection();
-					BufferedInputStream in = new BufferedInputStream(
-							urlConnection.getInputStream());
-					String input = readStream(in);
-					JSONObject json = new JSONObject(input);
-					Log.i(TAG, input);
-					table = json.getJSONArray("events");
-					if (table != null && table.length() > 0) {
-						SQLiteOpenHelper helper = new MyOpenHelper(
-								AgendaViewer.this);
-						SQLiteDatabase db = helper.getWritableDatabase();
-						removeAll(db);
-						ArrayList<LessonItem> lsCours = coursToArray(table);
-						cdao.insertAll(db, lsCours);
-
-						// Affichage d'un toast pour dire que les donnees ont
-						// ete mises a jour
-						runOnUiThread(new Runnable() {
-							public void run() {
-								Toast.makeText(
-										AgendaViewer.this,
-										getString(R.string.nb_cours,
-												table.length()),
-										Toast.LENGTH_LONG).show();
-								show();
-							}
-						});
-						db.close();
-					}
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					runOnUiThread(new Runnable() {
-						public void run() {
-							Toast.makeText(AgendaViewer.this,
-									getString(R.string.url_error),
-									Toast.LENGTH_LONG).show();
-						}
-					});
-					e.printStackTrace();
-				}
-				progressDialog.dismiss();
-			}
-		};
-		new Thread(code).start();
-	}
-
-	/**
-	 * Methode permettant de mettre a jour l'URL
-	 */
-	private void majURL() {
-		baseUrl = "http://chessdiags.com/pamplemousse";
-		SharedPreferences preferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		id = preferences.getString("login", "");
-		pass = preferences.getString("password", "");
-		if (id.length() == 6 && pass.length() > 0) {
-			baseUrl += "?login=" + id;
-			baseUrl += "&mdp=" + pass;
-		}
-		// Toast.makeText(this, baseUrl, Toast.LENGTH_LONG).show();
-	}
-
-	private void removeAll(SQLiteDatabase db) {
-		cdao.removeAll(db);
-	}
-
-	/**
-	 * Methode permettant d'afficher l'emploi du temps
-	 * 
-	 * @param v
-	 */
-	private void show() {
+	private void displayLessons() {
 		SQLiteOpenHelper helper = new MyOpenHelper(this);
 		SQLiteDatabase db = helper.getWritableDatabase();
 		ArrayList<LessonItem> ls = cdao.getAll(db);
@@ -189,10 +99,67 @@ public class AgendaViewer extends ActionBarActivity {
 			listeView = (ListView) findViewById(R.id.activity_agenda_planning);
 			listeView.setAdapter(adapter);
 		} else {
-			Toast.makeText(AgendaViewer.this, getString(R.string.agenda_null),
+			Toast.makeText(Agenda.this, getString(R.string.agenda_null),
 					Toast.LENGTH_LONG).show();
 		}
 		db.close();
+	}
+
+	/**
+	 * Méthode permettant de récupérer l'emploi du temps en ligne
+	 */
+	private void downloadLessons() {
+		// On récupère le JSON a partir de l'URL
+		URL url;
+		try {
+			url = new URL(baseUrl);
+			HttpURLConnection urlConnection;
+			urlConnection = (HttpURLConnection) url.openConnection();
+			BufferedInputStream in = new BufferedInputStream(
+					urlConnection.getInputStream());
+			String input = readStream(in);
+			JSONObject json = new JSONObject(input);
+			Log.i(TAG, input);
+			table = json.getJSONArray("events");
+			if (table != null && table.length() > 0) {
+				SQLiteOpenHelper helper = new MyOpenHelper(Agenda.this);
+				SQLiteDatabase db = helper.getWritableDatabase();
+				cdao.removeAll(db);
+				ArrayList<LessonItem> lsCours = coursToArray(table);
+				cdao.insertAll(db, lsCours);
+				db.close();
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			runOnUiThread(new Runnable() {
+				public void run() {
+					Toast.makeText(Agenda.this,
+							getString(R.string.url_error_agenda),
+							Toast.LENGTH_LONG).show();
+				}
+			});
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Methode permettant de mettre a jour l'URL
+	 */
+	private void majURL() {
+		baseUrl = getString(R.string.agenda_baseURL);
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		id = preferences.getString("login", "");
+		pass = preferences.getString("password", "");
+		if (id.length() == 6 && pass.length() > 0) {
+			baseUrl += "?login=" + id;
+			baseUrl += "&mdp=" + pass;
+		}
 	}
 
 	/**
@@ -250,15 +217,26 @@ public class AgendaViewer extends ActionBarActivity {
 	}
 
 	/**
-	 * 
+	 * Méthode qui se déclenchera au clic sur un item
 	 */
-	// Méthode qui se déclenchera au clic sur un item
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
 		if (item.getItemId() == R.id.action_bar_agenda_sync) {
-			sync();
-			return true;
+			ConnectivityManager cm = (ConnectivityManager) this
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+			boolean isConnected = activeNetwork != null
+					&& activeNetwork.isConnectedOrConnecting();
+			if (isConnected) {
+				new LayoutRefresher().execute();
+				return true;
+			} else {
+				Toast.makeText(Agenda.this,
+						R.string.agenda_internet_conection_error,
+						Toast.LENGTH_LONG).show();
+				return false;
+			}
 		} else if (item.getItemId() == R.id.action_bar_agenda_user) {
 			Intent intent = new Intent(getBaseContext(), Authentification.class);
 			if (intent != null)
@@ -266,6 +244,49 @@ public class AgendaViewer extends ActionBarActivity {
 			return true;
 		} else
 			return false;
+	}
+
+	/**
+	 * Classe permettant de charger l'emploi du temps en AsyncTask
+	 * 
+	 * @author Jeff
+	 * 
+	 */
+	private class LayoutRefresher extends AsyncTask<String, Void, Void> {
+
+		private ProgressDialog progressDialog;
+
+		public LayoutRefresher() {
+			this.progressDialog = new ProgressDialog(Agenda.this);
+			this.progressDialog.setTitle(getString(R.string.agenda_load));
+			this.progressDialog
+					.setMessage(getString(R.string.agenda_load_desc));
+			majURL();
+		}
+
+		@Override
+		protected void onPreExecute() {
+			this.progressDialog.show();
+		}
+
+		@Override
+		protected Void doInBackground(String... unused) {
+			downloadLessons();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void unused) {
+			if (table != null) {
+				Toast.makeText(Agenda.this,
+						getString(R.string.agenda_nb_cours, table.length()),
+						Toast.LENGTH_LONG).show();
+				displayLessons();
+			}
+			if (this.progressDialog.isShowing()) {
+				this.progressDialog.dismiss();
+			}
+		}
 	}
 
 }
