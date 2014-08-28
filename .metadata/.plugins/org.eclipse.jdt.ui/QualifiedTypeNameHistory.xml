@@ -50,14 +50,14 @@
 <fullyQualifiedTypeName name="android.os.Bundle"/>
 <fullyQualifiedTypeName name="com.ensaitechnomobile.agenda.Agenda"/>
 <fullyQualifiedTypeName name="com.ensai.appli.R"/>
-<fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="android.hardware.SensorEventListener"/>
 <fullyQualifiedTypeName name="android.hardware.SensorManager"/>
 <fullyQualifiedTypeName name="android.hardware.Sensor"/>
 <fullyQualifiedTypeName name="android.hardware.SensorEvent"/>
-<fullyQualifiedTypeName name="com.ensai.appli.R.id"/>
 <fullyQualifiedTypeName name="android.widget.ScrollView"/>
 <fullyQualifiedTypeName name="com.ensai.appli.R.drawable"/>
 <fullyQualifiedTypeName name="android.content.ClipData.Item"/>
+<fullyQualifiedTypeName name="com.ensai.appli.R.id"/>
 <fullyQualifiedTypeName name="com.ensai.appli.R.string"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
 </qualifiedTypeNameHistroy>

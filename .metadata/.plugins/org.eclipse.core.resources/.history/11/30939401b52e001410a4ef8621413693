@@ -1,0 +1,32 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="@style/Theme.Base.AppCompat.Light.DarkActionBar">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+        <item name="android:windowAnimationStyle">"@style/YourAnimation.Activity"</item>
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="ButtonText">
+        <item name="android:layout_width">wrap_contentitem><item name="android:layout_height">wrap_contentitem><item name="android:textColor">#ffffffitem><item name="android:gravity">centeritem><item name="android:layout_margin">3dpitem><item name="android:textSize">30dpitem><item name="android:shadowColor">#000000item><item name="android:shadowDx">1item><item name="android:shadowDy">1item><item name="android:shadowRadius">2item><item name="android:paddingLeft">15dpitem><item name="android:paddingRight">15dpitem></item></item></item></item></item></item></item></item></item></item></item></item>
+    </style>
+
+    <style name="CustomAnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/activity_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_open_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_close_exit</item>
+    </style>
+
+</resources>
