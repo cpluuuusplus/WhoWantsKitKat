@@ -120,6 +120,9 @@ public class Main extends ActionBarActivity {
 			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_blue);
 			edit.putInt("METEO_COLOR", R.drawable.backmotif_blue);
 			edit.putInt("MAIN_ITEM", item.getItemId());
+			edit.putInt("AUTH_ITEM", R.id.action_bar_authentification_blue);
+			edit.putInt("AGENDA_ITEM", R.id.action_bar_agenda_blue);
+			edit.putInt("METEO_ITEM", R.id.action_bar_meteo_blue);
 			edit.commit();
 			mainBack.setBackgroundResource(R.drawable.backmotif_blue);
 			Toast toast = Toast.makeText(
@@ -140,6 +143,9 @@ public class Main extends ActionBarActivity {
 			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_green);
 			edit.putInt("METEO_COLOR", R.drawable.backmotif_green);
 			edit.putInt("MAIN_ITEM", item.getItemId());
+			edit.putInt("AUTH_ITEM", R.id.action_bar_authentification_green);
+			edit.putInt("AGENDA_ITEM", R.id.action_bar_agenda_green);
+			edit.putInt("METEO_ITEM", R.id.action_bar_meteo_green);
 			edit.commit();
 			mainBack.setBackgroundResource(R.drawable.backmotif_green);
 			Toast toast = Toast
@@ -162,6 +168,9 @@ public class Main extends ActionBarActivity {
 			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_orange);
 			edit.putInt("METEO_COLOR", R.drawable.backmotif_orange);
 			edit.putInt("MAIN_ITEM", item.getItemId());
+			edit.putInt("AUTH_ITEM", R.id.action_bar_authentification_orange);
+			edit.putInt("AGENDA_ITEM", R.id.action_bar_agenda_orange);
+			edit.putInt("METEO_ITEM", R.id.action_bar_meteo_orange);
 			edit.commit();
 			mainBack.setBackgroundResource(R.drawable.backmotif_orange);
 			Toast toast = Toast.makeText(
@@ -183,6 +192,9 @@ public class Main extends ActionBarActivity {
 			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_pink);
 			edit.putInt("METEO_COLOR", R.drawable.backmotif_pink);
 			edit.putInt("MAIN_ITEM", item.getItemId());
+			edit.putInt("AUTH_ITEM", R.id.action_bar_authentification_pink);
+			edit.putInt("AGENDA_ITEM", R.id.action_bar_agenda_pink);
+			edit.putInt("METEO_ITEM", R.id.action_bar_meteo_pink);
 			edit.commit();
 			mainBack.setBackgroundResource(R.drawable.backmotif_pink);
 			Toast toast = Toast.makeText(
@@ -203,6 +215,9 @@ public class Main extends ActionBarActivity {
 			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_gold);
 			edit.putInt("METEO_COLOR", R.drawable.backmotif_gold);
 			edit.putInt("MAIN_ITEM", item.getItemId());
+			edit.putInt("AUTH_ITEM", R.id.action_bar_authentification_gold);
+			edit.putInt("AGENDA_ITEM", R.id.action_bar_agenda_gold);
+			edit.putInt("METEO_ITEM", R.id.action_bar_meteo_gold);
 			edit.commit();
 			mainBack.setBackgroundResource(R.drawable.backmotif_gold);
 			Toast toast = Toast.makeText(
@@ -223,6 +238,9 @@ public class Main extends ActionBarActivity {
 			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_darkred);
 			edit.putInt("METEO_COLOR", R.drawable.backmotif_darkred);
 			edit.putInt("MAIN_ITEM", item.getItemId());
+			edit.putInt("AUTH_ITEM", R.id.action_bar_authentification_darkred);
+			edit.putInt("AGENDA_ITEM", R.id.action_bar_agenda_darkred);
+			edit.putInt("METEO_ITEM", R.id.action_bar_meteo_darkred);
 			edit.commit();
 			mainBack.setBackgroundResource(R.drawable.backmotif_darkred);
 			Toast toast = Toast.makeText(

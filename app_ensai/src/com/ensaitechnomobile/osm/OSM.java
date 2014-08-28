@@ -29,6 +29,8 @@ import org.osmdroid.views.overlay.OverlayItem;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -39,6 +41,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
@@ -65,12 +68,15 @@ public class OSM extends ActionBarActivity {
 	private LocationManager locationManager;
 	private ArrayList<OverlayItem> overlayItemArray;
 	private String country = null;
+	private SharedPreferences preferences;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_osm);
+
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 		HttpClientFactory.setFactoryInstance(new IHttpClientFactory() {
 			public HttpClient createHttpClient() {
@@ -82,11 +88,30 @@ public class OSM extends ActionBarActivity {
 		});
 
 		myOpenMapView = (MapView) findViewById(R.id.mapview);
-		myOpenMapView.setTileSource(TileSourceFactory.CYCLEMAP);
-		// myOpenMapView.setTileSource(TileSourceFactory.MAPNIK);
-		// myOpenMapView.setTileSource(TileSourceFactory.MAPQUESTOSM);
-		// myOpenMapView.setTileSource(TileSourceFactory.PUBLIC_TRANSPORT);
-		// myOpenMapView.setTileSource(TileSourceFactory.MAPQUESTAERIAL);
+
+		int item = preferences.getInt("MAP", R.id.action_bar_osm_mapnik);
+		if (item == R.id.action_bar_osm_cyclemap) {
+
+			myOpenMapView.setTileSource(TileSourceFactory.CYCLEMAP);
+
+		} else if (item == R.id.action_bar_osm_mapnik) {
+
+			myOpenMapView.setTileSource(TileSourceFactory.MAPNIK);
+
+		} else if (item == R.id.action_bar_osm_mapquestosm) {
+
+			myOpenMapView.setTileSource(TileSourceFactory.MAPQUESTOSM);
+
+		} else if (item == R.id.action_bar_osm_public_transport) {
+
+			myOpenMapView.setTileSource(TileSourceFactory.PUBLIC_TRANSPORT);
+
+		} else if (item == R.id.action_bar_osm_mapquestaerial) {
+			;
+			myOpenMapView.setTileSource(TileSourceFactory.MAPQUESTAERIAL);
+
+		} else
+			myOpenMapView.setTileSource(TileSourceFactory.CYCLEMAP);
 
 		myOpenMapView.setBuiltInZoomControls(true);
 		myOpenMapView.setMultiTouchControls(true);
@@ -127,7 +152,17 @@ public class OSM extends ActionBarActivity {
 		}
 	}
 
-	// Implémentation de l'Action Bar
+	// Implémentation du menu
+	/**
+	 * Méthode permettant de cocher la bonne couleur de background
+	 */
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		super.onPrepareOptionsMenu(menu);
+		menu.findItem(preferences.getInt("MAP", R.id.action_bar_osm_cyclemap))
+				.setChecked(true);
+		return true;
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -147,6 +182,7 @@ public class OSM extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// On regarde quel item a été cliqué grâce à son id et on déclenche une
 		// action
+		Editor editor = preferences.edit();
 		if (item.getItemId() == R.id.action_bar_osm_find) {
 			locateDevice();
 			return true;
@@ -155,6 +191,8 @@ public class OSM extends ActionBarActivity {
 				item.setChecked(false);
 			else
 				item.setChecked(true);
+			editor.putInt("MAP", item.getItemId());
+			editor.commit();
 			myOpenMapView.setTileSource(TileSourceFactory.CYCLEMAP);
 			return true;
 		} else if (item.getItemId() == R.id.action_bar_osm_mapnik) {
@@ -162,6 +200,8 @@ public class OSM extends ActionBarActivity {
 				item.setChecked(false);
 			else
 				item.setChecked(true);
+			editor.putInt("MAP", item.getItemId());
+			editor.commit();
 			myOpenMapView.setTileSource(TileSourceFactory.MAPNIK);
 			return true;
 		} else if (item.getItemId() == R.id.action_bar_osm_mapquestosm) {
@@ -169,6 +209,8 @@ public class OSM extends ActionBarActivity {
 				item.setChecked(false);
 			else
 				item.setChecked(true);
+			editor.putInt("MAP", item.getItemId());
+			editor.commit();
 			myOpenMapView.setTileSource(TileSourceFactory.MAPQUESTOSM);
 			return true;
 		} else if (item.getItemId() == R.id.action_bar_osm_public_transport) {
@@ -176,6 +218,8 @@ public class OSM extends ActionBarActivity {
 				item.setChecked(false);
 			else
 				item.setChecked(true);
+			editor.putInt("MAP", item.getItemId());
+			editor.commit();
 			myOpenMapView.setTileSource(TileSourceFactory.PUBLIC_TRANSPORT);
 			return true;
 		} else if (item.getItemId() == R.id.action_bar_osm_mapquestaerial) {
@@ -183,6 +227,8 @@ public class OSM extends ActionBarActivity {
 				item.setChecked(false);
 			else
 				item.setChecked(true);
+			editor.putInt("MAP", item.getItemId());
+			editor.commit();
 			myOpenMapView.setTileSource(TileSourceFactory.MAPQUESTAERIAL);
 			return true;
 		} else

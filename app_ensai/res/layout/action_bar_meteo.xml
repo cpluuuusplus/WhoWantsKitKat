@@ -14,11 +14,11 @@
         android:icon="@drawable/ic_location_find"
         yourapp:showAsAction="always">
     </item>
-    
+
     <item
         android:id="@+id/action_bar_meteo_color_change"
-        android:icon="@drawable/ic_action_settings"
-        android:showAsAction="always"
+        android:icon="@drawable/ic_switch_theme"
+        android:showAsAction="ifRoom"
         android:title="@string/color_change">
 
         <menu>
