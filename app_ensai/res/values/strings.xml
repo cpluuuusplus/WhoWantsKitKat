@@ -96,7 +96,8 @@
     <string name="activity_credits_dev_jeff_mail">petit.jeffery@gmail.com</string>
     <string name="activity_credits_dev_nico_nown">Nicolas EDWARDS </string>
     <string name="activity_credits_dev_nico_mail">nicolas.ae@free.fr</string>
-    <string name="activity_credits_txt">Cette application s\'adresse principalement aux élèves de l\'école Nationale de la statistique (Ensai).
+    <string name="activity_credits_txt">Cette application s\'adresse principalement aux élèves de
+        l\'école Nationale de la Statistique et de l\'Analyse de l\'Information (Ensai).
          \nElle a été développée dans le cadre d\'un cours optionnel de technologie mobile sous Android.
          \nNous remercions sincèrement notre tuteur: M. Olivier LEVITT
          - la synchronisation de l\'emploi du temps s\'appuie sur son site personnel. </string>
