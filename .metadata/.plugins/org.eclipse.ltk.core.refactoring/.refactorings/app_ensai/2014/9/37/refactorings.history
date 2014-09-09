@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;activity_main_button_notes&apos; in &apos;com.ensai.appli.R.id&apos; to &apos;activity_main_button_pamplemousse&apos;&#x0A;- Original project: &apos;app_ensai&apos;&#x0A;- Original element: &apos;com.ensai.appli.R.id.activity_main_button_notes&apos;&#x0A;- Renamed element: &apos;com.ensai.appli.R.id.activity_main_button_pamplemousse&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="true" description="Rename field &apos;activity_main_button_notes&apos;" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/gen&lt;com.ensai.appli{R.java[R[id^activity_main_button_notes" name="activity_main_button_pamplemousse" references="true" setter="false" stamp="1410202584571" textual="false" version="1.0"/>
+</session>

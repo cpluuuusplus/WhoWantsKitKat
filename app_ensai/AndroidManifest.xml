@@ -2,15 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ensai.appli"
     android:versionCode="1"
-    android:versionName="1.1.1" >
+    android:versionName="1.0" >
 
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    <!-- <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" /> -->
-    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
-
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -95,6 +94,18 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:icon="@drawable/ic_pamplemousse"
             android:label="@string/label_pamplemousse"
+            android:parentActivityName="com.ensaitechnomobile.common.Main" >
+
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ensaitechnomobile.menuprincipal.MenuPrincipal" />
+        </activity>
+                <activity
+            android:name="com.ensaitechnomobile.web.view.Ent"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:icon="@drawable/ic_ent"
+            android:label="@string/label_ent"
             android:parentActivityName="com.ensaitechnomobile.common.Main" >
 
             <!-- Parent activity meta-data to support API level 7+ -->

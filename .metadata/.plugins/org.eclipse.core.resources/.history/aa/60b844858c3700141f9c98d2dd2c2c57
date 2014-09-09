@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">App\'Ensai</string>
+    <string name="agenda_nb_cours">%1$d cours viennent d\'être mis à jours !</string>
+    <string name="searchview_action_search">search</string>
+    <string name="find_city">Rechercher une ville</string>
+    <string name="move_to_city">Calcul des coordonnées de la nouvelle position.</string>
+    <string name="searching_city">Recherche en cours / connexion internet requise.</string>
+    <string name="webview_internet_conection_error">Désolé, l\'accès à l\'ENT requiert une connexion à internet.</string>
+    <string name="agenda_internet_conection_error">La synchronisation est impossible, veuillez vérifier votre connexion à internet.</string>
+    <string name="meteo_internet_conection_error">Désolé, la synchronisation des données météo requiert une connexion à internet.</string>
+    <string name="activity_main_theme_change">Profitez maintenant du thème "%1$s" pour toute l\'application.
+    \nIl est aussi possible de changer le thème de chaque fonctionnalité individuellement, pensez-y ! </string>
+
+    <!-- Action bar main -->
+    <string name="action_bar_main_credits_title">Crédits</string>
+
+    <!-- Activité OSM -->
+    <string name="activity_osm_cyclemap">TileSourceFactory.CYCLEMAP</string>
+    <string name="activity_osm_mapnik">TileSourceFactory.MAPNIK</string>
+    <string name="activity_osm_mapquest_osm">TileSourceFactory.MAPQUESTOSM</string>
+    <string name="activity_osm_mapquest_aerial">TileSourceFactory.MAPQUESTAERIAL</string>
+    <string name="activity_osm_public_transport">TileSourceFactory.PUBLIC_TRANSPORT</string>
+
+    <!-- Action Bar OSM -->
+    <string name="osm_internet_conection_error">Désolé, la navigation sur la carte requiert une connexion à internet.</string>
+    <string name="action_bar_osm_title_map">Changer de vue</string>
+    <string name="action_bar_osm_cyclemap">Cycle Map</string>
+    <string name="action_bar_osm_mapnik">Mapnik</string>
+    <string name="action_bar_osm_mapquest_osm">MapQuest OSM</string>
+    <string name="action_bar_osm_transport_public">Transports publics</string>
+    <string name="action_bar_osm_mapquest_aerial">MapQuest aerial</string>
+
+    <!-- Activité WebviewMail -->
+    <string name="webviewmail_URL">https://webmail.ensai.fr/</string>
+    <!-- <string name="webviewmail_URL">https://webmail.ensai.fr/SOGo/so/</string> -->
+
+    <!-- Activité ENt -->
+    <string name="ent_URL">http://ent.ensai.fr/uPortal/</string>
+
+    <!-- Activité WebviewNotes -->
+    <string name="webviewnotes_URL">http://pamplemousse.ensai.fr/ensai/</string>
+
+    <!-- Activité Agenda -->
+    <string name="agenda_baseURL">http://chessdiags.com/pamplemousse</string>
+    <string name="agenda_load">Importation en cours</string>
+    <string name="agenda_load_desc">La mise à jour de l\'emploi du temps requiert une connexion à internet.</string>
+    <string name="agenda_null">Première connection ? Renseignez vos identifiants puis synchroniser.</string>
+    <string name="url_error_agenda">Impossible de se connecter au serveur, veuillez vérifier vos identifiants et votre connexion à internet.</string>
+
+    <!-- Layout activité Main -->
+    <string name="activity_main_agenda_button">Emploi du temps</string>
+    <string name="activity_main_mails_button">Mes mails (via l\'ENT)</string>
+    <string name="activity_main_pamplelousse_button">Pamplemousse (via l\'ENT)</string>
+    <string name="activity_main_ent_button">Accès à l\'ENT mobile</string>
+    <string name="activity_main_weather_button">Station météo</string>
+    <string name="activity_main_OSM_button">Open Street Map (OSM)</string>
+    <string name="url_error_meteo">Impossible de se connecter au serveur "OpenWeatherMap", veuillez vérifier votre connexion à internet.</string>
+
+    <!-- Action Bar main -->
+    <string name="osm_URL">http://api.openweathermap.org/data/2.5/weather</string>
+    <!-- Activité Meteo -->
+    <string name="meteo_URL">http://api.openweathermap.org/data/2.5/</string>
+
+    <!-- Layout activité Meteo -->
+    <string name="activity_meteo_table1_row_latitude_desc">Latitude</string>
+    <string name="activity_meteo_table1_row_longitute_desc">Longitude</string>
+    <string name="activity_meteo_table1_row_sunrise_desc">Heure de levé du soleil</string>
+    <string name="activity_meteo_table1_row_sunset_desc">Heure de couché du soleil</string>
+    <string name="activity_meteo_table2_row_main_desc">Conditions générales</string>
+    <string name="activity_meteo_table2_row_clouds_desc">Densité nuageuse</string>
+    <string name="activity_meteo_table2_row_humidity_desc">Taux d\'humidité</string>
+    <string name="activity_meteo_table2_row_rain_desc">Niveau de pluie</string>
+    <string name="activity_meteo_table2_row_pressure_desc">Pression atmosphérique</string>
+    <string name="activity_meteo_table2_row_wind_desc">Vitesse du vent</string>
+    <string name="activity_meteo_table2_row_temperature_desc">Température</string>
+    <string name="to_be_defined">En attente</string>
+
+    <!-- Exceptions -->
+    <string name="CityNotFoundException_message">L\'exception CityNotFound a été relevée.</string>
+    <string name="CityNotFoundException_toast">Désolé, la ville de %1$s n\'a pas été trouvée. Veuillez vérifier le nom.</string>
+
+    <!-- Activité Authentification -->
+    <string name="authentification_id_error">Oups ! Il semblerait que les identifiants enregistrés soient incomplets ou érronés.</string>
+    <string name="authentification_id_ok">Vos identifiants sont enregistrés, vous pouvez désormais synchroniser votre emploi du temps !</string>
+
+    <!-- Layout activité Athentification -->
+    <string name="activity_authentification_id">Id utilisateur</string>
+    <string name="activity_authentification_save">Sauvegarder mes identifiants</string>
+    <string name="image_content_description">Un Android avec un chien</string>
+    <string name="activity_authentification_password">Mot de passe</string>
+    <string name="activity_authentification_id_hint">Id &#8230;</string>
+
+    <!-- activity_credits -->
+    <string name="activity_credits_dev">Développeurs</string>
+    <string name="activity_credits_desc">Description</string>
+    <string name="activity_credits_contact">CONTACT</string>
+    <string name="activity_credits_dev_nown">Nom</string>
+    <string name="activity_credits_dev_jeff_nown">Jeffery PETIT </string>
+    <string name="activity_credits_dev_jeff_mail">petit.jeffery@gmail.com</string>
+    <string name="activity_credits_dev_nico_nown">Nicolas EDWARDS </string>
+    <string name="activity_credits_dev_nico_mail">nicolas.ae@free.fr</string>
+    <string name="activity_credits_txt">Cette application s\'adresse principalement aux élèves de
+        l\'école Nationale de la Statistique et de l\'Analyse de l\'Information (Ensai).
+         \nElle a été développée dans le cadre d\'un cours optionnel de technologie mobile sous Android.
+         \nNous remercions sincèrement notre tuteur: M. Olivier LEVITT
+         - la synchronisation de l\'emploi du temps s\'appuie sur son site personnel. </string>
+
+    <!-- list_item_lesson -->
+    <string name="list_item_lesson_debut">Début</string>
+    <string name="list_item_lesson_fin">Fin</string>
+    <string name="list_item_lesson_salle">Salle</string>
+    <string name="list_item_lesson_na">NA</string>
+
+    <!-- color -->
+    <string name="color_change">Modifier la couleur de ce thème</string>
+    <string name="general_color_change">Modifier la couleur du thème général</string>
+    <string name="color_blue">Bleu</string>
+    <string name="color_darkred">Rouge</string>
+    <string name="color_pink">Rose</string>
+    <string name="color_gold">Gold</string>
+    <string name="color_orange">Orange</string>
+    <string name="color_green">Vert</string>
+
+    <!-- label manifest -->
+    <string name="label_credits">Crédits</string>
+    <string name="label_auth">Authentification</string>
+    <string name="label_agenda">Agenda</string>
+    <string name="label_mails">Mails</string>
+    <string name="label_pamplemousse">Pamplemousse</string>
+    <string name="label_ent">ENT</string>
+    <string name="label_osm">OSM</string>
+    <string name="label_meteo">Météo</string>
+
+</resources>

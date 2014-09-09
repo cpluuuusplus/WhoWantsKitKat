@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.ensai.appli.R.color"/>
-<fullyQualifiedTypeName name="android.net.ConnectivityManager"/>
-<fullyQualifiedTypeName name="android.net.NetworkInfo"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.os.AsyncTask"/>
 <fullyQualifiedTypeName name="android.widget.ProgressBar"/>
@@ -13,8 +10,6 @@
 <fullyQualifiedTypeName name="android.app.ProgressDialog"/>
 <fullyQualifiedTypeName name="com.ensaitechnomobile.pamplemousse.WebViewActivity"/>
 <fullyQualifiedTypeName name="android.support.v7.app.ActionBarActivity"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
-<fullyQualifiedTypeName name="android.app.AlertDialog"/>
 <fullyQualifiedTypeName name="android.content.DialogInterface"/>
 <fullyQualifiedTypeName name="android.support.v7.appcompat.R"/>
 <fullyQualifiedTypeName name="android.support.v7.appcompat.R.layout"/>
@@ -58,6 +53,11 @@
 <fullyQualifiedTypeName name="com.ensai.appli.R.drawable"/>
 <fullyQualifiedTypeName name="android.content.ClipData.Item"/>
 <fullyQualifiedTypeName name="com.ensai.appli.R.id"/>
-<fullyQualifiedTypeName name="com.ensai.appli.R.string"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="android.content.SharedPreferences.Editor"/>
+<fullyQualifiedTypeName name="com.ensai.appli.R.string"/>
+<fullyQualifiedTypeName name="android.app.AlertDialog"/>
+<fullyQualifiedTypeName name="org.osmdroid.views.overlay.MyLocationOverlay"/>
+<fullyQualifiedTypeName name="android.hardware.SensorListener"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
 </qualifiedTypeNameHistroy>

@@ -1,7 +1,0 @@
-package com.ensaitechnomobile.main;
-
-import android.support.v7.app.ActionBarActivity;
-
-public class Credits extends ActionBarActivity {{
-
-}
