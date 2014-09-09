@@ -29,6 +29,7 @@ public class Pamplemousse extends ActionBarActivity {
 	// @Override
 	private WebView webview = null;
 	private String id, pass;
+	private SharedPreferences preferences;
 	private ProgressBar progressBar;
 
 	@Override
@@ -39,6 +40,11 @@ public class Pamplemousse extends ActionBarActivity {
 		setContentView(R.layout.activity_web_view);
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		progressBar = (ProgressBar) findViewById(R.id.web_view_progress);
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		progressBar.setBackgroundResource(preferences.getInt("WEB_COLOR",
+				R.drawable.backmotif_blue));
 
 		// Récupération de l'ID et du mot de passe dans les préférences
 		SharedPreferences preferences = PreferenceManager
@@ -113,10 +119,10 @@ public class Pamplemousse extends ActionBarActivity {
 				public void onPageFinished(WebView view, String url) {
 					progressBar.setVisibility(View.GONE);
 					webview.setEnabled(true);
-					view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"
-							+ id + "'");
-					view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"
-							+ pass + "'");
+					// view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"
+					// + id + "'");
+					// view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"
+					// + pass + "'");
 				}
 
 				@Override

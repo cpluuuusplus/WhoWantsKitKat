@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -25,14 +24,12 @@ import android.widget.Toast;
 
 import com.ensai.appli.R;
 
-public class Mails extends ActionBarActivity {
+public class Ent extends ActionBarActivity {
 	/** Called when the activity is first created. */
 	// @Override
-	private WebView webview;
-	private String id, pass;
-	private SharedPreferences preferences;
+	private WebView webview = null;
 	private ProgressBar progressBar;
-	protected static final String TAG = "MAIL::";
+	private SharedPreferences preferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +45,6 @@ public class Mails extends ActionBarActivity {
 		progressBar.setBackgroundResource(preferences.getInt("WEB_COLOR",
 				R.drawable.backmotif_blue));
 
-		// Récupération de l'ID et du mot de passe dans les préférences
-		SharedPreferences preferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		id = preferences.getString("login", "");
-		pass = preferences.getString("password", "");
 		myClickHandler();
 	}
 
@@ -89,16 +81,12 @@ public class Mails extends ActionBarActivity {
 				&& activeNetwork.isConnectedOrConnecting();
 		if (isConnected) {
 
+			// Bundle objectbundle = this.getIntent().getExtras();
 			webview = (WebView) findViewById(R.id.webview01);
 
 			// Enable JavaScript and lets the browser go back
 			webview.getSettings().setJavaScriptEnabled(true);
 			webview.canGoBack();
-			webview.getSettings().setSupportZoom(true);
-			webview.getSettings().setBuiltInZoomControls(true);
-			webview.setInitialScale(100);
-			webview.getSettings().setLoadWithOverviewMode(true);
-			webview.getSettings().setUseWideViewPort(true);
 
 			webview.setWebViewClient(new WebViewClient() {
 				@Override
@@ -124,10 +112,6 @@ public class Mails extends ActionBarActivity {
 				public void onPageFinished(WebView view, String url) {
 					progressBar.setVisibility(View.GONE);
 					webview.setEnabled(true);
-					// view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"
-					// + id + "'");
-					// view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"
-					// + pass + "'");
 				}
 
 				@Override
@@ -136,7 +120,6 @@ public class Mails extends ActionBarActivity {
 					if (view.canGoBack()) {
 						view.goBack();
 					}
-					Log.d(TAG, "webview erreur" + errorCode);
 					Toast toast = Toast.makeText(getBaseContext(), description,
 							Toast.LENGTH_SHORT);
 					toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
@@ -151,10 +134,7 @@ public class Mails extends ActionBarActivity {
 			});
 
 			// The URL that webview is loading
-			// webview.loadUrl("https://webmail.ensai.fr/SOGo/so/" + id
-			// + "/Mail/view");
-
-			webview.loadUrl(getString(R.string.webviewmail_URL));
+			webview.loadUrl(getString(R.string.ent_URL));
 		} else {
 			Toast.makeText(this,
 					getString(R.string.webview_internet_conection_error),
@@ -169,6 +149,7 @@ public class Mails extends ActionBarActivity {
 	 * téléphone
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
+
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.layout.action_bar_web_view, menu);

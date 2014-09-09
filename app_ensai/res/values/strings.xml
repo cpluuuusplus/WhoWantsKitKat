@@ -35,6 +35,9 @@
     <!-- Activité WebviewMail -->
     <string name="webviewmail_URL">https://webmail.ensai.fr/SOGo/so/</string>
 
+    <!-- Activité ENt -->
+    <string name="ent_URL">http://ent.ensai.fr/uPortal/</string>
+
     <!-- Activité WebviewNotes -->
     <string name="webviewnotes_URL">http://pamplemousse.ensai.fr/ensai/</string>
 
@@ -47,8 +50,9 @@
 
     <!-- Layout activité Main -->
     <string name="activity_main_agenda_button">Emploi du temps</string>
-    <string name="activity_main_mails_button">Mes mails (via l\'ENT)</string>
-    <string name="activity_main_pamplelousse_button">Pamplemousse (via l\'ENT)</string>
+    <string name="activity_main_mails_button">Accès direct aux mails</string>
+    <string name="activity_main_pamplelousse_button">Accès direct à Pamplemousse</string>
+    <string name="activity_main_ent_button">Accès à l\'ENT mobile</string>
     <string name="activity_main_weather_button">Station météo</string>
     <string name="activity_main_OSM_button">Open Street Map (OSM)</string>
     <string name="url_error_meteo">Impossible de se connecter au serveur "OpenWeatherMap", veuillez vérifier votre connexion à internet.</string>
@@ -124,6 +128,7 @@
     <string name="label_agenda">Agenda</string>
     <string name="label_mails">Mails</string>
     <string name="label_pamplemousse">Pamplemousse</string>
+    <string name="label_ent">ENT</string>
     <string name="label_osm">OSM</string>
     <string name="label_meteo">Météo</string>
 

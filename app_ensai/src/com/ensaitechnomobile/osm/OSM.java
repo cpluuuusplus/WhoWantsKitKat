@@ -116,7 +116,7 @@ public class OSM extends ActionBarActivity {
 		myOpenMapView.setBuiltInZoomControls(true);
 		myOpenMapView.setMultiTouchControls(true);
 		myMapController = (MapController) myOpenMapView.getController();
-		myMapController.setZoom(15);
+		myMapController.setZoom(9);
 
 		// --- Create Overlay
 		overlayItemArray = new ArrayList<OverlayItem>();
@@ -146,8 +146,10 @@ public class OSM extends ActionBarActivity {
 			if (lastLocation != null) {
 				updateLoc(lastLocation);
 			} else {
-				GeoPoint startPoint = new GeoPoint(48.13, -1.74098);
-				myMapController.setCenter(startPoint);
+				Location loc = new Location("");
+				loc.setLatitude(48.13);
+				loc.setLongitude(-1.67);
+				updateLoc(loc);
 			}
 		}
 	}
@@ -459,15 +461,29 @@ public class OSM extends ActionBarActivity {
 
 		@Override
 		public boolean onSingleTapUp(MotionEvent event, MapView mapView) {
+			return true;
+		}
 
+		public boolean onDoubleTap(MotionEvent e, MapView mapView) {
+
+			GeoPoint p = (GeoPoint) mapView.getProjection().fromPixels(
+					(int) e.getX(), (int) e.getY());
+			myMapController.animateTo(p);
+			// myMapController.setCenter(p);
+			overlayItemArray = new ArrayList<OverlayItem>();
+
+			// Put overlay icon a little way from map center
+			overlayItemArray.add(new OverlayItem("Here u r",
+					"SampleDescription", p));
+			mapView.getController().zoomIn();
 			return true;
 		}
 
 		@Override
 		public boolean onSingleTapConfirmed(MotionEvent event, MapView mapView) {
 			return true;
-
 		}
+
 	}
 
 	/**

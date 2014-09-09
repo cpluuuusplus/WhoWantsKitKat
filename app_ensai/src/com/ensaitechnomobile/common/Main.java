@@ -20,6 +20,7 @@ import com.ensaitechnomobile.agenda.Agenda;
 import com.ensaitechnomobile.agenda.metier.LessonItem;
 import com.ensaitechnomobile.meteo.Meteo;
 import com.ensaitechnomobile.osm.OSM;
+import com.ensaitechnomobile.web.view.Ent;
 import com.ensaitechnomobile.web.view.Mails;
 import com.ensaitechnomobile.web.view.Pamplemousse;
 
@@ -56,6 +57,12 @@ public class Main extends ActionBarActivity {
 
 	public void onClickNotes(View v) {
 		Intent intent = new Intent(getBaseContext(), Pamplemousse.class);
+		if (intent != null)
+			startActivity(intent);
+	}
+	
+	public void onClickEnt(View v) {
+		Intent intent = new Intent(getBaseContext(), Ent.class);
 		if (intent != null)
 			startActivity(intent);
 	}
@@ -116,6 +123,7 @@ public class Main extends ActionBarActivity {
 		} else if (item.getItemId() == R.id.action_bar_main_blue) {
 			Editor edit = preferences.edit();
 			edit.putInt("MAIN_COLOR", R.drawable.backmotif_blue);
+			edit.putInt("WEB_COLOR", R.drawable.backmotif_blue);
 			edit.putInt("AUTH_COLOR", R.drawable.backmotif_blue);
 			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_blue);
 			edit.putInt("METEO_COLOR", R.drawable.backmotif_blue);
@@ -139,6 +147,7 @@ public class Main extends ActionBarActivity {
 		} else if (item.getItemId() == R.id.action_bar_main_green) {
 			Editor edit = preferences.edit();
 			edit.putInt("MAIN_COLOR", R.drawable.backmotif_green);
+			edit.putInt("WEB_COLOR", R.drawable.backmotif_green);
 			edit.putInt("AUTH_COLOR", R.drawable.backmotif_green);
 			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_green);
 			edit.putInt("METEO_COLOR", R.drawable.backmotif_green);
@@ -164,6 +173,7 @@ public class Main extends ActionBarActivity {
 		} else if (item.getItemId() == R.id.action_bar_main_orange) {
 			Editor edit = preferences.edit();
 			edit.putInt("MAIN_COLOR", R.drawable.backmotif_orange);
+			edit.putInt("WEB_COLOR", R.drawable.backmotif_orange);
 			edit.putInt("AUTH_COLOR", R.drawable.backmotif_orange);
 			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_orange);
 			edit.putInt("METEO_COLOR", R.drawable.backmotif_orange);
@@ -188,6 +198,7 @@ public class Main extends ActionBarActivity {
 		} else if (item.getItemId() == R.id.action_bar_main_pink) {
 			Editor edit = preferences.edit();
 			edit.putInt("MAIN_COLOR", R.drawable.backmotif_pink);
+			edit.putInt("WEB_COLOR", R.drawable.backmotif_pink);
 			edit.putInt("AUTH_COLOR", R.drawable.backmotif_pink);
 			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_pink);
 			edit.putInt("METEO_COLOR", R.drawable.backmotif_pink);
@@ -211,6 +222,7 @@ public class Main extends ActionBarActivity {
 		} else if (item.getItemId() == R.id.action_bar_main_gold) {
 			Editor edit = preferences.edit();
 			edit.putInt("MAIN_COLOR", R.drawable.backmotif_gold);
+			edit.putInt("WEB_COLOR", R.drawable.backmotif_gold);
 			edit.putInt("AUTH_COLOR", R.drawable.backmotif_gold);
 			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_gold);
 			edit.putInt("METEO_COLOR", R.drawable.backmotif_gold);
@@ -234,6 +246,7 @@ public class Main extends ActionBarActivity {
 		} else if (item.getItemId() == R.id.action_bar_main_darkred) {
 			Editor edit = preferences.edit();
 			edit.putInt("MAIN_COLOR", R.drawable.backmotif_darkred);
+			edit.putInt("WEB_COLOR", R.drawable.backmotif_darkred);
 			edit.putInt("AUTH_COLOR", R.drawable.backmotif_darkred);
 			edit.putInt("AGENDA_COLOR", R.drawable.backmotif_darkred);
 			edit.putInt("METEO_COLOR", R.drawable.backmotif_darkred);
