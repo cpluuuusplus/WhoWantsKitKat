@@ -60,7 +60,7 @@ public class Agenda extends ActionBarActivity {
 
 	public ArrayAdapter<LessonItem> adapter;
 
-	// CrŽation de la ArrayList qui nous permettra de remplire la listView
+	// Crï¿½ation de la ArrayList qui nous permettra de remplire la listView
 	private ListView listeView;
 	private JSONArray table = null;
 	private SharedPreferences preferences;
@@ -82,7 +82,7 @@ public class Agenda extends ActionBarActivity {
 	}
 
 	/**
-	 * Methode permettant d'afficher l'emploi du temps ˆ partir de SQLOpenHelper
+	 * Methode permettant d'afficher l'emploi du temps ï¿½ partir de SQLOpenHelper
 	 */
 	private void displayLessons() {
 		SQLiteOpenHelper helper = new MyOpenHelper(this);
@@ -114,10 +114,10 @@ public class Agenda extends ActionBarActivity {
 	}
 
 	/**
-	 * MŽthode permettant de rŽcupŽrer l'emploi du temps en ligne
+	 * Mï¿½thode permettant de rï¿½cupï¿½rer l'emploi du temps en ligne
 	 */
 	private void downloadLessons() {
-		// On rŽcupre le JSON a partir de l'URL
+		// On rï¿½cupï¿½re le JSON a partir de l'URL
 		URL url;
 		try {
 			url = new URL(baseUrl);
@@ -127,7 +127,6 @@ public class Agenda extends ActionBarActivity {
 					urlConnection.getInputStream());
 			String input = readStream(in);
 			JSONObject json = new JSONObject(input);
-			Log.i(TAG, input);
 			table = json.getJSONArray("events");
 			if (table != null && table.length() > 0) {
 				SQLiteOpenHelper helper = new MyOpenHelper(Agenda.this);
@@ -171,7 +170,7 @@ public class Agenda extends ActionBarActivity {
 	}
 
 	/**
-	 * MŽthode permettant de rŽcuperer un tableau de cours ˆ partir d'un
+	 * Mï¿½thode permettant de rï¿½cuperer un tableau de cours ï¿½ partir d'un
 	 * JSONArray
 	 * 
 	 * @param table
@@ -193,7 +192,7 @@ public class Agenda extends ActionBarActivity {
 	}
 
 	/**
-	 * Lire un flux de donnŽes
+	 * Lire un flux de donnï¿½es
 	 * 
 	 * @param inputStream
 	 * @return
@@ -210,10 +209,10 @@ public class Agenda extends ActionBarActivity {
 		return contenu;
 	}
 
-	// ImplŽmentation du menu
+	// Implï¿½mentation du menu
 
 	/**
-	 * MŽthode permettant de cocher la bonne couleur de background
+	 * Mï¿½thode permettant de cocher la bonne couleur de background
 	 */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
@@ -225,8 +224,8 @@ public class Agenda extends ActionBarActivity {
 	}
 
 	/**
-	 * MŽthode qui se dŽclenchera lorsque vous appuierez sur le bouton menu du
-	 * tŽlŽphone
+	 * Mï¿½thode qui se dï¿½clenchera lorsque vous appuierez sur le bouton menu du
+	 * tï¿½lï¿½phone
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -238,10 +237,10 @@ public class Agenda extends ActionBarActivity {
 	}
 
 	/**
-	 * MŽthode qui se dŽclenchera au clic sur un item
+	 * Mï¿½thode qui se dï¿½clenchera au clic sur un item
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// On regarde quel item a ŽtŽ cliquŽ gr‰ce ˆ son id et on dŽclenche une
+		// On regarde quel item a ï¿½tï¿½ cliquï¿½ grï¿½ce ï¿½ son id et on dï¿½clenche une
 		// action
 		// agendaback.setBackgroundResource(R.drawable.backmotif_blue);
 		if (item.getItemId() == R.id.action_bar_agenda_sync) {
