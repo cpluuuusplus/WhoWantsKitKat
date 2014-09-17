@@ -1,2 +1,5 @@
 appcompat_v7/bin
 app_ensai/bin
+.metadata/*
+app_ensai/gen/.gitignore
+
