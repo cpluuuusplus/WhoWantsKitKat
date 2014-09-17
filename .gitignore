@@ -3,3 +3,4 @@ app_ensai/bin
 .metadata/*
 app_ensai/gen/.gitignore
 
+/.metadata/
