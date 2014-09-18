@@ -1,5 +1,6 @@
 package com.ensaitechnomobile.web.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -46,7 +47,7 @@ public class Pamplemousse extends ActionBarActivity {
 		progressBar.setBackgroundResource(preferences.getInt("WEB_COLOR",
 				R.drawable.backmotif_blue));
 
-		// RŽcupŽration de l'ID et du mot de passe dans les prŽfŽrences
+		// Rï¿½cupï¿½ration de l'ID et du mot de passe dans les prï¿½fï¿½rences
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		id = preferences.getString("login", "");
@@ -115,14 +116,30 @@ public class Pamplemousse extends ActionBarActivity {
 					webview.setEnabled(false);
 				}
 
+				@SuppressLint("NewApi")
+				// Car on teste la version
 				@Override
 				public void onPageFinished(WebView view, String url) {
 					progressBar.setVisibility(View.GONE);
 					webview.setEnabled(true);
-					// view.loadUrl("javascript:document.getElementsByName('username')[0].value = '"
-					// + id + "'");
-					// view.loadUrl("javascript:document.getElementsByName('password')[0].value = '"
-					// + pass + "'");
+					if (android.os.Build.VERSION.SDK_INT >= 19) {
+						webview.evaluateJavascript(
+								"document.getElementsByName('username')[0].value = '"
+										+ id + "'", null);
+						webview.evaluateJavascript(
+								"document.getElementsByName('password')[0].value = '"
+										+ pass + "'", null);
+						webview.evaluateJavascript(
+								"document.getElementByName('submit').click()",
+								null);
+					} else {
+						// Avant API 19
+						webview.loadUrl("javascript:document.getElementsByName('username')[0].value = '"
+								+ id + "'");
+						webview.loadUrl("javascript:document.getElementsByName('password')[0].value = '"
+								+ pass + "'");
+						webview.loadUrl("javascript:document.getElementByName('submit').click()");
+					}
 				}
 
 				@Override
@@ -153,11 +170,11 @@ public class Pamplemousse extends ActionBarActivity {
 		}
 	}
 
-	// ImplŽmentation du menu
+	// Implï¿½mentation du menu
 
 	/**
-	 * MŽthode qui se dŽclenchera lorsque vous appuierez sur le bouton menu du
-	 * tŽlŽphone
+	 * Mï¿½thode qui se dï¿½clenchera lorsque vous appuierez sur le bouton menu du
+	 * tï¿½lï¿½phone
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -170,9 +187,9 @@ public class Pamplemousse extends ActionBarActivity {
 	/**
 	 * 
 	 */
-	// MŽthode qui se dŽclenchera au clic sur un item
+	// Mï¿½thode qui se dï¿½clenchera au clic sur un item
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// On regarde quel item a ŽtŽ cliquŽ gr‰ce ˆ son id et on dŽclenche une
+		// On regarde quel item a ï¿½tï¿½ cliquï¿½ grï¿½ce ï¿½ son id et on dï¿½clenche une
 		// action
 		if (item.getItemId() == R.id.action_bar_webview) {
 			CookieManager cookieManager = CookieManager.getInstance();

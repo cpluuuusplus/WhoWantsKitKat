@@ -123,6 +123,7 @@ public class Mails extends ActionBarActivity {
 				}
 
 				@SuppressLint("NewApi")
+				// Car on teste la version
 				@Override
 				public void onPageFinished(WebView view, String url) {
 					progressBar.setVisibility(View.GONE);
