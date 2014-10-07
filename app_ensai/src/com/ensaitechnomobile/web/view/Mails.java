@@ -146,13 +146,6 @@ public class Mails extends ActionBarActivity {
 						webview.loadUrl(
 								"javascript:document.getElementByName('submit').click()"); 
 					}
-				
-
-
-
-
-
-
 				}
 
 				@Override
