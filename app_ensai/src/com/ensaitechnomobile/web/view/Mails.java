@@ -126,7 +126,7 @@ public class Mails extends ActionBarActivity {
 				// Car on teste la version
 				@Override
 				public void onPageFinished(WebView view, String url) {
-					// progressBar.setVisibility(View.GONE);
+					 progressBar.setVisibility(View.GONE);
 					webview.setEnabled(true);
 					if (android.os.Build.VERSION.SDK_INT >= 19) {
 						webview.evaluateJavascript(

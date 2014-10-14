@@ -42,9 +42,8 @@ public class Ent extends ActionBarActivity {
 
 		progressBar = (ProgressBar) findViewById(R.id.web_view_progress);
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		progressBar.setBackgroundResource(preferences.getInt("WEB_COLOR",
-				R.drawable.backmotif_blue));
-
+		 progressBar.setBackgroundResource(preferences.getInt("WEB_COLOR",
+		 R.drawable.backmotif_blue));
 		myClickHandler();
 	}
 
@@ -110,7 +109,7 @@ public class Ent extends ActionBarActivity {
 
 				@Override
 				public void onPageFinished(WebView view, String url) {
-					// progressBar.setVisibility(View.GONE);
+					 progressBar.setVisibility(View.GONE);
 					webview.setEnabled(true);
 				}
 
