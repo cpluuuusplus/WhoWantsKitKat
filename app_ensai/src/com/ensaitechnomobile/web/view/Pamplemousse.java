@@ -47,7 +47,7 @@ public class Pamplemousse extends ActionBarActivity {
 		progressBar.setBackgroundResource(preferences.getInt("WEB_COLOR",
 				R.drawable.backmotif_blue));
 
-		// R�cup�ration de l'ID et du mot de passe dans les pr�f�rences
+		// Recuperation de l'ID et du mot de passe dans les preferences
 		SharedPreferences preferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		id = preferences.getString("login", "");
@@ -120,7 +120,7 @@ public class Pamplemousse extends ActionBarActivity {
 				// Car on teste la version
 				@Override
 				public void onPageFinished(WebView view, String url) {
-					progressBar.setVisibility(View.GONE);
+					// progressBar.setVisibility(View.GONE);
 					webview.setEnabled(true);
 					if (android.os.Build.VERSION.SDK_INT >= 19) {
 						webview.evaluateJavascript(
@@ -167,6 +167,7 @@ public class Pamplemousse extends ActionBarActivity {
 			Toast.makeText(this,
 					getString(R.string.webview_internet_conection_error),
 					Toast.LENGTH_LONG).show();
+			finish();
 		}
 	}
 

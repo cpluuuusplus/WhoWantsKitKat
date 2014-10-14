@@ -126,7 +126,7 @@ public class Mails extends ActionBarActivity {
 				// Car on teste la version
 				@Override
 				public void onPageFinished(WebView view, String url) {
-					progressBar.setVisibility(View.GONE);
+					// progressBar.setVisibility(View.GONE);
 					webview.setEnabled(true);
 					if (android.os.Build.VERSION.SDK_INT >= 19) {
 						webview.evaluateJavascript(
@@ -134,17 +134,17 @@ public class Mails extends ActionBarActivity {
 										+ id + "'", null);
 						webview.evaluateJavascript(
 								"document.getElementsByName('password')[0].value = '"
-										+ pass + "'", null); 
+										+ pass + "'", null);
 						webview.evaluateJavascript(
-								"document.getElementByName('submit').click()", null); 
+								"document.getElementByName('submit').click()",
+								null);
 					} else {
 						// Avant API 19
 						webview.loadUrl("javascript:document.getElementsByName('username')[0].value = '"
 								+ id + "'");
 						webview.loadUrl("javascript:document.getElementsByName('password')[0].value = '"
-								+ pass + "'"); 
-						webview.loadUrl(
-								"javascript:document.getElementByName('submit').click()"); 
+								+ pass + "'");
+						webview.loadUrl("javascript:document.getElementByName('submit').click()");
 					}
 				}
 
@@ -177,6 +177,7 @@ public class Mails extends ActionBarActivity {
 			Toast.makeText(this,
 					getString(R.string.webview_internet_conection_error),
 					Toast.LENGTH_LONG).show();
+			finish();
 		}
 	}
 

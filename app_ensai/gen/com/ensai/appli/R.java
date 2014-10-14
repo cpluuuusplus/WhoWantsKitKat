@@ -1311,8 +1311,8 @@ containing a value of this type.
         public static final int top_action_bar=0x7f050020;
         public static final int up=0x7f050021;
         public static final int useLogo=0x7f050003;
-        public static final int web_view_progress=0x7f05009e;
-        public static final int webview01=0x7f05009f;
+        public static final int web_view_progress=0x7f05009f;
+        public static final int webview01=0x7f05009e;
         public static final int withText=0x7f05000c;
     }
     public static final class integer {
@@ -1388,8 +1388,8 @@ containing a value of this type.
     public static final class string {
         /**  Exceptions 
          */
-        public static final int CityNotFoundException_message=0x7f0a0041;
-        public static final int CityNotFoundException_toast=0x7f0a0042;
+        public static final int CityNotFoundException_message=0x7f0a004c;
+        public static final int CityNotFoundException_toast=0x7f0a004d;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abc_action_bar_home_description=0x7f0a0001;
@@ -1432,126 +1432,137 @@ containing a value of this type.
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
         /**  Action bar main 
          */
-        public static final int action_bar_main_credits_title=0x7f0a0017;
-        public static final int action_bar_osm_cyclemap=0x7f0a001f;
-        public static final int action_bar_osm_mapnik=0x7f0a0020;
-        public static final int action_bar_osm_mapquest_aerial=0x7f0a0023;
-        public static final int action_bar_osm_mapquest_osm=0x7f0a0021;
-        public static final int action_bar_osm_title_map=0x7f0a001e;
-        public static final int action_bar_osm_transport_public=0x7f0a0022;
+        public static final int action_bar_main_credits_title=0x7f0a0018;
+        public static final int action_bar_osm_cyclemap=0x7f0a0020;
+        public static final int action_bar_osm_mapnik=0x7f0a0021;
+        public static final int action_bar_osm_mapquest_aerial=0x7f0a0024;
+        public static final int action_bar_osm_mapquest_osm=0x7f0a0022;
+        public static final int action_bar_osm_title_map=0x7f0a001f;
+        public static final int action_bar_osm_transport_public=0x7f0a0023;
         /**  Layout activité Athentification 
          */
-        public static final int activity_authentification_id=0x7f0a0045;
-        public static final int activity_authentification_id_hint=0x7f0a0049;
-        public static final int activity_authentification_password=0x7f0a0048;
-        public static final int activity_authentification_save=0x7f0a0046;
-        public static final int activity_credits_contact=0x7f0a004c;
-        public static final int activity_credits_desc=0x7f0a004b;
+        public static final int activity_authentification_id=0x7f0a0050;
+        public static final int activity_authentification_id_hint=0x7f0a0054;
+        public static final int activity_authentification_password=0x7f0a0053;
+        public static final int activity_authentification_save=0x7f0a0051;
+        public static final int activity_credits_contact=0x7f0a0057;
+        public static final int activity_credits_desc=0x7f0a0056;
         /**  activity_credits 
          */
-        public static final int activity_credits_dev=0x7f0a004a;
-        public static final int activity_credits_dev_jeff_mail=0x7f0a004f;
-        public static final int activity_credits_dev_jeff_nown=0x7f0a004e;
-        public static final int activity_credits_dev_nico_mail=0x7f0a0051;
-        public static final int activity_credits_dev_nico_nown=0x7f0a0050;
-        public static final int activity_credits_dev_nown=0x7f0a004d;
-        public static final int activity_credits_txt=0x7f0a0052;
-        public static final int activity_main_OSM_button=0x7f0a0031;
+        public static final int activity_credits_dev=0x7f0a0055;
+        public static final int activity_credits_dev_jeff_mail=0x7f0a005a;
+        public static final int activity_credits_dev_jeff_nown=0x7f0a0059;
+        public static final int activity_credits_dev_nico_mail=0x7f0a005c;
+        public static final int activity_credits_dev_nico_nown=0x7f0a005b;
+        public static final int activity_credits_dev_nown=0x7f0a0058;
+        public static final int activity_credits_txt=0x7f0a005d;
+        public static final int activity_main_OSM_button=0x7f0a0032;
         /**  Layout activité Main 
          */
-        public static final int activity_main_agenda_button=0x7f0a002c;
-        public static final int activity_main_ent_button=0x7f0a002f;
-        public static final int activity_main_mails_button=0x7f0a002d;
-        public static final int activity_main_pamplelousse_button=0x7f0a002e;
-        public static final int activity_main_theme_change=0x7f0a0016;
-        public static final int activity_main_weather_button=0x7f0a0030;
+        public static final int activity_main_agenda_button=0x7f0a002d;
+        public static final int activity_main_ent_button=0x7f0a0030;
+        public static final int activity_main_mails_button=0x7f0a002e;
+        public static final int activity_main_pamplelousse_button=0x7f0a002f;
+        public static final int activity_main_theme_change=0x7f0a0017;
+        public static final int activity_main_weather_button=0x7f0a0031;
+        public static final int activity_meteo_img=0x7f0a004b;
         /**  Layout activité Meteo 
          */
-        public static final int activity_meteo_table1_row_latitude_desc=0x7f0a0035;
-        public static final int activity_meteo_table1_row_longitute_desc=0x7f0a0036;
-        public static final int activity_meteo_table1_row_sunrise_desc=0x7f0a0037;
-        public static final int activity_meteo_table1_row_sunset_desc=0x7f0a0038;
-        public static final int activity_meteo_table2_row_clouds_desc=0x7f0a003a;
-        public static final int activity_meteo_table2_row_humidity_desc=0x7f0a003b;
-        public static final int activity_meteo_table2_row_main_desc=0x7f0a0039;
-        public static final int activity_meteo_table2_row_pressure_desc=0x7f0a003d;
-        public static final int activity_meteo_table2_row_rain_desc=0x7f0a003c;
-        public static final int activity_meteo_table2_row_temperature_desc=0x7f0a003f;
-        public static final int activity_meteo_table2_row_wind_desc=0x7f0a003e;
+        public static final int activity_meteo_table1_row_latitude_desc=0x7f0a003f;
+        public static final int activity_meteo_table1_row_longitute_desc=0x7f0a0040;
+        public static final int activity_meteo_table1_row_sunrise_desc=0x7f0a0041;
+        public static final int activity_meteo_table1_row_sunset_desc=0x7f0a0042;
+        public static final int activity_meteo_table2_row_clouds_desc=0x7f0a0044;
+        public static final int activity_meteo_table2_row_humidity_desc=0x7f0a0045;
+        public static final int activity_meteo_table2_row_main_desc=0x7f0a0043;
+        public static final int activity_meteo_table2_row_pressure_desc=0x7f0a0047;
+        public static final int activity_meteo_table2_row_rain_desc=0x7f0a0046;
+        public static final int activity_meteo_table2_row_temperature_desc=0x7f0a0049;
+        public static final int activity_meteo_table2_row_wind_desc=0x7f0a0048;
         /**  Activité OSM 
          */
-        public static final int activity_osm_cyclemap=0x7f0a0018;
-        public static final int activity_osm_mapnik=0x7f0a0019;
-        public static final int activity_osm_mapquest_aerial=0x7f0a001b;
-        public static final int activity_osm_mapquest_osm=0x7f0a001a;
-        public static final int activity_osm_public_transport=0x7f0a001c;
+        public static final int activity_osm_cyclemap=0x7f0a0019;
+        public static final int activity_osm_mapnik=0x7f0a001a;
+        public static final int activity_osm_mapquest_aerial=0x7f0a001c;
+        public static final int activity_osm_mapquest_osm=0x7f0a001b;
+        public static final int activity_osm_public_transport=0x7f0a001d;
         /**  Activité Agenda 
          */
-        public static final int agenda_baseURL=0x7f0a0027;
-        public static final int agenda_internet_conection_error=0x7f0a0014;
-        public static final int agenda_load=0x7f0a0028;
-        public static final int agenda_load_desc=0x7f0a0029;
+        public static final int agenda_baseURL=0x7f0a0028;
+        public static final int agenda_internet_conection_error=0x7f0a0015;
+        public static final int agenda_load=0x7f0a0029;
+        public static final int agenda_load_desc=0x7f0a002a;
         public static final int agenda_nb_cours=0x7f0a000e;
-        public static final int agenda_null=0x7f0a002a;
+        public static final int agenda_null=0x7f0a002b;
         public static final int app_name=0x7f0a000d;
         /**  Activité Authentification 
          */
-        public static final int authentification_id_error=0x7f0a0043;
-        public static final int authentification_id_ok=0x7f0a0044;
-        public static final int color_blue=0x7f0a0059;
+        public static final int authentification_id_error=0x7f0a004e;
+        public static final int authentification_id_ok=0x7f0a004f;
+        public static final int color_blue=0x7f0a0064;
         /**  color 
          */
-        public static final int color_change=0x7f0a0057;
-        public static final int color_darkred=0x7f0a005a;
-        public static final int color_gold=0x7f0a005c;
-        public static final int color_green=0x7f0a005e;
-        public static final int color_orange=0x7f0a005d;
-        public static final int color_pink=0x7f0a005b;
-        /**  Activité ENt 
+        public static final int color_change=0x7f0a0062;
+        public static final int color_darkred=0x7f0a0065;
+        public static final int color_gold=0x7f0a0067;
+        public static final int color_green=0x7f0a0069;
+        public static final int color_orange=0x7f0a0068;
+        public static final int color_pink=0x7f0a0066;
+        /**  Activité ENT 
          */
-        public static final int ent_URL=0x7f0a0025;
+        public static final int ent_URL=0x7f0a0026;
         public static final int find_city=0x7f0a0010;
-        public static final int general_color_change=0x7f0a0058;
-        public static final int image_content_description=0x7f0a0047;
-        public static final int label_agenda=0x7f0a0061;
-        public static final int label_auth=0x7f0a0060;
+        public static final int general_color_change=0x7f0a0063;
+        public static final int image_content_description=0x7f0a0052;
+        public static final int label_agenda=0x7f0a006c;
+        public static final int label_auth=0x7f0a006b;
         /**  label manifest 
          */
-        public static final int label_credits=0x7f0a005f;
-        public static final int label_ent=0x7f0a0064;
-        public static final int label_mails=0x7f0a0062;
-        public static final int label_meteo=0x7f0a0066;
-        public static final int label_osm=0x7f0a0065;
-        public static final int label_pamplemousse=0x7f0a0063;
+        public static final int label_credits=0x7f0a006a;
+        public static final int label_ent=0x7f0a006f;
+        public static final int label_mails=0x7f0a006d;
+        public static final int label_meteo=0x7f0a0071;
+        public static final int label_osm=0x7f0a0070;
+        public static final int label_pamplemousse=0x7f0a006e;
         /**  list_item_lesson 
          */
-        public static final int list_item_lesson_debut=0x7f0a0053;
-        public static final int list_item_lesson_fin=0x7f0a0054;
-        public static final int list_item_lesson_na=0x7f0a0056;
-        public static final int list_item_lesson_salle=0x7f0a0055;
+        public static final int list_item_lesson_debut=0x7f0a005e;
+        public static final int list_item_lesson_fin=0x7f0a005f;
+        public static final int list_item_lesson_na=0x7f0a0061;
+        public static final int list_item_lesson_salle=0x7f0a0060;
         /**  Activité Meteo 
          */
-        public static final int meteo_URL=0x7f0a0034;
-        public static final int meteo_internet_conection_error=0x7f0a0015;
+        public static final int meteo_URL=0x7f0a0035;
+        public static final int meteo_deg=0x7f0a0036;
+        public static final int meteo_fluctuate=0x7f0a0037;
+        public static final int meteo_hour=0x7f0a0038;
+        public static final int meteo_internet_conection_error=0x7f0a0016;
+        public static final int meteo_level_water0=0x7f0a003b;
+        public static final int meteo_level_water1=0x7f0a003a;
+        public static final int meteo_level_water3=0x7f0a0039;
+        public static final int meteo_percent=0x7f0a003c;
+        public static final int meteo_pressure=0x7f0a003e;
+        public static final int meteo_speed=0x7f0a003d;
         public static final int move_to_city=0x7f0a0011;
         /**  Action Bar main 
          */
-        public static final int osm_URL=0x7f0a0033;
+        public static final int osm_URL=0x7f0a0034;
         /**  Action Bar OSM 
          */
-        public static final int osm_internet_conection_error=0x7f0a001d;
+        public static final int osm_internet_conection_error=0x7f0a001e;
         public static final int searching_city=0x7f0a0012;
         public static final int searchview_action_search=0x7f0a000f;
-        public static final int to_be_defined=0x7f0a0040;
-        public static final int url_error_agenda=0x7f0a002b;
-        public static final int url_error_meteo=0x7f0a0032;
+        public static final int to_be_defined=0x7f0a004a;
+        public static final int url_error_agenda=0x7f0a002c;
+        public static final int url_error_meteo=0x7f0a0033;
+        public static final int webview_cookies_removed=0x7f0a0014;
         public static final int webview_internet_conection_error=0x7f0a0013;
         /**  Activité WebviewMail 
          */
-        public static final int webviewmail_URL=0x7f0a0024;
+        public static final int webviewmail_URL=0x7f0a0025;
         /**  Activité WebviewNotes 
          */
-        public static final int webviewnotes_URL=0x7f0a0026;
+        public static final int webviewnotes_URL=0x7f0a0027;
     }
     public static final class style {
         /** 

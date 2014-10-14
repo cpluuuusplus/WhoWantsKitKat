@@ -154,9 +154,9 @@ public class OSM extends ActionBarActivity {
 		}
 	}
 
-	// Implémentation du menu
+	// ImplÔøΩmentation du menu
 	/**
-	 * Méthode permettant de cocher la bonne couleur de background
+	 * MÔøΩthode permettant de cocher la bonne couleur de background
 	 */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
@@ -179,10 +179,10 @@ public class OSM extends ActionBarActivity {
 	}
 
 	/**
-	 * Méthode qui se déclenchera au clic sur un item
+	 * MÔøΩthode qui se dÔøΩclenchera au clic sur un item
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// On regarde quel item a été cliqué grâce à son id et on déclenche une
+		// On regarde quel item a ÔøΩtÔøΩ cliquÔøΩ grÔøΩce ÔøΩ son id et on dÔøΩclenche une
 		// action
 		Editor editor = preferences.edit();
 		if (item.getItemId() == R.id.action_bar_osm_find) {
@@ -237,7 +237,7 @@ public class OSM extends ActionBarActivity {
 			return false;
 	}
 
-	// Implémentation de la search View
+	// ImplÔøΩmentation de la search View
 
 	/**
 	 * Argument permettant de personnaliser le listener de la searchView
@@ -260,7 +260,7 @@ public class OSM extends ActionBarActivity {
 	};
 
 	/**
-	 * Prépare l'URL pour la connection en ligne
+	 * PrÔøΩpare l'URL pour la connection en ligne
 	 * 
 	 * @param apid
 	 * @param loc
@@ -281,7 +281,7 @@ public class OSM extends ActionBarActivity {
 		res += "&units=metric";
 		res += "&mode=json";
 		res += "&APPID=" + apid;
-		Log.v("AMS::Meteo", "URL de récupération des données météo : " + res);
+		Log.v("AMS::Meteo", "URL de recuperation des donnees meteo : " + res);
 		return res;
 	}
 
@@ -312,10 +312,10 @@ public class OSM extends ActionBarActivity {
 	 * @param cityURL
 	 */
 	private void downloadCoord(String cityURL) {
-		// On récupère le JSON a partir de l'URL
+		// On rÔøΩcupÔøΩre le JSON a partir de l'URL
 		URL url;
 		try {
-			// On récupère le JSON a partir de l'URL
+			// On rÔøΩcupÔøΩre le JSON a partir de l'URL
 			url = new URL(cityURL);
 			HttpURLConnection urlConnection;
 			urlConnection = (HttpURLConnection) url.openConnection();
@@ -324,7 +324,7 @@ public class OSM extends ActionBarActivity {
 			String input = readStream(in);
 			JSONObject json = new JSONObject(input);
 			if (json.getInt("cod") == 404) {
-				// La ville n'a pas été trouvée
+				// La ville n'a pas ÔøΩtÔøΩ trouvÔøΩe
 				throw new CityNotFoundException(
 						getString(R.string.CityNotFoundException_message));
 			} else {
@@ -359,7 +359,7 @@ public class OSM extends ActionBarActivity {
 	}
 
 	/**
-	 * Lit un flux de données et retourne le string correspondant
+	 * Lit un flux de donnÔøΩes et retourne le string correspondant
 	 * 
 	 * @param inputStream
 	 * @return
@@ -379,7 +379,7 @@ public class OSM extends ActionBarActivity {
 	// Gestion de la map
 
 	/**
-	 * Positionne la carte à l'écran
+	 * Positionne la carte ÔøΩ l'ÔøΩcran
 	 * 
 	 * @param loc
 	 */
@@ -406,7 +406,7 @@ public class OSM extends ActionBarActivity {
 	}
 
 	/**
-	 * Méthode permettant l'animation d'une ville à une autre
+	 * MÔøΩthode permettant l'animation d'une ville ÔøΩ une autre
 	 * 
 	 * @param lat
 	 * @param lng

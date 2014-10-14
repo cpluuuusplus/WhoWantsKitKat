@@ -4,15 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ProgressBar
-        android:id="@+id/web_view_progress"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:progress="100" >
-    </ProgressBar>
+    <!-- style="?android:attr/progressBarStyleHorizontal" -->
+
+
     <!-- android:background="#123456" -->
 
     <WebView
@@ -21,5 +15,15 @@
         android:layout_height="0dip"
         android:layout_weight="8" >
     </WebView>
+
+    <ProgressBar
+        android:id="@+id/web_view_progress"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:progress="100" >
+    </ProgressBar>
 
 </LinearLayout>

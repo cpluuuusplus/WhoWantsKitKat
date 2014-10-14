@@ -83,7 +83,7 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	}
 
 	/**
-	 * Permet d'affecter les dernières coordonnées connues par le device
+	 * Permet d'affecter les dernieres coordonnees connues par le device
 	 * 
 	 * @param loc
 	 */
@@ -121,7 +121,7 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	 * @param cxt
 	 */
 	private void addInPrefs(EtatMeteo nem, Context cxt) {
-		// On va chercher un objet préférences à éditer
+		// On va chercher un objet preferences a editer
 		SharedPreferences preferences = cxt.getSharedPreferences("Meteo",
 				Context.MODE_PRIVATE);
 		Editor editor = preferences.edit();
@@ -147,13 +147,13 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 		editor.putFloat("rain3", (float) nem.getRain3h());
 		editor.putFloat("rain1", (float) nem.getRain1h());
 
-		// On committe les préférences
+		// On committe les prÔøΩfÔøΩrences
 		editor.commit();
 	}
 
 	/**
-	 * Lancez moi sur un thread UI !! Récupère la météo stockée dans les
-	 * préférences
+	 * Lancez moi sur un thread UI !! Recupere la meteo stockee dans les
+	 * preferences
 	 * 
 	 * 
 	 * 
@@ -163,7 +163,7 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 				Context.MODE_PRIVATE);
 
 		TextView txt_name = (TextView) findViewById(R.id.activity_meteo_name);
-		txt_name.setText("À  " + prefs.getString("name", null) + " ("
+		txt_name.setText(prefs.getString("name", null) + " ("
 				+ prefs.getString("country", null) + ")");
 
 		TextView txt_lat = (TextView) findViewById(R.id.activity_meteo_table1_row_latitude_info);
@@ -181,43 +181,46 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 				prefs.getLong("sunset", 0) * 1000)));
 
 		TextView txt_dt = (TextView) findViewById(R.id.activity_meteo_hour);
-		txt_dt.setText("Heure de prise des mesures  "
+		txt_dt.setText(getString(R.string.meteo_hour) + "  "
 				+ hFormat.format(new Date(prefs.getLong("dt", 0) * 1000)));
 
 		TextView txt_temp = (TextView) findViewById(R.id.activity_meteo_table2_row_temperature_info);
 		txt_temp.setText(prefs.getInt("temp", 99)
-				+ "°C"
-				+ " +/- "
+				+ getString(R.string.meteo_deg)
+				+ getString(R.string.meteo_fluctuate)
 				+ Math.round((prefs.getInt("tempMax", 99) - prefs.getInt(
-						"tempMin", 99)) * 10 / 2) / 10.0 + "°C");
+						"tempMin", 99)) * 10 / 2) / 10.0
+				+ getString(R.string.meteo_deg));
 
 		TextView txt_humidity = (TextView) findViewById(R.id.activity_meteo_table2_row_humidity_info);
-		txt_humidity.setText(prefs.getInt("humidity", 99) + "%");
+		txt_humidity.setText(prefs.getInt("humidity", 99)
+				+ getString(R.string.meteo_percent));
 
 		TextView txt_rain = (TextView) findViewById(R.id.activity_meteo_table2_row_rain_info);
 		if (prefs.getFloat("rain3", 0) != 0) {
 			txt_rain.setText(Math.round(prefs.getFloat("rain3", 0) * 100)
-					/ 100.0 + "mm (en 3h)");
+					/ 100.0 + getString(R.string.meteo_level_water3));
 		} else {
 			if (prefs.getFloat("rain1", 0) != 0) {
 				// Il y a de la pluie a 1h
 				txt_rain.setText(Math.round(prefs.getFloat("rain1", 0) * 100)
-						/ 100.0 + "mm ( en 1h)");
+						/ 100.0 + getString(R.string.meteo_level_water3));
 			} else {
-				txt_rain.setText(0 + " mm");
+				txt_rain.setText(getString(R.string.meteo_level_water0));
 			}
 		}
 
 		TextView txt_pressure = (TextView) findViewById(R.id.activity_meteo_table2_row_pressure_info);
-		txt_pressure.setText(prefs.getInt("pressure", 99) + " hPa");
+		txt_pressure.setText(prefs.getInt("pressure", 99)
+				+ getString(R.string.meteo_pressure));
 
 		TextView txt_wind = (TextView) findViewById(R.id.activity_meteo_table2_row_wind_info);
 		txt_wind.setText(Math.round(prefs.getFloat("wind", 0) * 3.6 * 100)
-				/ 100.0 + " km/h");
+				/ 100.0 + getString(R.string.meteo_speed));
 
 		TextView txt_clouds = (TextView) findViewById(R.id.activity_meteo_table2_row_clouds_info);
 		txt_clouds.setText(Math.round(prefs.getFloat("clouds", 0) * 100)
-				/ 100.0 + " %");
+				/ 100.0 + getString(R.string.meteo_percent));
 
 		TextView txt_main = (TextView) findViewById(R.id.activity_meteo_table2_row_main_info);
 		txt_main.setText(prefs.getString("main", null) + " ("
@@ -228,7 +231,7 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	}
 
 	/**
-	 * Prépare l'URL à partir de coordonnées
+	 * Prepare l'URL a partir de coordonnees
 	 * 
 	 * @param apid
 	 * @param loc
@@ -260,17 +263,17 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 		res += "&units=metric";
 		res += "&mode=json";
 		res += "&APPID=" + apid;
-		Log.v("AMS::Meteo", "URL de récupération des données météo : " + res);
+		Log.v("AMS::Meteo", "URL de recuperation des donnees meteo : " + res);
 		return res;
 	}
 
 	/**
-	 * Méthode appelée dans l'Async task pour télécharger les données
+	 * Methode appelee dans l'Async task pour telecharger les donnees
 	 * 
 	 * @param urlMeteo
 	 */
 	private void importMeteoInPrefs(String urlMeteo) {
-		// On récupère le JSON a partir de l'URL
+		// On recupere le JSON a partir de l'URL
 		URL url;
 		try {
 			url = new URL(urlMeteo);
@@ -281,13 +284,13 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 			String input = readStream(in);
 			JSONObject json = new JSONObject(input);
 			if (json.getInt("cod") == 404) {
-				// La ville n'a pas été trouvée
+				// La ville n'a pas ete trouvee
 				throw new CityNotFoundException(
 						getString(R.string.CityNotFoundException_message));
 			} else {
 				Log.i(TAG, input);
 
-				// On transforme en météo
+				// On transforme en meteo
 				EtatMeteoJSON mjson = new EtatMeteoJSON();
 				EtatMeteo em = mjson.construireEtatMeteoActuelBis(json);
 				Log.i(TAG, em.toString());
@@ -326,7 +329,7 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	}
 
 	/**
-	 * Recupère la météo dans la localité saisie et met à jour les barres
+	 * Recupere la meteo dans la localite saisie et met a jour les barres
 	 * 
 	 * @param loc
 	 */
@@ -346,7 +349,7 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 		}
 	}
 
-	// Implémentation du LocationListener Portée: 3 méthodes suivantes Mot
+	// Implementation du LocationListener Portee: 3 methodes suivantes Mot
 	// d'ordre : on s'en fiche
 
 	@Override
@@ -383,10 +386,10 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 		longitude = location.getLongitude();
 	}
 
-	// Implémentation du menu
+	// Implementation du menu
 
 	/**
-	 * Méthode permettant de cocher la bonne couleur de background
+	 * Methode permettant de cocher la bonne couleur de background
 	 */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
@@ -398,7 +401,7 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	}
 
 	/**
-	 * Méthode permettant de mettre en place l'action bar
+	 * Methode permettant de mettre en place l'action bar
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -413,10 +416,10 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	}
 
 	/**
-	 * Méthode qui se déclenchera au clic sur un item
+	 * Methode qui se declenchera au clic sur un item
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// On regarde quel item a été cliqué grâce à son id et on déclenche une
+		// On regarde quel item a ete clique grace a son id et on declenche une
 		// action
 		if (item.getItemId() == R.id.action_bar_meteo_find) {
 			locateDevice();
@@ -511,7 +514,7 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	};
 
 	/**
-	 * Lit un flux de données et retourne le string correspondant
+	 * Lit un flux de donnÔøΩes et retourne le string correspondant
 	 * 
 	 * @param inputStream
 	 * @return
@@ -529,7 +532,7 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	}
 
 	/**
-	 * Classe permettant d'avoir un icon pour la météo en AsyncTask
+	 * Classe permettant d'avoir un icon pour la mÔøΩtÔøΩo en AsyncTask
 	 * 
 	 * @author Jeff
 	 * 
@@ -560,7 +563,7 @@ public class Meteo extends ActionBarActivity implements LocationListener {
 	}
 
 	/**
-	 * Classe permettant de mettre à jour les informations d'une nouvelle ville
+	 * Classe permettant de mettre ÔøΩ jour les informations d'une nouvelle ville
 	 * en asyncTask
 	 * 
 	 * @author Jeff

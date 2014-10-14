@@ -110,7 +110,7 @@ public class Ent extends ActionBarActivity {
 
 				@Override
 				public void onPageFinished(WebView view, String url) {
-					progressBar.setVisibility(View.GONE);
+					// progressBar.setVisibility(View.GONE);
 					webview.setEnabled(true);
 				}
 
@@ -139,14 +139,15 @@ public class Ent extends ActionBarActivity {
 			Toast.makeText(this,
 					getString(R.string.webview_internet_conection_error),
 					Toast.LENGTH_LONG).show();
+			finish();
 		}
 	}
 
-	// Impl�mentation du menu
+	// Implementation du menu
 
 	/**
-	 * M�thode qui se d�clenchera lorsque vous appuierez sur le bouton menu du
-	 * t�l�phone
+	 * Methode qui se declenchera lorsque vous appuierez sur le bouton menu du
+	 * telephone
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -159,13 +160,15 @@ public class Ent extends ActionBarActivity {
 	/**
 	 * 
 	 */
-	// M�thode qui se d�clenchera au clic sur un item
+	// Methode qui se declenchera au clic sur un item
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// On regarde quel item a �t� cliqu� gr�ce � son id et on d�clenche une
+		// On regarde quel item a ete clique grace a son id et on declenche une
 		// action
 		if (item.getItemId() == R.id.action_bar_webview) {
 			CookieManager cookieManager = CookieManager.getInstance();
 			cookieManager.removeAllCookie();
+			Toast.makeText(this, getString(R.string.webview_cookies_removed),
+					Toast.LENGTH_SHORT).show();
 			myClickHandler();
 			return true;
 		} else
