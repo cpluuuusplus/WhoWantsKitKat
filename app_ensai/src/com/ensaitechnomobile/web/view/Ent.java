@@ -142,11 +142,11 @@ public class Ent extends ActionBarActivity {
 		}
 	}
 
-	// ImplŽmentation du menu
+	// Implï¿½mentation du menu
 
 	/**
-	 * MŽthode qui se dŽclenchera lorsque vous appuierez sur le bouton menu du
-	 * tŽlŽphone
+	 * Mï¿½thode qui se dï¿½clenchera lorsque vous appuierez sur le bouton menu du
+	 * tï¿½lï¿½phone
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -159,9 +159,9 @@ public class Ent extends ActionBarActivity {
 	/**
 	 * 
 	 */
-	// MŽthode qui se dŽclenchera au clic sur un item
+	// Mï¿½thode qui se dï¿½clenchera au clic sur un item
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// On regarde quel item a ŽtŽ cliquŽ gr‰ce ˆ son id et on dŽclenche une
+		// On regarde quel item a ï¿½tï¿½ cliquï¿½ grï¿½ce ï¿½ son id et on dï¿½clenche une
 		// action
 		if (item.getItemId() == R.id.action_bar_webview) {
 			CookieManager cookieManager = CookieManager.getInstance();
