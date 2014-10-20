@@ -8,49 +8,54 @@
         android:showAsAction="ifRoom"
         android:title="@string/color_change">
 
-        <menu>
+        <!-- <menu> -->
 
-            <group
-                android:checkableBehavior="single"
-                yourapp:showAsAction="never" >
 
-                <item
-                    android:id="@+id/action_bar_authentification_blue"
-                    android:icon="@drawable/ic_action_settings"
-                    android:title="@string/color_blue"
-                    yourapp:showAsAction="never"/>
+        <!-- <group -->
+        <!-- android:checkableBehavior="single" -->
+        <!-- yourapp:showAsAction="never" > -->
 
-                <item
-                    android:id="@+id/action_bar_authentification_darkred"
-                    android:icon="@drawable/ic_action_settings"
-                    android:title="@string/color_darkred"
-                    yourapp:showAsAction="never"/>
+        <item
+            android:id="@+id/action_bar_authentification_blue"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/color_blue"
+            yourapp:showAsAction="never"/>
 
-                <item
-                    android:id="@+id/action_bar_authentification_pink"
-                    android:icon="@drawable/ic_action_settings"
-                    android:title="@string/color_pink"
-                    yourapp:showAsAction="never"/>
+        <item
+            android:id="@+id/action_bar_authentification_darkred"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/color_darkred"
+            yourapp:showAsAction="never"/>
 
-                <item
-                    android:id="@+id/action_bar_authentification_gold"
-                    android:icon="@drawable/ic_action_settings"
-                    android:title="@string/color_gold"
-                    yourapp:showAsAction="never"/>
+        <item
+            android:id="@+id/action_bar_authentification_pink"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/color_pink"
+            yourapp:showAsAction="never"/>
 
-                <item
-                    android:id="@+id/action_bar_authentification_orange"
-                    android:icon="@drawable/ic_action_settings"
-                    android:title="@string/color_orange"
-                    yourapp:showAsAction="never"/>
+        <item
+            android:id="@+id/action_bar_authentification_gold"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/color_gold"
+            yourapp:showAsAction="never"/>
 
-                <item
-                    android:id="@+id/action_bar_authentification_green"
-                    android:icon="@drawable/ic_action_settings"
-                    android:title="@string/color_green"
-                    yourapp:showAsAction="never"/>
-            </group>
-        </menu>
+        <item
+            android:id="@+id/action_bar_authentification_orange"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/color_orange"
+            yourapp:showAsAction="never"/>
+
+        <item
+            android:id="@+id/action_bar_authentification_green"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/color_green"
+            yourapp:showAsAction="never"/>
+
+        <group>
+        </group>
+        <!-- </menu> -->
+        <!-- </item> -->
+
     </item>
 
 </menu>

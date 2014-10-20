@@ -15,48 +15,49 @@
         android:icon="@drawable/ic_location_find"
         yourapp:showAsAction="always"/>
 
-    <item
-        android:id="@+id/action_bar_osm_switch_map"
-        android:icon="@drawable/ic_switch_map"
-        android:title="@string/action_bar_osm_title_map"
-        yourapp:showAsAction="ifRoom">
+    <!-- <item -->
+    <!-- android:id="@+id/action_bar_osm_switch_map" -->
+    <!-- android:icon="@drawable/ic_switch_map" -->
+    <!-- android:title="@string/action_bar_osm_title_map" -->
+    <!-- yourapp:showAsAction="ifRoom"> -->
 
-        <menu>
 
-            <group android:checkableBehavior="single" >
+    <!-- <menu> -->
 
-                <item
-                    android:id="@+id/action_bar_osm_cyclemap"
-                    android:checked="true"
-                    android:icon="@drawable/ic_action_settings"
-                    android:title="@string/action_bar_osm_cyclemap"
-                    yourapp:showAsAction="never"/>
+    <group android:checkableBehavior="single" >
 
-                <item
-                    android:id="@+id/action_bar_osm_mapnik"
-                    android:icon="@drawable/ic_action_settings"
-                    android:title="@string/action_bar_osm_mapnik"
-                    yourapp:showAsAction="never"/>
+        <item
+            android:id="@+id/action_bar_osm_cyclemap"
+            android:checked="true"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/action_bar_osm_cyclemap"
+            yourapp:showAsAction="never"/>
 
-                <item
-                    android:id="@+id/action_bar_osm_mapquestosm"
-                    android:icon="@drawable/ic_action_settings"
-                    android:title="@string/action_bar_osm_mapquest_osm"
-                    yourapp:showAsAction="never"/>
+        <item
+            android:id="@+id/action_bar_osm_mapnik"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/action_bar_osm_mapnik"
+            yourapp:showAsAction="never"/>
 
-                <item
-                    android:id="@+id/action_bar_osm_mapquestaerial"
-                    android:icon="@drawable/ic_action_settings"
-                    android:title="@string/action_bar_osm_mapquest_aerial"
-                    yourapp:showAsAction="never"/>
+        <item
+            android:id="@+id/action_bar_osm_mapquestosm"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/action_bar_osm_mapquest_osm"
+            yourapp:showAsAction="never"/>
 
-                <item
-                    android:id="@+id/action_bar_osm_public_transport"
-                    android:icon="@drawable/ic_action_settings"
-                    android:title="@string/action_bar_osm_transport_public"
-                    yourapp:showAsAction="never"/>
-            </group>
-        </menu>
-    </item>
+        <item
+            android:id="@+id/action_bar_osm_mapquestaerial"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/action_bar_osm_mapquest_aerial"
+            yourapp:showAsAction="never"/>
+
+        <item
+            android:id="@+id/action_bar_osm_public_transport"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/action_bar_osm_transport_public"
+            yourapp:showAsAction="never"/>
+    </group>
+    <!-- </menu> -->
+    <!-- </item> -->
 
 </menu>
