@@ -51,7 +51,7 @@ import com.ensaitechnomobile.common.Authentification;
 public class Agenda extends ActionBarActivity {
 
 	public static final String TAG = "MultiService";
-	public String baseUrl = "";
+	private String baseUrl = "";
 	private String id, pass;
 	private CoursDAO cdao = new CoursDAO();
 	private SimpleDateFormat dFormat = new SimpleDateFormat(
@@ -59,7 +59,7 @@ public class Agenda extends ActionBarActivity {
 
 	public ArrayAdapter<LessonItem> adapter;
 
-	// Cr�ation de la ArrayList qui nous permettra de remplire la listView
+	// Creation de la ArrayList qui nous permettra de remplire la listView
 	private ListView listeView;
 	private JSONArray table = null;
 	private SharedPreferences preferences;
@@ -76,12 +76,11 @@ public class Agenda extends ActionBarActivity {
 		agendaBack = (LinearLayout) findViewById(R.id.activity_agenda_linear_layout);
 		agendaBack.setBackgroundResource(preferences.getInt("AGENDA_COLOR",
 				R.drawable.backmotif_blue));
-
 		displayLessons();
 	}
 
 	/**
-	 * Methode permettant d'afficher l'emploi du temps � partir de SQLOpenHelper
+	 * Methode permettant d'afficher l'emploi du temps e partir de SQLOpenHelper
 	 */
 	private void displayLessons() {
 		SQLiteOpenHelper helper = new MyOpenHelper(this);
@@ -113,10 +112,10 @@ public class Agenda extends ActionBarActivity {
 	}
 
 	/**
-	 * M�thode permettant de r�cup�rer l'emploi du temps en ligne
+	 * Methode permettant de recuperer l'emploi du temps en ligne
 	 */
 	private void downloadLessons() {
-		// On r�cup�re le JSON a partir de l'URL
+		// On recupere le JSON a partir de l'URL
 		URL url;
 		try {
 			url = new URL(baseUrl);
@@ -169,7 +168,7 @@ public class Agenda extends ActionBarActivity {
 	}
 
 	/**
-	 * M�thode permettant de r�cuperer un tableau de cours � partir d'un
+	 * M�thode permettant de recuperer un tableau de cours a partir d'un
 	 * JSONArray
 	 * 
 	 * @param table
@@ -191,7 +190,7 @@ public class Agenda extends ActionBarActivity {
 	}
 
 	/**
-	 * Lire un flux de donn�es
+	 * Lire un flux de donnees
 	 * 
 	 * @param inputStream
 	 * @return
@@ -223,8 +222,8 @@ public class Agenda extends ActionBarActivity {
 	}
 
 	/**
-	 * M�thode qui se d�clenchera lorsque vous appuierez sur le bouton menu du
-	 * t�l�phone
+	 * Methode qui se declenchera lorsque vous appuierez sur le bouton menu du
+	 * telephone
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -236,10 +235,10 @@ public class Agenda extends ActionBarActivity {
 	}
 
 	/**
-	 * M�thode qui se d�clenchera au clic sur un item
+	 * Methode qui se declenchera au clic sur un item
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// On regarde quel item a �t� cliqu� gr�ce � son id et on d�clenche une
+		// On regarde quel item a ete clique grace a son id et on declenche une
 		// action
 		// agendaback.setBackgroundResource(R.drawable.backmotif_blue);
 		if (item.getItemId() == R.id.action_bar_agenda_sync) {
@@ -352,7 +351,13 @@ public class Agenda extends ActionBarActivity {
 
 		@Override
 		protected void onPreExecute() {
-			this.progressDialog.show();
+
+			if (progressDialog == null) {
+				progressDialog.setIndeterminate(false);
+				progressDialog.setCancelable(false);
+			}
+			progressDialog.show();
+
 		}
 
 		@Override
@@ -369,8 +374,15 @@ public class Agenda extends ActionBarActivity {
 						Toast.LENGTH_LONG).show();
 				displayLessons();
 			}
-			if (this.progressDialog.isShowing()) {
-				this.progressDialog.dismiss();
+			if (Agenda.this.isDestroyed()) { // or call isFinishing() if min sdk
+												// version < 17
+				if (progressDialog != null && progressDialog.isShowing()) {
+					progressDialog.dismiss();
+				}
+				return;
+			}
+			if (progressDialog != null && progressDialog.isShowing()) {
+				progressDialog.dismiss();
 			}
 		}
 	}
