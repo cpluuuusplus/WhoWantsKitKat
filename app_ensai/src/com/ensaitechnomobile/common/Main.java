@@ -42,7 +42,7 @@ public class Main extends ActionBarActivity {
 				R.drawable.backmotif_blue));
 	}
 
-	// ImplŽmentation des listeners bouton
+	// Implï¿½mentation des listeners bouton
 	public void onClickPampViewer(View v) {
 		Intent intent = new Intent(getBaseContext(), Agenda.class);
 		if (intent != null)
@@ -81,9 +81,9 @@ public class Main extends ActionBarActivity {
 		}
 	}
 
-	// ImplŽmentation du menu
+	// Implï¿½mentation du menu
 	/**
-	 * MŽthode permettant de cocher la bonne couleur de background
+	 * Mï¿½thode permettant de cocher la bonne couleur de background
 	 */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
@@ -95,8 +95,8 @@ public class Main extends ActionBarActivity {
 	}
 
 	/**
-	 * MŽthode qui se dŽclenchera lorsque vous appuierez sur le bouton menu du
-	 * tŽlŽphone
+	 * Mï¿½thode qui se dï¿½clenchera lorsque vous appuierez sur le bouton menu du
+	 * tï¿½lï¿½phone
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
@@ -105,9 +105,9 @@ public class Main extends ActionBarActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	// MŽthode qui se dŽclenchera au clic sur un item
+	// Mï¿½thode qui se dï¿½clenchera au clic sur un item
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// On regarde quel item a ŽtŽ cliquŽ gr‰ce ˆ son id et on dŽclenche une
+		// On regarde quel item a ï¿½tï¿½ cliquï¿½ grï¿½ce ï¿½ son id et on dï¿½clenche une
 		// action
 
 		if (item.getItemId() == R.id.action_bar_main_user) {

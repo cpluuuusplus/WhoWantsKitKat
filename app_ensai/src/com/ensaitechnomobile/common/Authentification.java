@@ -44,7 +44,7 @@ public class Authentification extends ActionBarActivity {
 
 		authentificationBack = (ScrollView) findViewById(R.id.activity_authentification_scroll_view);
 		authentificationBack.setBackgroundResource(preferences.getInt(
-				"AUTH_COLOR", R.drawable.backmotif_darkred));
+				"AUTH_COLOR", R.drawable.backmotif_blue));
 	}
 
 	/**
@@ -73,9 +73,9 @@ public class Authentification extends ActionBarActivity {
 		finish();
 	}
 
-	// ImplŽmentation du menu
+	// Implï¿½mentation du menu
 	/**
-	 * MŽthode permettant de cocher la bonne couleur de background
+	 * Mï¿½thode permettant de cocher la bonne couleur de background
 	 */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
@@ -87,8 +87,8 @@ public class Authentification extends ActionBarActivity {
 	}
 
 	/**
-	 * MŽthode qui se dŽclenchera lorsque vous appuierez sur le bouton menu du
-	 * tŽlŽphone
+	 * Mï¿½thode qui se dï¿½clenchera lorsque vous appuierez sur le bouton menu du
+	 * tï¿½lï¿½phone
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,10 +98,10 @@ public class Authentification extends ActionBarActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	// MŽthode qui se dŽclenchera au clic sur un item
+	// Mï¿½thode qui se dï¿½clenchera au clic sur un item
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// On regarde quel item a ŽtŽ cliquŽ gr‰ce ˆ son id et on dŽclenche une
+		// On regarde quel item a ï¿½tï¿½ cliquï¿½ grï¿½ce ï¿½ son id et on dï¿½clenche une
 		// action
 		if (item.getItemId() == R.id.action_bar_authentification_blue) {
 			Editor edit = preferences.edit();
